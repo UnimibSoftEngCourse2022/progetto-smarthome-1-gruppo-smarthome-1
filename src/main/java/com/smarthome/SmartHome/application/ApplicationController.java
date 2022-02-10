@@ -1,7 +1,6 @@
 package com.smarthome.SmartHome.application;
 
-import com.smarthome.SmartHome.Device.Device;
-import com.smarthome.SmartHome.Device.DeviceService;
+import com.smarthome.SmartHome.Device.*;
 import com.smarthome.SmartHome.room.Room;
 import com.smarthome.SmartHome.room.RoomService;
 import com.smarthome.SmartHome.user.User;
@@ -56,6 +55,26 @@ public class ApplicationController {
 
 
         System.out.println(jasonData);
+    }
+
+    @GetMapping(path = "api/v1/test")
+    public String testMethod() {
+        /*Room testRoom = new Room("test");
+        Actuator testActuator = new Actuator("tapparella", Category.LUCE,testRoom);
+
+        testActuator.controlSignal();
+
+        return testActuator.getCurrentState();*/
+
+        Room testRoom = new Room("test");
+        Sensor testSensor = new Sensor("thermometer1", Category.TEMPERATURA, testRoom);
+
+        double result = testSensor.getDataFeed();
+
+        return String.valueOf(result);
+
+
+
     }
 
 }

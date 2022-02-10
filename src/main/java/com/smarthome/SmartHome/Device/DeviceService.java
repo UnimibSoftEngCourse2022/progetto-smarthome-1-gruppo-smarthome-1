@@ -22,5 +22,10 @@ public class DeviceService{
     public List<Device> getDeviceByRoom(Room room){
         return deviceRepository.findDevicesByRoom(room).orElse(Collections.emptyList());
     }
+
+    public Device getDeviceByLabel(String label){
+        return deviceRepository.findDeviceByLabel(label).orElse(null);
+    }
+
 }
 

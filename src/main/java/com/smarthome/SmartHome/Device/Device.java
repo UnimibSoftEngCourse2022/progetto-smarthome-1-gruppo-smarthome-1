@@ -1,8 +1,11 @@
 package com.smarthome.SmartHome.Device;
 
 import com.smarthome.SmartHome.room.Room;
+import org.eclipse.californium.core.CoapClient;
 
 import javax.persistence.*;
+import java.net.InetSocketAddress;
+import java.net.http.HttpClient;
 
 @Entity
 @Table(name = "device")
@@ -26,7 +29,6 @@ public class Device {
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
-
 
     public Device(){}
 
@@ -71,5 +73,13 @@ public class Device {
         this.room = room;
     }
 
-
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                ", category=" + category +
+                ", room=" + room +
+                '}';
+    }
 }

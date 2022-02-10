@@ -39,7 +39,7 @@ public class HomeSimulation {
         NetworkAdapter na = new Rest(testEndopint, new JSONWrapper());
 
         // dispositivo effettivo (statico)
-        SimpleSensor temperature = new Thermometer("thermometer", df);
+        SimpleSensor temperature = new Thermometer("thermometer1", df);
         temperature.setNetworkAdapter(na);
         temperature.startCoapController();
 
