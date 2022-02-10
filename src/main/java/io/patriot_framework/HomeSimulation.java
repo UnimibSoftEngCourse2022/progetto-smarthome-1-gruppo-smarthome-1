@@ -32,7 +32,7 @@ import io.patriot_framework.generator.network.wrappers.JSONWrapper;
 public class HomeSimulation {
 
     public static void main(String[] args) {
-        String testEndopint = "http://localhost:8080/api/v1/testPatriot/";
+        String testEndopint = "http://localhost:8080/api/v1/sensor/";
 
         // Definizione metodologia di generazione dati (criterio di randomizzazione di dati)
         DataFeed df = new NormalDistributionDataFeed(18, 2);
