@@ -12,11 +12,11 @@ public class Sensor extends Device{
     }
 
     public Sensor(Long id, String label, Category category, Room room) {
-        super(id, label, category, room);
+        super(id, label, category, room, false);
     }
 
     public Sensor(String label, Category category, Room room) {
-        super(label, category, room);
+        super(label, category, room, false);
     }
 
     public double getDataFeed(){

@@ -1,11 +1,8 @@
 package com.smarthome.SmartHome.Device;
 
 import com.smarthome.SmartHome.room.Room;
-import org.eclipse.californium.core.CoapClient;
 
 import javax.persistence.*;
-import java.net.InetSocketAddress;
-import java.net.http.HttpClient;
 
 @Entity
 @Table(name = "device")
@@ -22,6 +19,7 @@ public class Device {
     )
     private Long id;
     private String label;
+    private boolean deviceType;
 
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -30,19 +28,22 @@ public class Device {
     @JoinColumn(name = "room_id")
     private Room room;
 
+
     public Device(){}
 
-    public Device(Long id, String label, Category category, Room room) {
+    public Device(Long id, String label, Category category, Room room, boolean deviceType) {
         this.id = id;
         this.label = label;
         this.category = category;
         this.room = room;
+        this.deviceType = deviceType;
     }
 
-    public Device(String label, Category category, Room room) {
+    public Device(String label, Category category, Room room, boolean deviceType) {
         this.label = label;
         this.category = category;
         this.room = room;
+        this.deviceType = deviceType;
     }
 
     public Long getId() {
@@ -73,6 +74,18 @@ public class Device {
         this.room = room;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public boolean isDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(boolean tipo) {
+        this.deviceType = tipo;
+    }
+
     @Override
     public String toString() {
         return "Device{" +
@@ -80,6 +93,7 @@ public class Device {
                 ", label='" + label + '\'' +
                 ", category=" + category +
                 ", room=" + room +
+                ", deviceType=" + deviceType +
                 '}';
     }
 }
