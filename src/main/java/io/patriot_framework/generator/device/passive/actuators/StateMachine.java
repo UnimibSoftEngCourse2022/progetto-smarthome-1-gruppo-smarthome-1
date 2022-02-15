@@ -122,7 +122,7 @@ public class StateMachine {
     private double progress() {
         double result = sw.getTime() / current.getDuration() * 100;
 
-        BigDecimal bd = new BigDecimal(result);
+        BigDecimal bd = BigDecimal.valueOf(result);
         bd = bd.setScale(2, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
