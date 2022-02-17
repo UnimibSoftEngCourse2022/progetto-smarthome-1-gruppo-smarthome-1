@@ -44,13 +44,14 @@ public class Rest implements NetworkAdapter {
     public void send(List<Data> data) {
         HttpClient httpClient = HttpClientBuilder.create().build();
         dataWrapper.wrapData(data);
-
+        //System.out.println("SENDA DATA POST");
         try {
             HttpPost request = new HttpPost(endpoint);
             StringEntity se = new StringEntity(dataWrapper.wrapData(data));
             request.setEntity(se);
             request.addHeader("content-type", "application/json");
             httpClient.execute(request);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

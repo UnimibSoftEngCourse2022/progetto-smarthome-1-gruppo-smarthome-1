@@ -32,6 +32,10 @@ public class RilevationService {
         }
     }
 
+    public void saveRilevation(Rilevation rilevation){
+        rilevationRepository.save(rilevation);
+    }
+
     
 
 

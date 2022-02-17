@@ -40,6 +40,8 @@ public class Data {
      */
     private Object data;
 
+    private String label;
+
     /**
      * Constructor
      * @param dataClazz class of stored object
@@ -96,6 +98,7 @@ public class Data {
         String jsonString = new JSONObject()
                   .put("data", new JSONObject()
                     .put("dataClass", dataClazz)
+                    .put("device", label)
                     .put("value", data.toString()))
                   .toString();
 
@@ -103,7 +106,7 @@ public class Data {
         return jsonString;
     }
 
-    public String toJson(String label) {
+    public String toJson() {
 
         String jsonString = new JSONObject()
                   .put("data", new JSONObject()
@@ -114,5 +117,9 @@ public class Data {
 
 
         return jsonString;
+    }
+
+    public void setLabel(String label){
+        this.label=label;
     }
 }

@@ -36,11 +36,13 @@ public class HomeSimulation {
         String testEndopint = "http://localhost:8080/api/v1/sensor/";
 
         // Definizione metodologia di generazione dati (criterio di randomizzazione di dati)
-        DataFeed df = new DayTemperatureDataFeed(15, 22);
+        DataFeed df = new NormalDistributionDataFeed(15, 2);
+        
         NetworkAdapter na = new Rest(testEndopint, new JSONWrapper());
 
         // dispositivo effettivo (statico)
         SimpleSensor temperature = new Thermometer("thermometer1", df);
+        //df.setLabel(temperature.getLabel());
         temperature.setNetworkAdapter(na);
         temperature.startCoapController();
 

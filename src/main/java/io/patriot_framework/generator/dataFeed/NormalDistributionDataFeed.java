@@ -63,7 +63,10 @@ public class NormalDistributionDataFeed implements DataFeed {
 //        }
         previousValue = result;
 
-        return new Data(Double.class, result);
+        Data d= new Data(Double.class, result);
+        d.setLabel(label);
+
+        return d;
     }
 
     @Override
@@ -73,7 +76,7 @@ public class NormalDistributionDataFeed implements DataFeed {
 
     @Override
     public void setLabel(String label) {
-
+        this.label=label;
     }
 
     @Override

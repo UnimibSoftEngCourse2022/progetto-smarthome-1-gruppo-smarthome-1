@@ -65,31 +65,34 @@ public class ApplicationController {
 
     @PostMapping(path = "/api/v1/sensor")
     public void reciveSensorData(@RequestBody JSONObject jsonData) {
-        //try {
+        try {
             // da jsonData a classe rilevazione
             JSONParser parser = new JSONParser(); 
             //JSONArray ja = jsonData.getJSONArray("values"); 
-            /*ArrayList a = (ArrayList) jsonData.get("values");
+            ArrayList a = (ArrayList) jsonData.get("values");
             JSONArray jsonArray = new JSONArray(a.toArray());
             
         
             JSONObject json = (JSONObject) parser.parse(jsonArray.getString(0));
             JSONObject jo = (JSONObject)json.get("data");
             Double value= Double.parseDouble(jo.get("value").toString());
+            String label= jo.get("device").toString();
 
             Calendar calendar = Calendar.getInstance();
             java.util.Date now = calendar.getTime();
             java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
-            */
+            
+            Device d1=deviceService.getDeviceByLabel(label);
             
             System.out.println(jsonData);
-            //Rilevation r = new Rilevation(currentTimestamp, value, "double", device);
+            Rilevation r = new Rilevation(currentTimestamp, value, "double", d1);
+            rilevationService.saveRilevation(r);
 
 
-        //} catch (JSONException | ParseException e) {
+        } catch (JSONException | ParseException e) {
             
-        //    e.printStackTrace();
-        //}  
+            e.printStackTrace();
+        }  
         
         
     }

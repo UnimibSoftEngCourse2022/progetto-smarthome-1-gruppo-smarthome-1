@@ -17,11 +17,14 @@
 package io.patriot_framework.generator.device.active;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.Device;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -65,8 +68,8 @@ public class ActiveDeviceImpl implements ActiveDevice {
                 double simTime = timeFeed.getNextValue().get(Double.class);
                 LOGGER.info("Next clock for device: " + device.getLabel() + " is in seconds: " + simTime);
 
-                device.requestData(simTime);
-
+                List<Data> d = device.requestData(simTime);           
+                System.out.println(d.get(0).toJson());
                 //
 
                 timer.schedule(task(), Math.round(simTime));

@@ -51,7 +51,7 @@ public class SensorResource extends CoapResource {
         Double result = value.get(0).get(Double.class);
 
         // respond to the request
-        exchange.respond(CoAP.ResponseCode.CONTENT, result.toString());
+        exchange.respond(CoAP.ResponseCode.CONTENT, value.get(0).toString());//result.(sensor.getLabel()));
     }
 
 }
