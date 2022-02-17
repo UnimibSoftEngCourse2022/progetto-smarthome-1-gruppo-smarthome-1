@@ -12,11 +12,11 @@ public class Actuator extends Device{
     }
 
     public Actuator(Long id, String label, Category category, Room room) {
-        super(id, label, category, room);
+        super(id, label, category, room, true);
     }
 
     public Actuator(String label, Category category, Room room) {
-        super(label, category, room);
+        super(label, category, room, true);
     }
 
     public void controlSignal(){

@@ -1,8 +1,6 @@
 package com.smarthome.SmartHome;
 
-import com.smarthome.SmartHome.Device.Category;
-import com.smarthome.SmartHome.Device.Device;
-import com.smarthome.SmartHome.Device.DeviceRepository;
+import com.smarthome.SmartHome.Device.*;
 import com.smarthome.SmartHome.room.Room;
 import com.smarthome.SmartHome.room.RoomRepository;
 import com.smarthome.SmartHome.user.User;
@@ -42,14 +40,12 @@ public class SmartHomeApplication {
 			roomRepo.saveAll(List.of(r1, r2, r3));
 
 			// Create devices
-			Device thermometer1 = new Device("thermometer1", Category.TEMPERATURA, r1);
-			Device thermometer2 = new Device("thermometer2", Category.TEMPERATURA, r2);
+			Device thermometer1 = new Device("thermometer1", Category.TEMPERATURA, r1, false);
+			Device thermometer2 = new Device("thermometer2", Category.TEMPERATURA, r2, false);
 
-			Device termosifone1 = new Device("termosifone1", Category.TEMPERATURA, r2);
+			Device termosifone1 = new Device("tapparella", Category.TEMPERATURA, r2, true);
 
 			deviceRepo.saveAll(List.of(thermometer1, thermometer2, termosifone1));
-
-
 
 		};
 	}

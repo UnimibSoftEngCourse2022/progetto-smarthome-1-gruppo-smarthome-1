@@ -33,7 +33,6 @@ public class UserService {
 
         userRepository.save(user);
 
-
     }
 
     public void deleteStudent(Long userId) {

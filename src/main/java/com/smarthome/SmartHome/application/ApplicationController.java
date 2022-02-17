@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping()
@@ -52,9 +51,47 @@ public class ApplicationController {
 
     @PostMapping(path = "/api/v1/sensor")
     public void reciveSensorData(@RequestBody JSONObject jasonData) {
-
+        // da jsonData a classe rilevazione
 
         System.out.println(jasonData);
+    }
+
+
+    @GetMapping(path = "api/v1/sensor/{label}/data")
+    public String getSensorData(@PathVariable("label") String label){
+
+        Sensor s = (Sensor) deviceService.getDeviceByLabel(label);
+        if (s != null) {
+            return String.valueOf(s.getDataFeed());
+        }
+        else{
+            return "";
+        }
+    }
+
+    @GetMapping(path = "api/v1/actuator/{label}/state")
+    public String getActuatorCurrentState(@PathVariable("label") String label){
+
+        Actuator a = (Actuator) deviceService.getDeviceByLabel(label);
+        if (a != null) {
+            return a.getCurrentState();
+        }
+        else{
+            return "";
+        }
+    }
+
+    @PostMapping(path = "api/v1/actuator/{label}/signal")
+    public String actuatorControlSignal(@PathVariable("label") String label){
+
+        Actuator a = (Actuator) deviceService.getDeviceByLabel(label);
+        if (a != null) {
+            a.controlSignal();
+            return "Success";
+        }
+        else{
+            return "";
+        }
     }
 
     @GetMapping(path = "api/v1/test")
@@ -72,8 +109,6 @@ public class ApplicationController {
         double result = testSensor.getDataFeed();
 
         return String.valueOf(result);
-
-
 
     }
 

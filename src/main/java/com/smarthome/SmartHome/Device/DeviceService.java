@@ -24,7 +24,19 @@ public class DeviceService{
     }
 
     public Device getDeviceByLabel(String label){
-        return deviceRepository.findDeviceByLabel(label).orElse(null);
+        Device d = deviceRepository.findDeviceByLabel(label).orElse(null);
+
+        if (d != null){
+            if (d.isDeviceType()){
+                return new Actuator(d.getId(), d.getLabel(), d.getCategory(), d.getRoom());
+            }
+            else{
+                return new Sensor(d.getId(), d.getLabel(), d.getCategory(), d.getRoom());
+            }
+        }
+        else{
+            return null;
+        }
     }
 
 }
