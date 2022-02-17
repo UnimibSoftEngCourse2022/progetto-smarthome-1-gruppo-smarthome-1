@@ -87,8 +87,8 @@ public class Data {
     @Override
     public String toString() {
         return "Data{" +
-                "dataClazz=" + dataClazz +
-                ", data=" + data.toString() +
+                "dataClazz:" + dataClazz +
+                ", data:" + data.toString() +
                 '}';
     }
 }

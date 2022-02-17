@@ -16,6 +16,13 @@
 
 package io.patriot_framework.generator;
 
+import org.json.JSONObject;
+
+import io.patriot_framework.generator.device.Unit;
+
+import java.util.Map;
+import java.util.LinkedHashMap;
+
 /**
  * Class provides simple tool to store data in different data types.
  * To give users freedom in designing Devices and DataFeeds library offers
@@ -85,9 +92,27 @@ public class Data {
 
     @Override
     public String toString() {
-        return "Data{" +
-                "dataClazz=" + dataClazz +
-                ", data=" + data.toString() +
-                '}';
+
+        String jsonString = new JSONObject()
+                  .put("data", new JSONObject()
+                    .put("dataClass", dataClazz)
+                    .put("value", data.toString()))
+                  .toString();
+
+
+        return jsonString;
+    }
+
+    public String toJson(String label) {
+
+        String jsonString = new JSONObject()
+                  .put("data", new JSONObject()
+                    .put("dataClass", dataClazz)
+                    .put("device", label)
+                    .put("value", data.toString()))
+                  .toString();
+
+
+        return jsonString;
     }
 }

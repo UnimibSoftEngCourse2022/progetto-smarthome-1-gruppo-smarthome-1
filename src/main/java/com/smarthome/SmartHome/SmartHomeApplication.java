@@ -1,6 +1,7 @@
 package com.smarthome.SmartHome;
 
 import com.smarthome.SmartHome.Device.*;
+import com.smarthome.SmartHome.rilevation.RilevationRepository;
 import com.smarthome.SmartHome.room.Room;
 import com.smarthome.SmartHome.room.RoomRepository;
 import com.smarthome.SmartHome.user.User;
@@ -20,7 +21,7 @@ public class SmartHomeApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(UserRepository userRepo, RoomRepository roomRepo, DeviceRepository deviceRepo){
+	public CommandLineRunner commandLineRunner(UserRepository userRepo, RoomRepository roomRepo, DeviceRepository deviceRepo, RilevationRepository rilevationRepo){
 		return args -> {
 			// Create users
 			User pippo = new User(

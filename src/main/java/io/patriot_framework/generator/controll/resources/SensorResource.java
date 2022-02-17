@@ -47,6 +47,7 @@ public class SensorResource extends CoapResource {
 
 
         List<Data> value = sensor.requestData();
+
         Double result = value.get(0).get(Double.class);
 
         // respond to the request

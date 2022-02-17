@@ -1,6 +1,9 @@
 package com.smarthome.SmartHome.application;
 
 import com.smarthome.SmartHome.Device.*;
+import com.smarthome.SmartHome.rilevation.Rilevation;
+import com.smarthome.SmartHome.rilevation.RilevationRepository;
+import com.smarthome.SmartHome.rilevation.RilevationService;
 import com.smarthome.SmartHome.room.Room;
 import com.smarthome.SmartHome.room.RoomService;
 import com.smarthome.SmartHome.user.User;
@@ -8,7 +11,16 @@ import com.smarthome.SmartHome.user.UserService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.simple.parser.*;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -17,12 +29,14 @@ public class ApplicationController {
     private final RoomService roomService;
     private final UserService userService;
     private final DeviceService deviceService;
+    private final RilevationService rilevationService;
 
     @Autowired
-    public ApplicationController(RoomService roomService, UserService userService, DeviceService deviceService){
+    public ApplicationController(RoomService roomService, UserService userService, DeviceService deviceService, RilevationService rilevationService){
         this.roomService = roomService;
         this.userService = userService;
         this.deviceService = deviceService;
+        this.rilevationService = rilevationService;
     }
 
     @GetMapping
@@ -50,10 +64,34 @@ public class ApplicationController {
     }
 
     @PostMapping(path = "/api/v1/sensor")
-    public void reciveSensorData(@RequestBody JSONObject jasonData) {
-        // da jsonData a classe rilevazione
+    public void reciveSensorData(@RequestBody JSONObject jsonData) {
+        //try {
+            // da jsonData a classe rilevazione
+            JSONParser parser = new JSONParser(); 
+            //JSONArray ja = jsonData.getJSONArray("values"); 
+            /*ArrayList a = (ArrayList) jsonData.get("values");
+            JSONArray jsonArray = new JSONArray(a.toArray());
+            
+        
+            JSONObject json = (JSONObject) parser.parse(jsonArray.getString(0));
+            JSONObject jo = (JSONObject)json.get("data");
+            Double value= Double.parseDouble(jo.get("value").toString());
 
-        System.out.println(jasonData);
+            Calendar calendar = Calendar.getInstance();
+            java.util.Date now = calendar.getTime();
+            java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
+            */
+            
+            System.out.println(jsonData);
+            //Rilevation r = new Rilevation(currentTimestamp, value, "double", device);
+
+
+        //} catch (JSONException | ParseException e) {
+            
+        //    e.printStackTrace();
+        //}  
+        
+        
     }
 
 
