@@ -1,5 +1,3 @@
-package com.smarthome.SmartHome.testPatriot;
-
 /*
  * Copyright 2019 Patriot project
  *
@@ -16,6 +14,14 @@ package com.smarthome.SmartHome.testPatriot;
  *    limitations under the License.
  */
 
+package io.patriot_framework.generator;
+
+import org.json.JSONObject;
+
+import io.patriot_framework.generator.device.Unit;
+
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  * Class provides simple tool to store data in different data types.
@@ -33,6 +39,8 @@ public class Data {
      * Actual object containing data
      */
     private Object data;
+
+    private String label;
 
     /**
      * Constructor
@@ -86,9 +94,32 @@ public class Data {
 
     @Override
     public String toString() {
-        return "Data{" +
-                "dataClazz:" + dataClazz +
-                ", data:" + data.toString() +
-                '}';
+
+        String jsonString = new JSONObject()
+                  .put("data", new JSONObject()
+                    .put("dataClass", dataClazz)
+                    .put("device", label)
+                    .put("value", data.toString()))
+                  .toString();
+
+
+        return jsonString;
+    }
+
+    public String toJson() {
+
+        String jsonString = new JSONObject()
+                  .put("data", new JSONObject()
+                    .put("dataClass", dataClazz)
+                    .put("device", label)
+                    .put("value", data.toString()))
+                  .toString();
+
+
+        return jsonString;
+    }
+
+    public void setLabel(String label){
+        this.label=label;
     }
 }

@@ -28,8 +28,4 @@ public class TestPatriotController {
         System.out.println(jasonData);
     }
 
-
-
 }
-
-
