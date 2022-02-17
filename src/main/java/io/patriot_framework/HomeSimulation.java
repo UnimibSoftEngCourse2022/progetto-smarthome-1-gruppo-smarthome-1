@@ -18,6 +18,7 @@ package io.patriot_framework;
 
 import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
 import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.dataFeed.DayTemperatureDataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
@@ -35,7 +36,7 @@ public class HomeSimulation {
         String testEndopint = "http://localhost:8080/api/v1/sensor/";
 
         // Definizione metodologia di generazione dati (criterio di randomizzazione di dati)
-        DataFeed df = new NormalDistributionDataFeed(18, 2);
+        DataFeed df = new DayTemperatureDataFeed(15, 22);
         NetworkAdapter na = new Rest(testEndopint, new JSONWrapper());
 
         // dispositivo effettivo (statico)
