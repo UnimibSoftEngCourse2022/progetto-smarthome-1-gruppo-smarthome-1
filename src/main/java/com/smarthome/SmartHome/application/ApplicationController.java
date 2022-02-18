@@ -1,5 +1,6 @@
 package com.smarthome.SmartHome.application;
 
+import com.google.gson.Gson;
 import com.smarthome.SmartHome.Device.*;
 import com.smarthome.SmartHome.rilevation.Rilevation;
 import com.smarthome.SmartHome.rilevation.RilevationRepository;
@@ -10,6 +11,9 @@ import com.smarthome.SmartHome.user.User;
 import com.smarthome.SmartHome.user.UserService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,6 +65,22 @@ public class ApplicationController {
 
 
         return result;
+    }
+
+    @GetMapping(path="/api/v1/devices", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getAllDevice(){
+        
+        List<Device> ld = deviceService.getAllDevices();
+        JSONArray result=new JSONArray();
+        for (Device device : ld) {
+            result.put(device.toString());
+        }
+        
+        JSONObject resultData= new JSONObject();
+        resultData.put("data", result);
+
+        
+        return new ResponseEntity<String>(resultData.toJSONString(), HttpStatus.OK);
     }
 
     @PostMapping(path = "/api/v1/sensor")

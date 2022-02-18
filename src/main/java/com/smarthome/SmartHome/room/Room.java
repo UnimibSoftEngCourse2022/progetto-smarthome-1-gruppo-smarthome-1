@@ -1,6 +1,7 @@
 package com.smarthome.SmartHome.room;
 
 import javax.persistence.*;
+import org.json.JSONObject;
 
 @Entity
 @Table(name = "room")
@@ -49,9 +50,10 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        JSONObject jo=new JSONObject();
+        
+        jo.put("room", new JSONObject().put("id", id).put("name", name));
+        
+        return jo.toString();
     }
 }

@@ -1,8 +1,10 @@
 package com.smarthome.SmartHome.Device;
 
 import com.smarthome.SmartHome.room.Room;
+import org.json.JSONObject;
 
 import javax.persistence.*;
+import javax.swing.text.AbstractDocument.Content;
 
 @Entity
 @Table(name = "device")
@@ -88,12 +90,13 @@ public class Device {
 
     @Override
     public String toString() {
-        return "Device{" +
-                "id=" + id +
-                ", label='" + label + '\'' +
-                ", category=" + category +
-                ", room=" + room +
-                ", deviceType=" + deviceType +
-                '}';
+        JSONObject jo=new JSONObject();
+        jo.put("device", new JSONObject()
+            .put("id", id)
+            .put("label", label)
+            .put("category", category)
+            .put("room", room.toString())
+            .put("deviceType", deviceType));
+        return jo.toString();
     }
 }
