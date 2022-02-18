@@ -22,6 +22,7 @@ import io.patriot_framework.generator.dataFeed.DayTemperatureDataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
+import io.patriot_framework.generator.device.actuators.*;
 import io.patriot_framework.generator.device.impl.basicActuators.LinearActuator;
 import io.patriot_framework.generator.device.impl.basicDevices.Thermometer;
 import io.patriot_framework.generator.device.passive.actuators.Actuator;
@@ -53,18 +54,55 @@ public class HomeSimulation {
         ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
         simulation.start();
 
+        //
+        // ATTUATORI
+        //
+        Actuator[] luci = new Actuator[6];
 
-        Actuator actuator = new LinearActuator("tapparella", 15000);
+        for(int i = 0; i < luci.length; i++)
+        {
+            luci[i] = new Luce("luce" + (i + 1));
+            luci[i].startCoapController();
+        }
 
-        //actuator.controlSignal();
+        Actuator[] condizionatori = new Actuator[5];
 
-        //ActuatorResource acc = new ActuatorResource(actuator);
-        //acc.registerDevice();
+        for(int i = 0; i < condizionatori.length; i++)
+        {
+            condizionatori[i] = new Temperatura("condizionatore" + (i + 1));
+            condizionatori[i].startCoapController();
+        }
 
-        //actuator.setCoapController(acc);
-        actuator.startCoapController();
+        Actuator[] termosifoni = new Actuator[6];
 
+        for(int i = 0; i < termosifoni.length; i++)
+        {
+            termosifoni[i] = new Temperatura("termosifone" + (i + 1));
+            termosifoni[i].startCoapController();
+        }
 
+        Actuator[] finestre = new Actuator[5];
+        Actuator[] tapparelle = new Actuator[5];
+
+        for(int i = 0; i < finestre.length; i++)
+        {
+            finestre[i] = new Finestra("finestra" + (i + 1));
+            finestre[i].startCoapController();
+
+            tapparelle[i] = new Tapparella("tapparella" + (i + 1));
+            tapparelle[i].startCoapController();
+        }
+
+        Actuator[] porte = new Actuator[5];
+
+        for(int i = 0; i < porte.length; i++)
+        {
+            porte[i] = new Finestra("porta" + (i + 1));
+            porte[i].startCoapController();
+        }
+
+        Actuator pulizia = new Pulizia("pulizia");
+        pulizia.startCoapController();
     }
 
 }
