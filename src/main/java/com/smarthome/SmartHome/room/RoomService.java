@@ -1,5 +1,6 @@
 package com.smarthome.SmartHome.room;
 
+import com.smarthome.SmartHome.Device.Device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

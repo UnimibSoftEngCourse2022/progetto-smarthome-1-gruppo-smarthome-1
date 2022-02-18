@@ -38,7 +38,8 @@ public class SmartHomeApplication {
 			Room r1 = new Room("Cucina");
 			Room r2 = new Room("Soggiorno");
 			Room r3 = new Room("Bagno");
-			roomRepo.saveAll(List.of(r1, r2, r3));
+			Room r4 = new Room("Studio");
+			roomRepo.saveAll(List.of(r1, r2, r3, r4));
 
 			// Create devices
 			Device thermometer1 = new Device("thermometer1", Category.TEMPERATURA, r1, false);
@@ -47,7 +48,6 @@ public class SmartHomeApplication {
 			Device termosifone1 = new Device("tapparella", Category.TEMPERATURA, r2, true);
 
 			deviceRepo.saveAll(List.of(thermometer1, thermometer2, termosifone1));
-
 		};
 	}
 

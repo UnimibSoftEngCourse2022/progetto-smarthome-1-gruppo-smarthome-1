@@ -12,7 +12,7 @@ import com.smarthome.SmartHome.Device.Device;
 public interface RilevationRepository extends JpaRepository<Rilevation, Long> {
     
     
-    @Query("SELECT r FROM Rilevation r WHERE id = ?1")
+    @Query("SELECT r FROM Rilevation r WHERE r.id = ?1")
     Optional<Rilevation> findRilevationById(Long id);
     
     //@Query("SELECT * FROM rilevation r JOIN device d ON r. = d. WHERE d.id=")

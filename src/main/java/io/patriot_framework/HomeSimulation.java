@@ -54,55 +54,18 @@ public class HomeSimulation {
         ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
         simulation.start();
 
-        //
-        // ATTUATORI
-        //
-        Actuator[] luci = new Actuator[6];
 
-        for(int i = 0; i < luci.length; i++)
-        {
-            luci[i] = new Luce("luce" + (i + 1));
-            luci[i].startCoapController();
-        }
+        Actuator actuator = new LinearActuator("tapparella", 15000);
 
-        Actuator[] condizionatori = new Actuator[5];
+        //actuator.controlSignal();
 
-        for(int i = 0; i < condizionatori.length; i++)
-        {
-            condizionatori[i] = new Temperatura("condizionatore" + (i + 1));
-            condizionatori[i].startCoapController();
-        }
+        //ActuatorResource acc = new ActuatorResource(actuator);
+        //acc.registerDevice();
 
-        Actuator[] termosifoni = new Actuator[6];
+        //actuator.setCoapController(acc);
+        actuator.startCoapController();
 
-        for(int i = 0; i < termosifoni.length; i++)
-        {
-            termosifoni[i] = new Temperatura("termosifone" + (i + 1));
-            termosifoni[i].startCoapController();
-        }
 
-        Actuator[] finestre = new Actuator[5];
-        Actuator[] tapparelle = new Actuator[5];
-
-        for(int i = 0; i < finestre.length; i++)
-        {
-            finestre[i] = new Finestra("finestra" + (i + 1));
-            finestre[i].startCoapController();
-
-            tapparelle[i] = new Tapparella("tapparella" + (i + 1));
-            tapparelle[i].startCoapController();
-        }
-
-        Actuator[] porte = new Actuator[5];
-
-        for(int i = 0; i < porte.length; i++)
-        {
-            porte[i] = new Finestra("porta" + (i + 1));
-            porte[i].startCoapController();
-        }
-
-        Actuator pulizia = new Pulizia("pulizia");
-        pulizia.startCoapController();
     }
 
 }

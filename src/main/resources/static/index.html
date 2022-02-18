@@ -32,13 +32,13 @@
                     for (let i = 0; i < devices.length; i++) {
                         console.log(devices[i].id);
                         $('#sub-devices').append(
-								'<div class="col-md-4">'+
-								'<div class="card">  ' +
-								'	<div class="card-body">' +
-                            		'<h5 class="card-title">' + devices[i].label + '</h5>    ' +
-									'<h6 class="card-subtitle mb-2 text-muted"> Category: ' + devices[i].category + '</h6>   ' +
-										'<p class="card-text">' + devices[i].room.name + '</p>' +
-                            			'<a href="#" class="card-link">Card link</a>    <a href="#" class="card-link">Another link</a>  </div></div></div>');
+                            '<div class="col-md-4">'+
+                            '<div class="card">  ' +
+                            '	<div class="card-body">' +
+                            '<h5 class="card-title">' + devices[i].label + '</h5>    ' +
+                            '<h6 class="card-subtitle mb-2 text-muted"> Category: ' + devices[i].category + '</h6>   ' +
+                            '<p class="card-text">' + devices[i].room.name + '</p>' +
+                            '<a href="#" class="card-link">Card link</a>    <a href="#" class="card-link">Another link</a>  </div></div></div>');
                     }
 
                 },
@@ -49,61 +49,61 @@
                 }
             });
 
-			$.ajax({
-				type: 'GET',
-				url: 'http://localhost:8080/api/v1/rooms',
-				contentType: "application/json",
-				dataType: "json",
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/api/v1/rooms',
+                contentType: "application/json",
+                dataType: "json",
 
-				success: function (data) {
-					var result = JSON.parse(JSON.stringify(data));
+                success: function (data) {
+                    var result = JSON.parse(JSON.stringify(data));
 
-					let rooms = data;
-					for (let i = 0; i < rooms.length; i++) {
-						console.log(rooms[i].id);
-						$('#sub-rooms').append(
-								'<div class="col-md-4">'+
-								'<div class="card">  ' +
-								'	<div class="card-body">' +
-								'<h5 class="card-title">' + rooms[i].name + '</h5>' +
-								'<a href="#" class="card-link">Card link</a>    <a href="#" class="card-link">Another link</a>  </div></div></div>');
-					}
+                    let rooms = data;
+                    for (let i = 0; i < rooms.length; i++) {
+                        console.log(rooms[i].id);
+                        $('#sub-rooms').append(
+                            '<div class="col-md-4">'+
+                            '<div class="card">  ' +
+                            '	<div class="card-body">' +
+                            '<h5 class="card-title">' + rooms[i].name + '</h5>' +
+                            '<a href="#" class="card-link">Card link</a>    <a href="#" class="card-link">Another link</a>  </div></div></div>');
+                    }
 
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					alert(thrownError);
-					var errorMsg = 'Ajax request failed: ' + xhr.responseText;
-					$('#content').html(errorMsg);
-				}
-			});
-			$.ajax({
-				type: 'GET',
-				url: 'http://localhost:8080/api/v1/user',
-				contentType: "application/json",
-				dataType: "json",
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                    var errorMsg = 'Ajax request failed: ' + xhr.responseText;
+                    $('#content').html(errorMsg);
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/api/v1/user',
+                contentType: "application/json",
+                dataType: "json",
 
-				success: function (data) {
-					var result = JSON.parse(JSON.stringify(data));
+                success: function (data) {
+                    var result = JSON.parse(JSON.stringify(data));
 
-					let users = data;
-					for (let i = 0; i < users.length; i++) {
-						console.log(users[i].id);
-						$('#sub-users').append(
-								'<div class="col-md-4">'+
-								'<div class="card">  ' +
-								'	<div class="card-body">' +
-								'<h5 class="card-title">' + users[i].name + '</h5>' +
-								'<h6 class="card-subtitle mb-2 text-muted">' + users[i].email + '</h6>   ' +
-								'<a href="#" class="card-link">Card link</a>    <a href="#" class="card-link">Another link</a>  </div></div></div>');
-					}
+                    let users = data;
+                    for (let i = 0; i < users.length; i++) {
+                        console.log(users[i].id);
+                        $('#sub-users').append(
+                            '<div class="col-md-4">'+
+                            '<div class="card">  ' +
+                            '	<div class="card-body">' +
+                            '<h5 class="card-title">' + users[i].name + '</h5>' +
+                            '<h6 class="card-subtitle mb-2 text-muted">' + users[i].email + '</h6>   ' +
+                            '<a href="#" class="card-link">Card link</a>    <a href="#" class="card-link">Another link</a>  </div></div></div>');
+                    }
 
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					alert(thrownError);
-					var errorMsg = 'Ajax request failed: ' + xhr.responseText;
-					$('#content').html(errorMsg);
-				}
-			});
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                    var errorMsg = 'Ajax request failed: ' + xhr.responseText;
+                    $('#content').html(errorMsg);
+                }
+            });
 
             function getCookie(c_name) {
                 if (document.cookie.length > 0) {
@@ -146,23 +146,23 @@
 
     <div class="container-lg" id="devices">
         <h2>My devices</h2>
-		<div class="row" id="sub-devices">
+        <div class="row" id="sub-devices">
 
-		</div>
+        </div>
 
     </div>
 
     <div class="container" id="rooms">
         <h2>My rooms</h2>
-		<div class="row" id="sub-rooms">
+        <div class="row" id="sub-rooms">
 
-		</div>
+        </div>
     </div>
     <div class="container" id="users">
         <h2>Users</h2>
-		<div class="row" id="sub-users">
+        <div class="row" id="sub-users">
 
-		</div>
+        </div>
     </div>
     <div class="container" id="preferences">
         <h2>My preferences</h2>
