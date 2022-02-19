@@ -65,7 +65,6 @@ public class ApplicationController {
             }
         }
 
-
         return result;
     }
 
@@ -92,41 +91,6 @@ public class ApplicationController {
 
         return new ResponseEntity<List<Room>>(ld, HttpStatus.OK);
     }
-
-    @PostMapping(path = "/api/v1/sensor")
-    public void reciveSensorData(@RequestBody JSONObject jsonData) {
-        try {
-            // da jsonData a classe rilevazione
-            JSONParser parser = new JSONParser();
-            //JSONArray ja = jsonData.getJSONArray("values"); 
-            ArrayList a = (ArrayList) jsonData.get("values");
-            JSONArray jsonArray = new JSONArray(a.toArray());
-
-
-            JSONObject json = (JSONObject) parser.parse(jsonArray.getString(0));
-            JSONObject jo = (JSONObject) json.get("data");
-            Double value = Double.parseDouble(jo.get("value").toString());
-            String label = jo.get("device").toString();
-
-            Calendar calendar = Calendar.getInstance();
-            java.util.Date now = calendar.getTime();
-            java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
-
-            Device d1 = deviceService.getDeviceByLabel(label);
-
-            System.out.println(jsonData);
-            Rilevation r = new Rilevation(currentTimestamp, value, "double", d1);
-            rilevationService.saveRilevation(r);
-
-
-        } catch (JSONException | ParseException e) {
-
-            e.printStackTrace();
-        }
-
-
-    }
-
 
     @GetMapping(path = "api/v1/sensor/{label}/data")
     public String getSensorData(@PathVariable("label") String label) {
@@ -161,23 +125,4 @@ public class ApplicationController {
             return "";
         }
     }
-
-    @GetMapping(path = "api/v1/test")
-    public String testMethod() {
-        /*Room testRoom = new Room("test");
-        Actuator testActuator = new Actuator("tapparella", Category.LUCE,testRoom);
-
-        testActuator.controlSignal();
-
-        return testActuator.getCurrentState();*/
-
-        Room testRoom = new Room("test");
-        Sensor testSensor = new Sensor("thermometer1", Category.TEMPERATURA, testRoom);
-
-        double result = testSensor.getDataFeed();
-
-        return String.valueOf(result);
-
-    }
-
 }

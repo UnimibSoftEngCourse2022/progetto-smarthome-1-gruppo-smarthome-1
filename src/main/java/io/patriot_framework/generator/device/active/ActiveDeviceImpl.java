@@ -19,8 +19,15 @@ package io.patriot_framework.generator.device.active;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import io.patriot_framework.generator.Data;
+import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
 import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
 import io.patriot_framework.generator.device.Device;
+import io.patriot_framework.generator.device.impl.basicDevices.Thermometer;
+import io.patriot_framework.generator.device.passive.sensors.SimpleSensor;
+import io.patriot_framework.generator.network.NetworkAdapter;
+import io.patriot_framework.generator.network.Rest;
+import io.patriot_framework.generator.network.wrappers.JSONWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +52,20 @@ public class ActiveDeviceImpl implements ActiveDevice {
 
     public ActiveDeviceImpl(DataFeed timeFeed, Device device) {
         this.timeFeed = timeFeed;
+        this.device = device;
+    }
+
+    public ActiveDeviceImpl(String label, String categoria, DataFeed df, double timer) {
+
+        String endopint = "http://localhost:8080/" + categoria;
+
+        NetworkAdapter na = new Rest(endopint, new JSONWrapper());
+
+        SimpleSensor device = new Thermometer(label, df);
+        device.setNetworkAdapter(na);
+        device.startCoapController();
+
+        this.timeFeed = new ConstantDataFeed(timer);
         this.device = device;
     }
 
