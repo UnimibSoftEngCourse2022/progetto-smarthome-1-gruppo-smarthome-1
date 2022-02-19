@@ -7,7 +7,7 @@ import io.patriot_framework.generator.Data;
 public class BinaryDataFeed implements DataFeed {
 	private int prob;
 	private String label;
-	private boolean lastValue;
+	private double lastValue;
 	private Random random;
 	
 	public BinaryDataFeed(int n) {
@@ -18,10 +18,15 @@ public class BinaryDataFeed implements DataFeed {
 	@Override
 	public Data getNextValue(Object... params) {
 		// TODO Auto-generated method stub
-		Boolean result = random.nextInt(prob) == 0;
+		double result;
+		if (random.nextInt(prob) == 0) {
+			result = 1.0;
+		} else {
+			result = 0.0;
+		}
 		lastValue = result;
 		
-		return new Data(Boolean.class, result);
+		return new Data(Double.class, result);
 	}
 
 	@Override

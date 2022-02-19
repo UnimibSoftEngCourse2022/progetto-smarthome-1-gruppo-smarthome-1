@@ -7,4 +7,5 @@ public class GasSensor extends AbstractSimpleSensor {
 	public GasSensor(String label, DataFeed datafeed) {
 		super(label, datafeed);
 	}
+	
 }
