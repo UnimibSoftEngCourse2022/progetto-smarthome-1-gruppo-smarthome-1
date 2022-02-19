@@ -3,9 +3,8 @@ package io.patriot_framework.generator.device.actuators;
 import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
 import io.patriot_framework.generator.device.passive.actuators.StateMachine;
 
-public class Temperatura extends AbstractActuator
-{
-    public Temperatura(String label)
+public class Condizionatore extends AbstractActuator{
+    public Condizionatore(String label)
     {
         super(label);
         StateMachine sm = new StateMachine()
@@ -17,4 +16,5 @@ public class Temperatura extends AbstractActuator
 
         setStateMachine(sm);
     }
+
 }
