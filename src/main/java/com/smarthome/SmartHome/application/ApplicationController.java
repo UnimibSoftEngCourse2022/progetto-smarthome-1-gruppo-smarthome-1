@@ -1,5 +1,6 @@
 package com.smarthome.SmartHome.application;
 
+import com.google.gson.Gson;
 import com.smarthome.SmartHome.Device.*;
 import com.smarthome.SmartHome.rilevation.Rilevation;
 import com.smarthome.SmartHome.rilevation.RilevationRepository;
@@ -10,6 +11,10 @@ import com.smarthome.SmartHome.user.User;
 import com.smarthome.SmartHome.user.UserService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +28,9 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping()
+@CrossOrigin(origins = "http://localhost:63342")
 public class ApplicationController {
     private final RoomService roomService;
     private final UserService userService;
@@ -32,7 +38,7 @@ public class ApplicationController {
     private final RilevationService rilevationService;
 
     @Autowired
-    public ApplicationController(RoomService roomService, UserService userService, DeviceService deviceService, RilevationService rilevationService){
+    public ApplicationController(RoomService roomService, UserService userService, DeviceService deviceService, RilevationService rilevationService) {
         this.roomService = roomService;
         this.userService = userService;
         this.deviceService = deviceService;
@@ -40,7 +46,7 @@ public class ApplicationController {
     }
 
     @GetMapping
-    public String index(){
+    public String index() {
         List<User> users = userService.getUsers();
         List<Room> rooms = roomService.getRooms();
 
@@ -50,11 +56,11 @@ public class ApplicationController {
 
         result += "<h2>Rooms</h2>";
 
-        for (Room room: rooms) {
+        for (Room room : rooms) {
             result += "<h3>" + room.getName() + "</h3>";
             List<Device> devices = deviceService.getDeviceByRoom(room);
 
-            for (Device device: devices) {
+            for (Device device : devices) {
                 result += "<ul>" + device.getLabel() + "</ul>";
             }
         }
@@ -63,74 +69,95 @@ public class ApplicationController {
         return result;
     }
 
+    @GetMapping(path = "/api/v1/devices", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Device>> getAllDevices() {
+
+        List<Device> ld = deviceService.getAllDevices();
+        JSONArray result = new JSONArray();
+        for (Device device : ld) {
+            result.put(device.toString());
+        }
+
+        JSONObject resultData = new JSONObject();
+        resultData.put("data", result);
+
+
+        return new ResponseEntity<List<Device>>(ld, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/api/v1/rooms", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Room>> getAllRooms() {
+
+        List<Room> ld = roomService.getRooms();
+
+        return new ResponseEntity<List<Room>>(ld, HttpStatus.OK);
+    }
+
     @PostMapping(path = "/api/v1/sensor")
     public void reciveSensorData(@RequestBody JSONObject jsonData) {
         try {
             // da jsonData a classe rilevazione
-            JSONParser parser = new JSONParser(); 
+            JSONParser parser = new JSONParser();
             //JSONArray ja = jsonData.getJSONArray("values"); 
             ArrayList a = (ArrayList) jsonData.get("values");
             JSONArray jsonArray = new JSONArray(a.toArray());
-            
-        
+
+
             JSONObject json = (JSONObject) parser.parse(jsonArray.getString(0));
-            JSONObject jo = (JSONObject)json.get("data");
-            Double value= Double.parseDouble(jo.get("value").toString());
-            String label= jo.get("device").toString();
+            JSONObject jo = (JSONObject) json.get("data");
+            Double value = Double.parseDouble(jo.get("value").toString());
+            String label = jo.get("device").toString();
 
             Calendar calendar = Calendar.getInstance();
             java.util.Date now = calendar.getTime();
             java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
-            
-            Device d1=deviceService.getDeviceByLabel(label);
-            
+
+            Device d1 = deviceService.getDeviceByLabel(label);
+
             System.out.println(jsonData);
             Rilevation r = new Rilevation(currentTimestamp, value, "double", d1);
             rilevationService.saveRilevation(r);
 
 
         } catch (JSONException | ParseException e) {
-            
+
             e.printStackTrace();
-        }  
-        
-        
+        }
+
+
     }
 
 
     @GetMapping(path = "api/v1/sensor/{label}/data")
-    public String getSensorData(@PathVariable("label") String label){
+    public String getSensorData(@PathVariable("label") String label) {
 
         Sensor s = (Sensor) deviceService.getDeviceByLabel(label);
         if (s != null) {
             return String.valueOf(s.getDataFeed());
-        }
-        else{
+        } else {
             return "";
         }
     }
 
     @GetMapping(path = "api/v1/actuator/{label}/state")
-    public String getActuatorCurrentState(@PathVariable("label") String label){
+    public String getActuatorCurrentState(@PathVariable("label") String label) {
 
         Actuator a = (Actuator) deviceService.getDeviceByLabel(label);
         if (a != null) {
             return a.getCurrentState();
-        }
-        else{
+        } else {
             return "";
         }
     }
 
     @PostMapping(path = "api/v1/actuator/{label}/signal")
-    public String actuatorControlSignal(@PathVariable("label") String label){
+    public String actuatorControlSignal(@PathVariable("label") String label) {
 
         Actuator a = (Actuator) deviceService.getDeviceByLabel(label);
         if (a != null) {
             a.controlSignal();
             return "Success";
-        }
-        else{
+        } else {
             return "";
         }
     }

@@ -22,6 +22,7 @@ import io.patriot_framework.generator.dataFeed.DayTemperatureDataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
+import io.patriot_framework.generator.device.actuators.*;
 import io.patriot_framework.generator.device.impl.basicActuators.LinearActuator;
 import io.patriot_framework.generator.device.impl.basicDevices.Thermometer;
 import io.patriot_framework.generator.device.passive.actuators.Actuator;
