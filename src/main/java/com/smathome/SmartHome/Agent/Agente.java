@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.smarthome.SmartHome.rilevation.Rilevation;
 
 public abstract class Agente {
-	private static AtomicBoolean status;
+	private static AtomicBoolean status = new AtomicBoolean(true);
 	private Rilevation rilevazione;
 	
 	public Agente(Rilevation rilevazione) {
