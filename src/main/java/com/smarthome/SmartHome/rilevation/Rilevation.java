@@ -24,7 +24,6 @@ public class Rilevation {
     private @GeneratedValue @Id Long id;
     private Double value;
     private String valueType;
-
     private Timestamp timestamp;
 
     @ManyToOne

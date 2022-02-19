@@ -8,21 +8,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.smarthome.SmartHome.Device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
 import com.smarthome.SmartHome.rilevation.RilevationService;
-import com.smarthome.SmartHome.room.RoomService;
-import com.smarthome.SmartHome.user.UserService;
 import com.smathome.SmartHome.Agent.Agente;
 import com.smathome.SmartHome.Agent.AgentePericoli;
 
 public class SmokeSensorController {
-	private final RoomService roomService;
-    private final UserService userService;
+	
     private final DeviceService deviceService;
     private final RilevationService rilevationService;
 
     @Autowired
-    public SmokeSensorController(RoomService roomService, UserService userService, DeviceService deviceService, RilevationService rilevationService){
-        this.roomService = roomService;
-        this.userService = userService;
+    public SmokeSensorController(DeviceService deviceService, RilevationService rilevationService){
         this.deviceService = deviceService;
         this.rilevationService = rilevationService;
     }
@@ -34,7 +29,5 @@ public class SmokeSensorController {
     		Agente agente = new AgentePericoli(rilevation);
     		agente.run();
     	}
-    }
-    
-    
+    }    
 }
