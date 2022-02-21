@@ -15,18 +15,43 @@
 
 
         $(document).ready(function () {
-            $.ajaxSetup({
+            /*$.ajaxSetup({
                 headers: {"X-CSRFToken": getCookie("csrftoken")},
+            });*/
+
+            $("#btn-create-room").click(function(){
+                let text='{"room":'+$("#text-create-room").val()+'}';
+                $.ajax({
+                    type:'POST',
+                    url:'http://localhost:8080/api/v1/rooms',
+                    contentType:'application/json',
+                    dataType: 'json',
+                    data: '"'+$("#text-create-room").val()+'"',
+
+                    success : function(data){
+                        var toastLiveExample = document.getElementById('create-room-toast')
+                        var toast = new bootstrap.Toast(toastLiveExample)
+                        toast.show()
+                    }
+
+                });
             });
 
-            $("#room").click(function(){
-                var roomId = $("#room").attr("name");
+            $(".btn-del-room").click(function(){
+                let room = this.attr("id");
+                alert(room);
+                const roomArr = text.split("-");
                 $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost:8080/api/v1/rooms/' + roomId,
+                    type: 'DELETE',
+                    url: 'http://localhost:8080/api/v1/rooms/' + roomArr[1],
                     contentType: "application/json",
                     dataType: "json",
-
+                    
+                    success: function (data) {
+                        var toastLiveExample = document.getElementById('delete-room-toast')
+                        var toast = new bootstrap.Toast(toastLiveExample)
+                        toast.show()
+                    }
 
                 })
             });
@@ -78,7 +103,7 @@
                             '<div class="card">  ' +
                             '	<div class="card-body">' +
                             '<h5 class="card-title">' + rooms[i].name + '</h5>' +
-                            '<button id="room" name="'+ rooms[i].id +'" type="button" class="btn btn-danger">Elimina</button></div></div></div>');
+                            '<button id="room-'+rooms[i].id+'" name="btn-del-room" type="button" class="btn btn-danger">Elimina</button></div></div></div>');
                     }
 
                 },
@@ -166,6 +191,29 @@
 
     <div class="container" id="rooms">
         <h2>My rooms</h2>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#room-modal" data-bs-whatever="@fat">Nuova stanza</button>
+        <div class="modal fade" id="room-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Inserire nuova stanza</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">Nome:</label>
+                      <input type="text" class="form-control" id="text-create-room">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="btn-create-room">Send message</button>
+                </div>
+              </div>
+            </div>
+          </div>
         <div class="row" id="sub-rooms">
 
         </div>
@@ -178,6 +226,25 @@
     </div>
     <div class="container" id="preferences">
         <h2>My preferences</h2>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="delete-room-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+        Stanza eliminata con successo
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+
+
+    <div id="create-room-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+            Stanza creata con successo
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
     </div>
 </div>
 
