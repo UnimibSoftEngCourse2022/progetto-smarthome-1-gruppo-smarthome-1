@@ -17,6 +17,8 @@ public class Room {
             generator = "room_sequence"
     )
     private Long id;
+
+    @Column(unique=true)
     private String name;
 
     public Room(){

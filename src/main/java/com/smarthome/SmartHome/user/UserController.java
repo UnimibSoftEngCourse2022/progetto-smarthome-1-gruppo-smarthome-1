@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="api/v1/user")
-@CrossOrigin(origins = "http://localhost:63342")
+@RequestMapping(path="api/v1/users")
+//@CrossOrigin(origins = "http://localhost:63342")
 public class UserController {
 
     private final UserService userService;
@@ -39,5 +39,4 @@ public class UserController {
                            @RequestParam(required = false) String email){
         userService.updateUser(userId, name, email);
     }
-
 }

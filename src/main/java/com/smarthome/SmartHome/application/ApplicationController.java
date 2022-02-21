@@ -30,7 +30,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping()
-@CrossOrigin(origins = "http://localhost:63342")
+// @CrossOrigin(origins = "http://localhost:63342")
 public class ApplicationController {
     private final RoomService roomService;
     private final UserService userService;
@@ -84,13 +84,7 @@ public class ApplicationController {
         return new ResponseEntity<List<Device>>(ld, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/api/v1/rooms", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Room>> getAllRooms() {
 
-        List<Room> ld = roomService.getRooms();
-
-        return new ResponseEntity<List<Room>>(ld, HttpStatus.OK);
-    }
 
     @GetMapping(path = "api/v1/sensor/{label}/data")
     public String getSensorData(@PathVariable("label") String label) {
