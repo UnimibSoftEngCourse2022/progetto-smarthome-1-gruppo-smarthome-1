@@ -11,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/rooms")
-public class RoomController {
+public class RoomController
+{
     private final RoomService roomService;
 
     @Autowired
@@ -20,28 +21,37 @@ public class RoomController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Room>> getAllRooms() {
-
+    public ResponseEntity<List<Room>> getAllRooms()
+    {
         List<Room> ld = roomService.getRooms();
 
         return new ResponseEntity<List<Room>>(ld, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity registerNewRoom(@RequestBody Room room){
-        try {
+    public ResponseEntity registerNewRoom(@RequestBody Room room)
+    {
+        try
+        {
             roomService.addNewRoom(room);
             return new ResponseEntity("Stanza aggiunta", HttpStatus.CREATED);
-        }catch (IllegalStateException e){
+        }
+        catch (IllegalStateException e)
+        {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
     @DeleteMapping(path = "{roomId}")
-    public ResponseEntity deleteRoom(@PathVariable("roomId") Long roomId){
-        try {
+    public ResponseEntity deleteRoom(@PathVariable("roomId") Long roomId)
+    {
+        try
+        {
             roomService.deleteRoom(roomId);
             return new ResponseEntity("Stanza rimossa", HttpStatus.CREATED);
-        }catch (IllegalStateException e){
+        }
+        catch (IllegalStateException e)
+        {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

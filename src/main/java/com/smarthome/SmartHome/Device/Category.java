@@ -1,6 +1,7 @@
 package com.smarthome.SmartHome.Device;
 
-public enum Category {
+public enum Category
+{
     CONDIZIONATORE,
     PULIZIA,
     LAMPADA,
@@ -11,5 +12,4 @@ public enum Category {
     TERMOMETRO,
     GAS,
     FUMO
-    
 }

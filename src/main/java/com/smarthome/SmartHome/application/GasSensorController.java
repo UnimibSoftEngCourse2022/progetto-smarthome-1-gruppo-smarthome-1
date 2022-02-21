@@ -14,21 +14,21 @@ import com.smathome.SmartHome.Agent.Agente;
 import com.smathome.SmartHome.Agent.AgentePericoli;
 import com.smathome.SmartHome.Agent.AgentiStatus;
 
-public class GasSensorController {
-	
-    private final DeviceService deviceService;
-    private final RilevationService rilevationService;
-
+public class GasSensorController extends Controller
+{
     @Autowired
-    public GasSensorController(RoomService roomService, DeviceService deviceService, RilevationService rilevationService){
-        this.deviceService = deviceService;
-        this.rilevationService = rilevationService;
+    public GasSensorController(RoomService roomService, DeviceService deviceService, RilevationService rilevationService)
+    {
+        super(deviceService, rilevationService);
     }
     
     @PostMapping("/gasSensor")
-    public void receiveSensorData(@RequestBody JSONObject jsonData) {
+    public void receiveSensorData(@RequestBody JSONObject jsonData)
+    {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
-    	if(AgentiStatus.getPericoli() && rilevation.getValue() == 1.0) {
+
+    	if(AgentiStatus.getPericoli() && rilevation.getValue() == 1.0)
+        {
     		Agente agente = new AgentePericoli(rilevation, deviceService);
     		agente.run();
     	}

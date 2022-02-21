@@ -9,9 +9,8 @@ import java.util.Optional;
 import com.smarthome.SmartHome.Device.Device;
 
 @Repository
-public interface RilevationRepository extends JpaRepository<Rilevation, Long> {
-    
-    
+public interface RilevationRepository extends JpaRepository<Rilevation, Long>
+{
     @Query("SELECT r FROM Rilevation r WHERE r.id = ?1")
     Optional<Rilevation> findRilevationById(Long id);
     
@@ -26,5 +25,4 @@ public interface RilevationRepository extends JpaRepository<Rilevation, Long> {
 
     @Query(value="COUNT(*) FROM Rilevation r WHERE r.id=?1", nativeQuery=true)
     int countRilevationById(long id);
-
 }

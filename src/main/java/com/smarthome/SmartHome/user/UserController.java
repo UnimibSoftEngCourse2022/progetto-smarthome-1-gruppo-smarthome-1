@@ -7,9 +7,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="api/v1/users")
-//@CrossOrigin(origins = "http://localhost:63342")
-public class UserController {
-
+public class UserController
+{
     private final UserService userService;
 
     @Autowired // Per dependency injection
@@ -18,9 +17,9 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers(){
+    public List<User> getUsers()
+    {
         return userService.getUsers();
-
     }
 
     @PostMapping
@@ -36,7 +35,8 @@ public class UserController {
     @PutMapping(path = "{userId}")
     public void updateUser(@PathVariable("userId") Long userId,
                            @RequestParam(required = false) String name,
-                           @RequestParam(required = false) String email){
+                           @RequestParam(required = false) String email)
+    {
         userService.updateUser(userId, name, email);
     }
 }

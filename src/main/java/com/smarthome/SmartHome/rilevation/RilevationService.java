@@ -8,35 +8,32 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class RilevationService {
-
+public class RilevationService
+{
     private final RilevationRepository rilevationRepository;
 
     @Autowired
-    public RilevationService(RilevationRepository rilevationRepository) {
+    public RilevationService(RilevationRepository rilevationRepository)
+    {
         this.rilevationRepository = rilevationRepository;
     }
     
-    public List<Rilevation> getRilevationByDevice(Device device){
+    public List<Rilevation> getRilevationByDevice(Device device)
+    {
         return rilevationRepository.findRilevationByDevice(device).orElse(Collections.emptyList());
     }
 
-    public Rilevation getRilevationById(Long id){
+    public Rilevation getRilevationById(Long id)
+    {
         Rilevation r = rilevationRepository.findRilevationById(id).orElse(null);
 
-        if (r != null){
+        if (r != null)
            return new Rilevation(r.getId(), r.getTimestamp(), r.getValue(), r.getValueType(), r.getDevice());
-        }
-        else{
+        else
             return null;
-        }
     }
 
     public void saveRilevation(Rilevation rilevation){
         rilevationRepository.save(rilevation);
     }
-
-    
-
-
 }

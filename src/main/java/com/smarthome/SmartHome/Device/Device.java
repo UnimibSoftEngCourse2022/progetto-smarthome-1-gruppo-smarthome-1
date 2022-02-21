@@ -4,11 +4,11 @@ import com.smarthome.SmartHome.room.Room;
 import org.json.JSONObject;
 
 import javax.persistence.*;
-import javax.swing.text.AbstractDocument.Content;
 
 @Entity
 @Table(name = "device")
-public class Device {
+public class Device
+{
     @Id
     @SequenceGenerator(
             name="device_sequence",
@@ -33,7 +33,8 @@ public class Device {
 
     public Device(){}
 
-    public Device(Long id, String label, Category category, Room room, boolean deviceType) {
+    public Device(Long id, String label, Category category, Room room, boolean deviceType)
+    {
         this.id = id;
         this.label = label;
         this.category = category;
@@ -41,7 +42,8 @@ public class Device {
         this.deviceType = deviceType;
     }
 
-    public Device(String label, Category category, Room room, boolean deviceType) {
+    public Device(String label, Category category, Room room, boolean deviceType)
+    {
         this.label = label;
         this.category = category;
         this.room = room;
@@ -89,7 +91,8 @@ public class Device {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         JSONObject jo=new JSONObject();
         jo.put("device", new JSONObject()
             .put("id", id)

@@ -12,21 +12,21 @@ import com.smathome.SmartHome.Agent.Agente;
 import com.smathome.SmartHome.Agent.AgentePericoli;
 import com.smathome.SmartHome.Agent.AgentiStatus;
 
-public class SmokeSensorController {
-	
-    private final DeviceService deviceService;
-    private final RilevationService rilevationService;
-
+public class SmokeSensorController extends Controller
+{
     @Autowired
-    public SmokeSensorController(DeviceService deviceService, RilevationService rilevationService){
-        this.deviceService = deviceService;
-        this.rilevationService = rilevationService;
+    public SmokeSensorController(DeviceService deviceService, RilevationService rilevationService)
+    {
+        super(deviceService, rilevationService);
     }
     
     @PostMapping("/smokeSensor")
-    public void receiveSensorData(@RequestBody JSONObject jsonData) {
+    public void receiveSensorData(@RequestBody JSONObject jsonData)
+    {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
-    	if(AgentiStatus.getPericoli()) {
+
+    	if(AgentiStatus.getPericoli())
+        {
     		Agente agente = new AgentePericoli(rilevation, deviceService);
     		agente.run();
     	}

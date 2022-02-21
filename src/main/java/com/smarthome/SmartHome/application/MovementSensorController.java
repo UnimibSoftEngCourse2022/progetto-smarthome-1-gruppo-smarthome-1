@@ -13,24 +13,26 @@ import com.smathome.SmartHome.Agent.AgenteAllarme;
 import com.smathome.SmartHome.Agent.AgenteLuce;
 import com.smathome.SmartHome.Agent.AgentiStatus;
 
-public class MovementSensorController {
-
-    private final DeviceService deviceService;
-    private final RilevationService rilevationService;
-    
+public class MovementSensorController extends Controller
+{
     @Autowired
-    public MovementSensorController(DeviceService deviceService, RilevationService rilevationService){
-        this.deviceService = deviceService;
-        this.rilevationService = rilevationService;
+    public MovementSensorController(DeviceService deviceService, RilevationService rilevationService)
+    {
+        super(deviceService, rilevationService);
     }
     
     @PostMapping("/movementSensor")
-    public void receiveSensorData(@RequestBody JSONObject jsonData) {
+    public void receiveSensorData(@RequestBody JSONObject jsonData)
+    {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
-    	if(AgentiStatus.getAllarme()) {
+
+    	if(AgentiStatus.getAllarme())
+        {
     		Agente agente = new AgenteAllarme(rilevation, deviceService);
     		agente.run();
-    	} else {
+    	}
+        else
+        {
     		Agente agente = new AgenteLuce(rilevation, deviceService);
     		agente.run();
     	}

@@ -15,12 +15,10 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.util.Assert;
 
-
 @Entity
 @Table(name = "rilevation")
-public class Rilevation {
-    
-
+public class Rilevation
+{
     private @GeneratedValue @Id Long id;
     private Double value;
     private String valueType;
@@ -33,15 +31,16 @@ public class Rilevation {
 
     public Rilevation(){}
 
-    public Rilevation(Timestamp timestamp, Double value, String valueType, Device device){
+    public Rilevation(Timestamp timestamp, Double value, String valueType, Device device)
+    {
         this.timestamp=timestamp;
         this.value=value;
         this.valueType=valueType;
         this.device=device;
     }
 
-    public Rilevation(Long id, Timestamp timestamp, Double value, String valueType, Device device){
-
+    public Rilevation(Long id, Timestamp timestamp, Double value, String valueType, Device device)
+    {
         Assert.hasText(valueType, "Value type must be not null");
         Assert.notNull(device, "Device must be not null");
         
@@ -52,14 +51,15 @@ public class Rilevation {
         this.device=device;
     }
     
-    public Rilevation(JSONObject jsonData, DeviceService deviceService, RilevationService rilevationService) {
-    	 try {
+    public Rilevation(JSONObject jsonData, DeviceService deviceService, RilevationService rilevationService)
+    {
+    	 try
+         {
              // da jsonData a classe rilevazione
              JSONParser parser = new JSONParser(); 
              //JSONArray ja = jsonData.getJSONArray("values"); 
              ArrayList a = (ArrayList) jsonData.get("values");
              JSONArray jsonArray = new JSONArray(a.toArray());
-             
          
              JSONObject json = (JSONObject) parser.parse(jsonArray.getString(0));
              JSONObject jo = (JSONObject)json.get("data");
@@ -75,10 +75,9 @@ public class Rilevation {
              System.out.println(jsonData);
              Rilevation r = new Rilevation(currentTimestamp, value, "double", d1);
              rilevationService.saveRilevation(r);
-
-
-         } catch (JSONException | ParseException e) {
-             
+         }
+         catch (JSONException | ParseException e)
+         {
              e.printStackTrace();
          }  
     }
@@ -114,7 +113,4 @@ public class Rilevation {
     public void setDevice(Device device){
         this.device=device;
     }
-
-   
-
 }

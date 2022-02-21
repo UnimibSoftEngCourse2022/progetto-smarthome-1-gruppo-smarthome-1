@@ -8,24 +8,24 @@ import com.smathome.SmartHome.Agent.Strategy.Context;
 import com.smathome.SmartHome.Agent.Strategy.StrategyGas;
 import com.smathome.SmartHome.Agent.Strategy.StrategySmoke;
 
-public class AgentePericoli extends Agente {
-
-	public AgentePericoli(Rilevation rilevazione, DeviceService deviceService) {
+public class AgentePericoli extends Agente
+{
+	public AgentePericoli(Rilevation rilevazione, DeviceService deviceService)
+	{
 		super(rilevazione, deviceService);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
+	public void run()
+	{
 		Context context = new Context();
 		Device sensor = rilevazione.getDevice();
-		if(sensor.getCategory() == Category.GAS) {
+
+		if(sensor.getCategory() == Category.GAS)
 			context.setStrategy(new StrategyGas());
-		} else {
+		else
 			context.setStrategy(new StrategySmoke());
-		}
+
 		context.runStrategy(rilevazione, deviceService);
 	}
-	
 }

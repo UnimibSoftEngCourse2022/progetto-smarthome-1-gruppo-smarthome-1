@@ -14,22 +14,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping()
-public class ThermometerController {
-
-    private final DeviceService deviceService;
-    private final RilevationService rilevationService;
-
+public class ThermometerController extends Controller
+{
     @Autowired
-    public ThermometerController(DeviceService deviceService, RilevationService rilevationService){
-
-        this.deviceService = deviceService;
-        this.rilevationService = rilevationService;
+    public ThermometerController(DeviceService deviceService, RilevationService rilevationService)
+    {
+        super(deviceService, rilevationService);
     }
-    
+
     @PostMapping("/thermometer")
-    public void receiveSensorData(@RequestBody JSONObject jsonData) {
+    public void receiveSensorData(@RequestBody JSONObject jsonData)
+    {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
-    	if(AgentiStatus.getTemperatura()) {
+
+        if(AgentiStatus.getTemperatura())
+        {
     		Agente agente = new AgenteTemperatura(rilevation, deviceService);
     		agente.run();
     	}
