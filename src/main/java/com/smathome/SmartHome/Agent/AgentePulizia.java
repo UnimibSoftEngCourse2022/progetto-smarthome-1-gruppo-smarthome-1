@@ -1,11 +1,12 @@
 package com.smathome.SmartHome.Agent;
 
+import com.smarthome.SmartHome.Device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
 
 public class AgentePulizia extends Agente{
 
-	public AgentePulizia(Rilevation rilevazione) {
-		super(rilevazione);
+	public AgentePulizia(Rilevation rilevazione, DeviceService deviceService) {
+		super(rilevazione, deviceService);
 		// TODO Auto-generated constructor stub
 	}
 

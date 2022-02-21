@@ -7,6 +7,7 @@ import com.smarthome.SmartHome.rilevation.Rilevation;
 import com.smarthome.SmartHome.rilevation.RilevationService;
 import com.smathome.SmartHome.Agent.Agente;
 import com.smathome.SmartHome.Agent.AgenteTemperatura;
+import com.smathome.SmartHome.Agent.AgentiStatus;
 
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,8 @@ public class ThermometerController {
     @PostMapping("/thermometer")
     public void receiveSensorData(@RequestBody JSONObject jsonData) {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
-    	if(AgenteTemperatura.getStatus()) {
-    		Agente agente = new AgenteTemperatura(rilevation);
+    	if(AgentiStatus.getTemperatura()) {
+    		Agente agente = new AgenteTemperatura(rilevation, deviceService);
     		agente.run();
     	}
     }

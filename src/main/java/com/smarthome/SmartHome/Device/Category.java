@@ -1,8 +1,15 @@
 package com.smarthome.SmartHome.Device;
 
 public enum Category {
-    TEMPERATURA,
+    CONDIZIONATORE,
     PULIZIA,
-    LUCE,
-    SICUREZZA
+    LAMPADA,
+    TERMOSIFONE,
+    FINESTRA,
+    PORTA,
+    TAPPARELLA,
+    TERMOMETRO,
+    GAS,
+    FUMO
+    
 }

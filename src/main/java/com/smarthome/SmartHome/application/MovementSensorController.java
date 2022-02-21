@@ -11,6 +11,7 @@ import com.smarthome.SmartHome.rilevation.RilevationService;
 import com.smathome.SmartHome.Agent.Agente;
 import com.smathome.SmartHome.Agent.AgenteAllarme;
 import com.smathome.SmartHome.Agent.AgenteLuce;
+import com.smathome.SmartHome.Agent.AgentiStatus;
 
 public class MovementSensorController {
 
@@ -26,11 +27,11 @@ public class MovementSensorController {
     @PostMapping("/movementSensor")
     public void receiveSensorData(@RequestBody JSONObject jsonData) {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
-    	if(AgenteAllarme.getStatus() && rilevation.getValue() == 1.0) {
-    		Agente agente = new AgenteAllarme(rilevation);
+    	if(AgentiStatus.getAllarme()) {
+    		Agente agente = new AgenteAllarme(rilevation, deviceService);
     		agente.run();
     	} else {
-    		Agente agente = new AgenteLuce(rilevation);
+    		Agente agente = new AgenteLuce(rilevation, deviceService);
     		agente.run();
     	}
     }

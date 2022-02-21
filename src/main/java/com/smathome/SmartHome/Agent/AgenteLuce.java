@@ -1,19 +1,28 @@
 package com.smathome.SmartHome.Agent;
 
+import java.time.LocalTime;
+
+import com.smarthome.SmartHome.Device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
+import com.smathome.SmartHome.Agent.Strategy.Context;
+import com.smathome.SmartHome.Agent.Strategy.StrategyAllarme;
+import com.smathome.SmartHome.Agent.Strategy.StrategyLuceGiorno;
 
 public class AgenteLuce extends Agente {
-
-	public AgenteLuce(Rilevation rilevazione) {
-		super(rilevazione);
+	
+	public AgenteLuce(Rilevation rilevazione, DeviceService deviceService) {
+		super(rilevazione, deviceService);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		// crea un oggetto context passado come parametro lo strategy corretto
-		// // esegue context.runStrategy(this.rilevazione)
+		int localTime = LocalTime.now().getHour();
+		Context context = new Context();
+		if( localTime >= 7 && localTime <= 23) {
+			context.setStrategy(new StrategyLuceGiorno());
+			context.runStrategy(this.rilevazione, this.deviceService);
+		}
 	}
 
 }

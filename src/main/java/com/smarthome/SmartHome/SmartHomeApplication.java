@@ -42,10 +42,10 @@ public class SmartHomeApplication {
 			roomRepo.saveAll(List.of(r1, r2, r3, r4));
 
 			// Create devices
-			Device thermometer1 = new Device("thermometer1", Category.TEMPERATURA, r1, false);
-			Device thermometer2 = new Device("thermometer2", Category.TEMPERATURA, r2, false);
+			Device thermometer1 = new Device("thermometer1", Category.TERMOMETRO, r1, false);
+			Device thermometer2 = new Device("thermometer2", Category.TERMOMETRO, r2, false);
 
-			Device termosifone1 = new Device("tapparella", Category.TEMPERATURA, r2, true);
+			Device termosifone1 = new Device("tapparella", Category.TAPPARELLA, r2, true);
 
 			deviceRepo.saveAll(List.of(thermometer1, thermometer2, termosifone1));
 		};
