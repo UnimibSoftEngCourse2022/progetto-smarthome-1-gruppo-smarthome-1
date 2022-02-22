@@ -97,20 +97,4 @@ public class Rilevation
     public Device getDevice(){
         return device;
     }
-
-    public void setId(Long id){
-        this.id=id;
-    }
-    public void setTimestamp(Timestamp timestamp){
-        this.timestamp=timestamp;
-    }
-    public void setValue(Double value){
-        this.value=value;
-    }
-    public void setValueType(String valueType){
-        this.valueType=valueType;
-    }
-    public void setDevice(Device device){
-        this.device=device;
-    }
 }
