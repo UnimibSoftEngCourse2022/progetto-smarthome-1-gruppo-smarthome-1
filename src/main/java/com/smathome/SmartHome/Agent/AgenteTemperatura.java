@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import com.smarthome.SmartHome.Device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
-import com.smathome.SmartHome.Agent.Strategy.Context;
+import com.smathome.SmartHome.Agent.Strategy.Strategy;
 import com.smathome.SmartHome.Agent.Strategy.StrategyTemperaturaEstate;
 import com.smathome.SmartHome.Agent.Strategy.StrategyTemperaturaInverno;
 
@@ -22,15 +22,15 @@ public class AgenteTemperatura extends Agente
 	public void run()
 	{
 		// TODO Auto-generated method stub
-		Context context = new Context(); 
+		Strategy strategy;
 		int month = Calendar.MONTH;
 
 		if( 5 <= month && month <= 9)
-			context.setStrategy(new StrategyTemperaturaEstate());
+			strategy = new StrategyTemperaturaEstate();
 		else
-			context.setStrategy(new StrategyTemperaturaInverno());
+			strategy = new StrategyTemperaturaInverno();
 
-		context.runStrategy(rilevazione, deviceService);
+		strategy.execute(rilevazione, deviceService);
 	}
 
 	public static double getTemperatura()

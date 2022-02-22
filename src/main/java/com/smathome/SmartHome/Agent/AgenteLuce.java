@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 import com.smarthome.SmartHome.Device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
-import com.smathome.SmartHome.Agent.Strategy.Context;
+import com.smathome.SmartHome.Agent.Strategy.Strategy;
 import com.smathome.SmartHome.Agent.Strategy.StrategyLuceGiorno;
 
 public class AgenteLuce extends Agente
@@ -18,12 +18,12 @@ public class AgenteLuce extends Agente
 	public void run()
 	{
 		int localTime = LocalTime.now().getHour();
-		Context context = new Context();
+		Strategy strategy;
 
 		if( localTime >= 7 && localTime <= 23)
 		{
-			context.setStrategy(new StrategyLuceGiorno());
-			context.runStrategy(this.rilevazione, this.deviceService);
+			strategy = new StrategyLuceGiorno();
+			strategy.execute(this.rilevazione, this.deviceService);
 		}
 	}
 }
