@@ -12,5 +12,6 @@ public enum Category
     TERMOMETRO,
     GAS,
     FUMO, 
-    SIRENA
+    SIRENA,
+    MOVIMENTO
 }
