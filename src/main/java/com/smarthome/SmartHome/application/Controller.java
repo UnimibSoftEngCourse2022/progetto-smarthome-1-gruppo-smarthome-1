@@ -1,6 +1,6 @@
 package com.smarthome.SmartHome.application;
 
-import com.smarthome.SmartHome.Device.DeviceService;
+import com.smarthome.SmartHome.device.DeviceService;
 import com.smarthome.SmartHome.rilevation.RilevationService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

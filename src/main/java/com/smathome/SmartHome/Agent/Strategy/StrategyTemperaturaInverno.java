@@ -2,10 +2,10 @@ package com.smathome.SmartHome.Agent.Strategy;
 
 import java.util.List;
 
-import com.smarthome.SmartHome.Device.Actuator;
-import com.smarthome.SmartHome.Device.Category;
-import com.smarthome.SmartHome.Device.Device;
-import com.smarthome.SmartHome.Device.DeviceService;
+import com.smarthome.SmartHome.device.Actuator;
+import com.smarthome.SmartHome.device.Category;
+import com.smarthome.SmartHome.device.Device;
+import com.smarthome.SmartHome.device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
 import com.smathome.SmartHome.Agent.AgenteTemperatura;
 

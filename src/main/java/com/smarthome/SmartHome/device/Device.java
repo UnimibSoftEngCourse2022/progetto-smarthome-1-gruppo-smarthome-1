@@ -1,4 +1,4 @@
-package com.smarthome.SmartHome.Device;
+package com.smarthome.SmartHome.device;
 
 import com.smarthome.SmartHome.room.Room;
 import org.json.JSONObject;

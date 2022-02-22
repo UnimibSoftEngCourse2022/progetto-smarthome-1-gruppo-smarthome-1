@@ -1,6 +1,6 @@
 package com.smarthome.SmartHome.rilevation;
 
-import com.smarthome.SmartHome.Device.Device;
+import com.smarthome.SmartHome.device.Device;
 import com.smarthome.SmartHome.rilevation.RilevationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
