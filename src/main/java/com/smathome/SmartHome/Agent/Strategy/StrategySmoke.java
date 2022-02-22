@@ -2,6 +2,7 @@ package com.smathome.SmartHome.Agent.Strategy;
 
 import com.smarthome.SmartHome.Device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
+import com.smathome.SmartHome.Agent.AgentiStatus;
 
 public class StrategySmoke implements Strategy
 {
@@ -13,7 +14,7 @@ public class StrategySmoke implements Strategy
 
 		if(signal)
 		{
-			
+			AgentiStatus.setTemperatura(!signal);
 		}
 	}
 

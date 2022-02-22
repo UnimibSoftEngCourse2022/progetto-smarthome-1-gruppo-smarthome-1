@@ -11,5 +11,6 @@ public enum Category
     TAPPARELLA,
     TERMOMETRO,
     GAS,
-    FUMO
+    FUMO, 
+    SIRENA
 }

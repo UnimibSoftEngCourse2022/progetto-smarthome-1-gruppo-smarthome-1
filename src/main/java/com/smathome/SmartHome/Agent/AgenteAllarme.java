@@ -6,7 +6,7 @@ import com.smathome.SmartHome.Agent.Strategy.Strategy;
 import com.smathome.SmartHome.Agent.Strategy.StrategyAllarme;
 
 public class AgenteAllarme extends Agente
-{
+{	
 	public AgenteAllarme(Rilevation rilevazione, DeviceService deviceService)
 	{
 		super(rilevazione, deviceService);
