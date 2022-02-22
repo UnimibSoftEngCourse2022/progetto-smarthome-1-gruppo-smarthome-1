@@ -22,7 +22,7 @@ public class EmergenzaService {
 		return emergenzaRepository.findEmergenzaByRoom(room).orElse(Collections.emptyList());
 	}
 	
-    public Emergenza getRilevationById(Long id)
+    public Emergenza getEmergenzaById(Long id)
     {
         Emergenza e = emergenzaRepository.findEmergenzaById(id).orElse(null);
 
