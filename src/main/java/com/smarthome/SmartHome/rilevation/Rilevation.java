@@ -5,15 +5,15 @@ import java.util.Calendar;
 
 import javax.persistence.*;
 
-import com.smarthome.SmartHome.Device.Device;
-import com.smarthome.SmartHome.Device.DeviceService;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.util.Assert;
+
+import com.smarthome.SmartHome.device.Device;
+import com.smarthome.SmartHome.device.DeviceService;
 
 @Entity
 @Table(name = "rilevation")

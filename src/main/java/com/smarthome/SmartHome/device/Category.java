@@ -1,4 +1,4 @@
-package com.smarthome.SmartHome.Device;
+package com.smarthome.SmartHome.device;
 
 public enum Category
 {

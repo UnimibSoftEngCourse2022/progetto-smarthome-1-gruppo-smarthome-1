@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.smarthome.SmartHome.Device.Device;
-import com.smarthome.SmartHome.Device.DeviceService;
+import com.smarthome.SmartHome.device.Device;
+import com.smarthome.SmartHome.device.DeviceService;
 import com.smarthome.SmartHome.emergenza.EmergencyCode;
 import com.smarthome.SmartHome.emergenza.Emergenza;
 import com.smarthome.SmartHome.emergenza.EmergenzaRepository;

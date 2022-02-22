@@ -2,7 +2,7 @@ package com.smarthome.SmartHome.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.smarthome.SmartHome.Device.*;
+import com.smarthome.SmartHome.device.*;
 import com.smarthome.SmartHome.rilevation.Rilevation;
 import com.smarthome.SmartHome.rilevation.RilevationService;
 import com.smathome.SmartHome.Agent.Agente;

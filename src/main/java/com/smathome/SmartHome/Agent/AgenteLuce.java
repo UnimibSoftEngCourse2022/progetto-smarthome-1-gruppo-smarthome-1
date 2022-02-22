@@ -2,7 +2,7 @@ package com.smathome.SmartHome.Agent;
 
 import java.time.LocalTime;
 
-import com.smarthome.SmartHome.Device.DeviceService;
+import com.smarthome.SmartHome.device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
 import com.smathome.SmartHome.Agent.Strategy.Strategy;
 import com.smathome.SmartHome.Agent.Strategy.StrategyLuceGiorno;
