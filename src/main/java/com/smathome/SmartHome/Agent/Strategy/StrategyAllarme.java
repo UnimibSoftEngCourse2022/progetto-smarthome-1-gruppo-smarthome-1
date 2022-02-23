@@ -14,7 +14,6 @@ public class StrategyAllarme implements Strategy
 	@Override
 	public void execute(Rilevation rilevazione, DeviceService deviceService)
 	{
-		// TODO Auto-generated method stub
 		boolean signal = rilevazione.getValue() == 1.0;
 
 		if(signal)

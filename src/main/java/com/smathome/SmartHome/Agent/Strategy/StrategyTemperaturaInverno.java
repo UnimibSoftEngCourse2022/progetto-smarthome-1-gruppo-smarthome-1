@@ -14,7 +14,6 @@ public class StrategyTemperaturaInverno implements Strategy
 	@Override
 	public void execute(Rilevation rilevazione, DeviceService deviceService)
 	{
-		// TODO Auto-generated method stub
 		double target = AgenteTemperatura.getTemperatura();
 
 		if(rilevazione.getValue() < target - 1)

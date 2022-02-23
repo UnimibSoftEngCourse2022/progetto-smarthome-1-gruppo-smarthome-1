@@ -17,7 +17,6 @@ public class BinaryDataFeed implements DataFeed {
 	
 	@Override
 	public Data getNextValue(Object... params) {
-		// TODO Auto-generated method stub
 		double result;
 		if (random.nextInt(prob) == 0) {
 			result = 1.0;
@@ -31,20 +30,17 @@ public class BinaryDataFeed implements DataFeed {
 
 	@Override
 	public Data getPreviousValue() {
-		// TODO Auto-generated method stub
 		return new Data( Boolean.class ,lastValue);
 	}
 
 	@Override
 	public void setLabel(String label) {
-		// TODO Auto-generated method stub
 		this.label = label;
 		
 	}
 
 	@Override
 	public String getLabel() {
-		// TODO Auto-generated method stub
 		return label;
 	}
 
