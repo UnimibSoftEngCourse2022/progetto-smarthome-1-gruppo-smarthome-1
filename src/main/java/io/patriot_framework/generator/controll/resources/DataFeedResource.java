@@ -60,8 +60,18 @@ public class DataFeedResource extends CoapResource {
         } catch (IOException e) {
             e.printStackTrace();
         };
+        
+        DataFeed dt = null;
+        
         try {
-        sensor.addDataFeed(dataFeed.getDataFeed());
+        	dt = dataFeed.getDataFeed();
+        }
+        catch (NullPointerException e) {
+        	e.printStackTrace();
+        }
+        
+        try {
+        sensor.addDataFeed(dt);
         } catch (NullPointerException e) {
         	e.printStackTrace();
         }
