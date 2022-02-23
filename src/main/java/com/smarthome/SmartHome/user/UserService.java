@@ -32,7 +32,7 @@ public class UserService
         userRepository.save(user);
     }
 
-    public void deleteStudent(Long userId)
+    public void deleteUser(Long userId)
     {
         boolean exists = userRepository.existsById(userId);
 

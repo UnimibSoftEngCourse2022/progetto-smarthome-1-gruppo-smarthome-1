@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.smarthome.SmartHome.rilevation.Rilevation;
@@ -22,7 +23,7 @@ public class EmergenzaService {
 		return emergenzaRepository.findEmergenzaByRoom(room).orElse(Collections.emptyList());
 	}
 	
-    public Emergenza getRilevationById(Long id)
+    public Emergenza getEmergenzaById(Long id)
     {
         Emergenza e = emergenzaRepository.findEmergenzaById(id).orElse(null);
 
@@ -35,4 +36,21 @@ public class EmergenzaService {
     public void saveEmergenza(Emergenza emergenza){
         emergenzaRepository.save(emergenza);
     }
+
+    public List<Emergenza> getAllEmergenze(){return emergenzaRepository.findAll();}
+
+    public List<Emergenza> getPendingEmergenze() {
+        return emergenzaRepository.getPending();
+    }
+
+    public void updateEmergenzaStatus(long emergenzaId, boolean newStatus){
+
+        Emergenza e = emergenzaRepository.getById(emergenzaId);
+
+        e.setEmergencyRead(newStatus);
+        emergenzaRepository.deleteById(emergenzaId);
+
+        emergenzaRepository.save(e);
+    }
+
 }

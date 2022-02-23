@@ -34,11 +34,7 @@ import io.patriot_framework.generator.network.wrappers.JSONWrapper;
 public class HomeSimulation {
 
     public static void main(String[] args) {
-    	
-    	
-    	
-    	
-    	
+
     	
     	// Definizione metodologia di generazione dati (criterio di randomizzazione di dati)
         DataFeed df = new NormalDistributionDataFeed(15, 2);

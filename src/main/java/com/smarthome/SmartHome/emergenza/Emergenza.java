@@ -9,7 +9,6 @@ import com.smarthome.SmartHome.room.Room;
 
 @Entity
 @Table(name = "Emergenza")
-
 public class Emergenza {
 	private @GeneratedValue @Id long id;
 	private Timestamp timeStamp;
@@ -21,10 +20,13 @@ public class Emergenza {
     @JoinColumn(name = "room_id")
     private Room room;
 
+	private boolean isEmergencyRead;
+
 	public Emergenza(EmergencyCode code, Timestamp timeStamp, Room r) {
 		this.code = code;
 		this.timeStamp = timeStamp;
 		this.room = r;
+		this.isEmergencyRead = false;
 	}
 	
 	public Emergenza(long id, EmergencyCode code, Timestamp timeStamp, Room r) {
@@ -32,9 +34,14 @@ public class Emergenza {
 		this.timeStamp = timeStamp;
 		this.room = r;
 		this.id = id;
+		this.isEmergencyRead = false;
 	}
-    
-    public Timestamp getTimeStamp() {
+
+	public Emergenza() {
+
+	}
+
+	public Timestamp getTimeStamp() {
     	return this.timeStamp;
     }
     
@@ -49,9 +56,13 @@ public class Emergenza {
 	public long getId() {
 		return this.id;
 	}
-    
-    
-    
-	
-	
+
+	public boolean isEmergencyRead() {
+		return isEmergencyRead;
+	}
+
+	public void setEmergencyRead(boolean emergencyRead) {
+		isEmergencyRead = emergencyRead;
+	}
+
 }
