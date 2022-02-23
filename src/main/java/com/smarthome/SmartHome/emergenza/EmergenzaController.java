@@ -32,11 +32,10 @@ public class EmergenzaController {
         return new ResponseEntity<>(le, HttpStatus.OK);
     }
 
-
     @PutMapping(path = "{emergenzaId}")
-    public ResponseEntity updateEmergenza(@PathVariable("emergenzaId") Long emergenzaId){
+    public ResponseEntity<Object> updateEmergenza(@PathVariable("emergenzaId") Long emergenzaId){
         emergenzaService.updateEmergenzaStatus(emergenzaId, true);
-        return new ResponseEntity("Stato emergenza aggiornato", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

@@ -9,7 +9,6 @@ import com.smarthome.SmartHome.room.Room;
 import com.smarthome.SmartHome.room.RoomRepository;
 import com.smarthome.SmartHome.user.User;
 import com.smarthome.SmartHome.user.UserRepository;
-import org.json.simple.JSONObject;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

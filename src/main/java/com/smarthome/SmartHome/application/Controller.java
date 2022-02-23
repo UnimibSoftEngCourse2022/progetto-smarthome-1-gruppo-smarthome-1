@@ -12,7 +12,7 @@ public abstract class Controller
     RilevationService rilevationService;
 
     @Autowired
-    public Controller(DeviceService deviceService, RilevationService rilevationService)
+    protected Controller(DeviceService deviceService, RilevationService rilevationService)
     {
         this.deviceService = deviceService;
         this.rilevationService = rilevationService;

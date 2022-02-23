@@ -30,31 +30,31 @@ public class RoomController
     }
 
     @PostMapping
-    public ResponseEntity registerNewRoom(@RequestBody JSONObject jsonData)
+    public ResponseEntity<Object> registerNewRoom(@RequestBody JSONObject jsonData)
     {
         Room room = new Room((String) jsonData.get("name"));
         try
         {
             roomService.addNewRoom(room);
-            return new ResponseEntity("Stanza aggiunta", HttpStatus.CREATED);
+            return new ResponseEntity<>("Stanza aggiunta", HttpStatus.CREATED);
         }
         catch (IllegalStateException e)
         {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping(path = "{roomId}")
-    public ResponseEntity deleteRoom(@PathVariable("roomId") Long roomId)
+    public ResponseEntity<Object> deleteRoom(@PathVariable("roomId") Long roomId)
     {
         try
         {
             roomService.deleteRoom(roomId);
-            return new ResponseEntity("Stanza rimossa", HttpStatus.CREATED);
+            return new ResponseEntity<>("Stanza rimossa", HttpStatus.CREATED);
         }
         catch (IllegalStateException e)
         {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
