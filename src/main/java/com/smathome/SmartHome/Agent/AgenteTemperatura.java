@@ -2,8 +2,8 @@ package com.smathome.SmartHome.Agent;
 
 import java.util.Calendar;
 
-import com.smarthome.SmartHome.device.DeviceService;
-import com.smarthome.SmartHome.rilevation.Rilevation;
+import com.smarthome.smarthome.device.DeviceService;
+import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smathome.SmartHome.Agent.Strategy.Strategy;
 import com.smathome.SmartHome.Agent.Strategy.StrategyTemperaturaEstate;
 import com.smathome.SmartHome.Agent.Strategy.StrategyTemperaturaInverno;

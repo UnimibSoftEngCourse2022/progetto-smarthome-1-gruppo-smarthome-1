@@ -1,9 +1,9 @@
 package com.smathome.SmartHome.Agent;
 
-import com.smarthome.SmartHome.device.Category;
-import com.smarthome.SmartHome.device.Device;
-import com.smarthome.SmartHome.device.DeviceService;
-import com.smarthome.SmartHome.rilevation.Rilevation;
+import com.smarthome.smarthome.device.Category;
+import com.smarthome.smarthome.device.Device;
+import com.smarthome.smarthome.device.DeviceService;
+import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smathome.SmartHome.Agent.Strategy.Strategy;
 import com.smathome.SmartHome.Agent.Strategy.StrategyGas;
 import com.smathome.SmartHome.Agent.Strategy.StrategySmoke;

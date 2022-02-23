@@ -1,7 +1,7 @@
 package com.smathome.SmartHome.Agent.Strategy;
 
-import com.smarthome.SmartHome.device.DeviceService;
-import com.smarthome.SmartHome.rilevation.Rilevation;
+import com.smarthome.smarthome.device.DeviceService;
+import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smathome.SmartHome.Agent.AgentiStatus;
 
 public class StrategySmoke implements Strategy

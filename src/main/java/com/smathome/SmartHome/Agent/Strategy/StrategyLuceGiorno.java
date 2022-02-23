@@ -2,11 +2,11 @@ package com.smathome.SmartHome.Agent.Strategy;
 
 import java.util.List;
 
-import com.smarthome.SmartHome.device.Actuator;
-import com.smarthome.SmartHome.device.Category;
-import com.smarthome.SmartHome.device.Device;
-import com.smarthome.SmartHome.device.DeviceService;
-import com.smarthome.SmartHome.rilevation.Rilevation;
+import com.smarthome.smarthome.device.Actuator;
+import com.smarthome.smarthome.device.Category;
+import com.smarthome.smarthome.device.Device;
+import com.smarthome.smarthome.device.DeviceService;
+import com.smarthome.smarthome.rilevation.Rilevation;
 
 public class StrategyLuceGiorno implements Strategy
 {
