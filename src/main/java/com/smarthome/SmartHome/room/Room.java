@@ -30,7 +30,7 @@ public class Room
         this.name = name;
     }
 
-    public Room( String name) {
+    public Room(String name) {
         this.name = name;
     }
 

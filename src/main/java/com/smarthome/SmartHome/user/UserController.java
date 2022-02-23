@@ -1,6 +1,9 @@
 package com.smarthome.SmartHome.user;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,19 +20,23 @@ public class UserController
     }
 
     @GetMapping
-    public List<User> getUsers()
+    public ResponseEntity<List<User>> getUsers()
     {
-        return userService.getUsers();
+        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
     @PostMapping
-    public void registerNewUser(@RequestBody User user){
+    public ResponseEntity registerNewUser(@RequestBody JSONObject jsonData) {
+
+
+        User user = new User((String) jsonData.get("name"), (String) jsonData.get("email"));
         userService.addNewUser(user);
+        return new ResponseEntity("Utente aggiunto", HttpStatus.OK);
     }
 
     @DeleteMapping(path = "{userId}")
     public void deleteUser(@PathVariable("userId") Long userId){
-        userService.deleteStudent(userId);
+        userService.deleteUser(userId);
     }
 
     @PutMapping(path = "{userId}")

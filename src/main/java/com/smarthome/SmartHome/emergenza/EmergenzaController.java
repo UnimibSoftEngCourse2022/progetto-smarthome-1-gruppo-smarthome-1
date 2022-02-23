@@ -1,7 +1,5 @@
 package com.smarthome.SmartHome.emergenza;
 
-import com.smarthome.SmartHome.room.Room;
-import com.smarthome.SmartHome.room.RoomController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,7 +29,7 @@ public class EmergenzaController {
 
         List<Emergenza> le = emergenzaService.getPendingEmergenze();
 
-        return new ResponseEntity<List<Emergenza>>(le, HttpStatus.OK);
+        return new ResponseEntity<>(le, HttpStatus.OK);
     }
 
 

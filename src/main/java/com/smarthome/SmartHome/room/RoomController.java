@@ -1,6 +1,7 @@
 package com.smarthome.SmartHome.room;
 
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,12 +26,13 @@ public class RoomController
     {
         List<Room> ld = roomService.getRooms();
 
-        return new ResponseEntity<List<Room>>(ld, HttpStatus.OK);
+        return new ResponseEntity<>(ld, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity registerNewRoom(@RequestBody Room room)
+    public ResponseEntity registerNewRoom(@RequestBody JSONObject jsonData)
     {
+        Room room = new Room((String) jsonData.get("name"));
         try
         {
             roomService.addNewRoom(room);
