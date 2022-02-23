@@ -21,7 +21,6 @@ public class AgenteTemperatura extends Agente
 	@Override
 	public void run()
 	{
-		// TODO Auto-generated method stub
 		Strategy strategy;
 		int month = Calendar.MONTH;
 

@@ -13,7 +13,6 @@ public class AgentePulizia extends Agente
 	@Override
 	public void run()
 	{
-		// TODO Auto-generated method stub
 		// crea un oggetto context passado come parametro lo strategy corretto
 		// esegue context.runStrategy(this.rilevazione)	
 	}
