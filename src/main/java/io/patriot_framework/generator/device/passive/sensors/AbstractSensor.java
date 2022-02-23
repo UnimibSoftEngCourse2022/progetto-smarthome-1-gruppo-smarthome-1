@@ -62,7 +62,6 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
         if(getNetworkAdapter() != null) {
             getNetworkAdapter().send(result);
         }
-        // TODO: Pipeline
 
         return result;
     }
