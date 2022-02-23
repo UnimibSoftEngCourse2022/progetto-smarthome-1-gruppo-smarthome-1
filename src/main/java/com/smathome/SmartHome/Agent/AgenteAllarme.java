@@ -1,20 +1,21 @@
 package com.smathome.SmartHome.Agent;
 
+import com.smarthome.SmartHome.device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
+import com.smathome.SmartHome.Agent.Strategy.Strategy;
+import com.smathome.SmartHome.Agent.Strategy.StrategyAllarme;
 
-public class AgenteAllarme extends Agente {
-
-	public AgenteAllarme(Rilevation rilevazione) {
-		super(rilevazione);
-		// TODO Auto-generated constructor stub
+public class AgenteAllarme extends Agente
+{	
+	public AgenteAllarme(Rilevation rilevazione, DeviceService deviceService)
+	{
+		super(rilevazione, deviceService);
 	}
 
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		// crea un oggetto context passado come parametro lo strategy corretto
-		// esegue context.runStrategy(this.rilevazione)
+	public void run()
+	{
+		Strategy strategy = new StrategyAllarme();
+		strategy.execute(this.rilevazione, this.deviceService);
 	}
-	
-
 }

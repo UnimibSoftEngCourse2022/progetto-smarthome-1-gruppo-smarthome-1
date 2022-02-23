@@ -1,4 +1,4 @@
-package com.smarthome.SmartHome.Device;
+package com.smarthome.SmartHome.device;
 
 
 import com.smarthome.SmartHome.room.Room;
@@ -7,9 +7,9 @@ import org.eclipse.californium.core.CoapResponse;
 
 import java.net.URI;
 
-public class Actuator extends Device{
-    public Actuator() {
-    }
+public class Actuator extends Device
+{
+    public Actuator() {}
 
     public Actuator(Long id, String label, Category category, Room room) {
         super(id, label, category, room, true);
@@ -19,33 +19,38 @@ public class Actuator extends Device{
         super(label, category, room, true);
     }
 
-    public void controlSignal(){
-        try {
+    public void controlSignal()
+    {
+        try
+        {
             URI uri = new URI("coap://localhost:5683/" + getLabel());
             CoapClient client = new CoapClient(uri);
 
             client.post("", 0);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             System.out.println("Exception: " + e);
         }
     }
 
-    public String getCurrentState(){
+    public String getCurrentState()
+    {
         String value = "";
 
-        try {
+        try
+        {
             URI uri = new URI("coap://localhost:5683/" + getLabel());
             CoapClient client = new CoapClient(uri);
 
             CoapResponse response = client.get();
             value = response.getResponseText();
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             System.out.println("Exception: " + e);
         }
 
         return value;
     }
-
 }

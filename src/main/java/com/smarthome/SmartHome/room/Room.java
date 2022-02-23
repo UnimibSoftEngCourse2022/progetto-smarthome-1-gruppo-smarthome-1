@@ -1,10 +1,12 @@
 package com.smarthome.SmartHome.room;
 
 import javax.persistence.*;
+import org.json.JSONObject;
 
 @Entity
 @Table(name = "room")
-public class Room {
+public class Room
+{
     @Id
     @SequenceGenerator(
             name = "room_sequence",
@@ -16,18 +18,19 @@ public class Room {
             generator = "room_sequence"
     )
     private Long id;
+
+    @Column(unique=true)
     private String name;
 
-    public Room(){
+    public Room(){}
 
-    }
-
-    public Room(Long id, String name) {
+    public Room(Long id, String name)
+    {
         this.id = id;
         this.name = name;
     }
 
-    public Room( String name) {
+    public Room(String name) {
         this.name = name;
     }
 
@@ -48,10 +51,12 @@ public class Room {
     }
 
     @Override
-    public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public String toString()
+    {
+        JSONObject jo=new JSONObject();
+        
+        jo.put("room", new JSONObject().put("id", id).put("name", name));
+        
+        return jo.toString();
     }
 }

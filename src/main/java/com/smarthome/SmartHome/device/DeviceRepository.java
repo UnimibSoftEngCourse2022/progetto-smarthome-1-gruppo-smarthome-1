@@ -1,4 +1,4 @@
-package com.smarthome.SmartHome.Device;
+package com.smarthome.SmartHome.device;
 
 import com.smarthome.SmartHome.room.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface DeviceRepository extends JpaRepository<Device, Long> {
-
+public interface DeviceRepository extends JpaRepository<Device, Long>
+{
     @Query("SELECT d FROM Device d WHERE d.label = ?1")
     Optional<Device> findDeviceByLabel(String label);
 
     Optional<List<Device>> findDevicesByRoom(Room room);
-
 }

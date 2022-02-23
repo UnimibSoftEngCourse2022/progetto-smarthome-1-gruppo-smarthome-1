@@ -1,16 +1,22 @@
 package com.smarthome.SmartHome;
 
-import com.smarthome.SmartHome.Device.*;
+import com.smarthome.SmartHome.device.*;
+import com.smarthome.SmartHome.emergenza.EmergencyCode;
+import com.smarthome.SmartHome.emergenza.Emergenza;
+import com.smarthome.SmartHome.emergenza.EmergenzaRepository;
 import com.smarthome.SmartHome.rilevation.RilevationRepository;
 import com.smarthome.SmartHome.room.Room;
 import com.smarthome.SmartHome.room.RoomRepository;
 import com.smarthome.SmartHome.user.User;
 import com.smarthome.SmartHome.user.UserRepository;
+import org.json.simple.JSONObject;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -21,7 +27,7 @@ public class SmartHomeApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(UserRepository userRepo, RoomRepository roomRepo, DeviceRepository deviceRepo, RilevationRepository rilevationRepo){
+	public CommandLineRunner commandLineRunner(UserRepository userRepo, RoomRepository roomRepo, DeviceRepository deviceRepo, RilevationRepository rilevationRepo, EmergenzaRepository emergencyRepo){
 		return args -> {
 			// Create users
 			User pippo = new User(
@@ -38,16 +44,22 @@ public class SmartHomeApplication {
 			Room r1 = new Room("Cucina");
 			Room r2 = new Room("Soggiorno");
 			Room r3 = new Room("Bagno");
-			roomRepo.saveAll(List.of(r1, r2, r3));
+			Room r4 = new Room("Studio");
+			roomRepo.saveAll(List.of(r1, r2, r3, r4));
 
 			// Create devices
-			Device thermometer1 = new Device("thermometer1", Category.TEMPERATURA, r1, false);
-			Device thermometer2 = new Device("thermometer2", Category.TEMPERATURA, r2, false);
+			Device thermometer1 = new Device("thermometer1", Category.TERMOMETRO, r1, false);
+			Device thermometer2 = new Device("thermometer2", Category.TERMOMETRO, r2, false);
 
-			Device termosifone1 = new Device("tapparella", Category.TEMPERATURA, r2, true);
+			Device termosifone1 = new Device("tapparella", Category.TAPPARELLA, r2, true);
 
 			deviceRepo.saveAll(List.of(thermometer1, thermometer2, termosifone1));
 
+
+			//Emergenze demo
+			Date date = new Date();
+			Emergenza e1 = new Emergenza(EmergencyCode.INTRUSIONE, new Timestamp(date.getTime()), r1);
+			emergencyRepo.save(e1);
 		};
 	}
 

@@ -1,22 +1,17 @@
 package com.smathome.SmartHome.Agent;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
+import com.smarthome.SmartHome.device.DeviceService;
 import com.smarthome.SmartHome.rilevation.Rilevation;
 
-public abstract class Agente {
-	private static AtomicBoolean status;
-	private Rilevation rilevazione;
+public abstract class Agente
+{
+	protected Rilevation rilevazione;
+	protected DeviceService deviceService;
 	
-	public Agente(Rilevation rilevazione) {
+	public Agente(Rilevation rilevazione, DeviceService deviceService)
+	{
 		this.rilevazione = rilevazione;
-	}
-	
-	public static Boolean getStatus() {
-		return status.get();
-	}
-	public static void setStatus(Boolean flag) {
-		status.set(flag);
+		this.deviceService = deviceService;
 	}
 	
 	public abstract void run();

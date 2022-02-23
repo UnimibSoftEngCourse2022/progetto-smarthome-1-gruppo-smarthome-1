@@ -11,8 +11,8 @@ import java.util.Optional;
 //                                                    |     | Questo è il tipo della variabile che fa da id in User.
 //                                                    |     |
 @Repository //                                        V     V
-public interface UserRepository extends JpaRepository<User, Long> {
-
+public interface UserRepository extends JpaRepository<User, Long>
+{
     @Query("SELECT u FROM User u WHERE u.name = ?1")
     Optional<User> findUserByName(String name);
 

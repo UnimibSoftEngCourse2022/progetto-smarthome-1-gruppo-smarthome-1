@@ -22,6 +22,7 @@ import io.patriot_framework.generator.dataFeed.DayTemperatureDataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
+import io.patriot_framework.generator.device.actuators.*;
 import io.patriot_framework.generator.device.impl.basicActuators.LinearActuator;
 import io.patriot_framework.generator.device.impl.basicDevices.Thermometer;
 import io.patriot_framework.generator.device.passive.actuators.Actuator;
@@ -33,38 +34,70 @@ import io.patriot_framework.generator.network.wrappers.JSONWrapper;
 public class HomeSimulation {
 
     public static void main(String[] args) {
-        String testEndopint = "http://localhost:8080/api/v1/sensor/";
 
-        // Definizione metodologia di generazione dati (criterio di randomizzazione di dati)
+    	
+    	// Definizione metodologia di generazione dati (criterio di randomizzazione di dati)
         DataFeed df = new NormalDistributionDataFeed(15, 2);
-        
-        NetworkAdapter na = new Rest(testEndopint, new JSONWrapper());
-
-        // dispositivo effettivo (statico)
-        SimpleSensor temperature = new Thermometer("thermometer1", df);
-        //df.setLabel(temperature.getLabel());
-        temperature.setNetworkAdapter(na);
-        temperature.startCoapController();
-
-        // Definisco intervallo di generazione valori
-        DataFeed tf = new ConstantDataFeed(10000);
 
         // Simula effettivamente il device
-        ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
+        ActiveDevice simulation = new ActiveDeviceImpl("thermometer1", "thermometer", df, 10000);
         simulation.start();
 
 
+        //
+        // ATTUATORI
+        //
+        Actuator[] luci = new Actuator[6];
+
         Actuator actuator = new LinearActuator("tapparella", 15000);
+        for(int i = 0; i < luci.length; i++)
+        {
+            luci[i] = new Luce("luce" + (i + 1));
+            luci[i].startCoapController();
+        }
 
         //actuator.controlSignal();
+        Actuator[] condizionatori = new Actuator[5];
 
         //ActuatorResource acc = new ActuatorResource(actuator);
         //acc.registerDevice();
+        for(int i = 0; i < condizionatori.length; i++)
+        {
+            condizionatori[i] = new Condizionatore("condizionatore" + (i + 1));
+            condizionatori[i].startCoapController();
+        }
 
         //actuator.setCoapController(acc);
         actuator.startCoapController();
+        Actuator[] termosifoni = new Actuator[6];
 
+        for(int i = 0; i < termosifoni.length; i++)
+        {
+            termosifoni[i] = new Termosifone("termosifone" + (i + 1));
+            termosifoni[i].startCoapController();
+        }
 
+        Actuator[] finestre = new Actuator[5];
+        Actuator[] tapparelle = new Actuator[5];
+
+        for(int i = 0; i < finestre.length; i++)
+        {
+            finestre[i] = new Finestra("finestra" + (i + 1));
+            finestre[i].startCoapController();
+
+            tapparelle[i] = new Tapparella("tapparella" + (i + 1));
+            tapparelle[i].startCoapController();
+        }
+
+        Actuator[] porte = new Actuator[5];
+
+        for(int i = 0; i < porte.length; i++)
+        {
+            porte[i] = new Finestra("porta" + (i + 1));
+            porte[i].startCoapController();
+        }
+
+        Actuator pulizia = new Pulizia("pulizia");
+        pulizia.startCoapController();
     }
-
 }
