@@ -28,6 +28,6 @@ public interface EmergenzaRepository extends JpaRepository<Emergenza, Long>{
     List<Emergenza> getPending();
 
     @Modifying
-    @Query("update Emergenza e set e.isEmergencyRead=?2 where e.id = ?1")
-    void updateStatus(long emergenzaId, boolean newStatus);
+    @Query("update Emergenza e set e.isEmergencyRead=?1 where e.id = ?2")
+    void updateStatus( boolean newStatus, long emergenzaId);
 }

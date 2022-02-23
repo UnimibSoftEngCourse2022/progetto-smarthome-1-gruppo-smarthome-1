@@ -13,6 +13,50 @@
 
     <script>
 
+        function remove(li, id) {
+            $.ajax({
+                url: "http://localhost:8080/api/v1/emergenze/" + id,
+                type: 'PUT',
+                data: '',
+
+                success: function (result) {
+                    document.getElementById("notif_ul").innerHTML = "";
+                    json = JSON.parse(result);
+                    for (let i = 0; i < json.length; i++) {
+                        document.getElementById("notif_ul").innerHTML += "<li onclick=\"remove(this," + json[i]['id'] + ")\" id=\""+ json[i]['id'] +"\">" + json[i]["code"] + " - Room: " + json[i]["room"]['name'] + "</li>";
+                    }
+                    if (document.getElementById("notif_ul").getElementsByTagName("li").length > 0)
+                        document.getElementById('notif_div').classList.add('notification');
+                    else {
+                        document.getElementById('notif_div').classList.remove('notification');
+                    }
+
+                },
+                cache: false
+            });
+            document.getElementById("notif_ul").removeChild(li);
+            if (document.getElementById("notif_ul").getElementsByTagName("li").length > 0)
+                document.getElementById('notif_div').classList.add('notification');
+            else {
+                document.getElementById('notif_div').classList.remove('notification');
+            }
+        }
+
+
+
+        function notification(json) {
+            document.getElementById("notif_ul").innerHTML = "";
+            for (let i = 0; i < json.length; i++) {
+                document.getElementById("notif_ul").innerHTML += "<li onclick=\"remove(this," + json[i]['id'] + ")\" id=\""+ json[i]['id'] +"\">" + json[i]["code"] + " - Room: " + json[i]["room"]['name'] + "</li>";
+            }
+            if (document.getElementById("notif_ul").getElementsByTagName("li").length > 0)
+                document.getElementById('notif_div').classList.add('notification');
+            else {
+                document.getElementById('notif_div').classList.remove('notification');
+                document.getElementById("notif_ul").innerHTML = "<li><a class=\"dropdown-item text-black-50\">No new events</a></li>";
+            }
+        }
+
 
         $(document).ready(function () {
             /*$.ajaxSetup({
@@ -42,7 +86,6 @@
             $(".btn-del-room").click(function(){
 
                 let room = this.attr("value");
-                alert(room);
                 const roomArr = text.split("-");
                 $.ajax({
                     type: 'DELETE',
@@ -83,7 +126,6 @@
 
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
                     var errorMsg = 'Ajax request failed: ' + xhr.responseText;
                     $('#content').html(errorMsg);
                 }
@@ -111,7 +153,6 @@
 
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
                     var errorMsg = 'Ajax request failed: ' + xhr.responseText;
                     $('#content').html(errorMsg);
                 }
@@ -139,7 +180,7 @@
 
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
+
                     var errorMsg = 'Ajax request failed: ' + xhr.responseText;
                     $('#content').html(errorMsg);
                 }
@@ -157,6 +198,36 @@
                 }
                 return "";
             }
+
+
+            $.ajax({
+                url: "http://localhost:8080/api/v1/emergenze/pending",
+                type: 'GET',
+                data: '',
+
+                success: function (result) {
+                    json = JSON.parse(JSON.stringify(result));
+                    notification(json);
+                },
+                cache: false
+            });
+
+            setInterval(function () {
+                $.ajax({
+                    url: "http://localhost:8080/api/v1/emergenze/pending",
+                    type: 'GET',
+                    data: '',
+
+                    success: function (result) {
+                        json = JSON.parse(result);
+                        notification(json);
+
+                    },
+                    cache: false
+                });
+            }, 20000);
+
+
         });
 
     </script>
@@ -180,6 +251,19 @@
             <li class="nav-item">
                 <a class="nav-link disabled">Preferences</a>
             </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="d-none d-lg-block d-xl-block" id="notif_div"></div>
+                    Notifications
+
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar" id="notif_ul" aria-labelledby="navbarDropdownMenuLink">
+
+                </ul>
+            </li>
+
+
         </ul>
     </div>
     <h1>Smart Home Service</h1>
