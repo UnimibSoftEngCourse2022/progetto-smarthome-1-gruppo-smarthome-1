@@ -13,7 +13,6 @@ public class StrategyLuceGiorno implements Strategy
 	@Override
 	public void execute(Rilevation rilevazione, DeviceService deviceService)
 	{
-		// TODO Auto-generated method stub
 		Device sensor = rilevazione.getDevice();
 		List<Device> devices = deviceService.getDeviceByRoom(sensor.getRoom());
 
