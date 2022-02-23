@@ -37,8 +37,11 @@
                 });
             });
 
+
+
             $(".btn-del-room").click(function(){
-                let room = this.attr("id");
+
+                let room = this.attr("value");
                 alert(room);
                 const roomArr = text.split("-");
                 $.ajax({
@@ -103,7 +106,7 @@
                             '<div class="card">  ' +
                             '	<div class="card-body">' +
                             '<h5 class="card-title">' + rooms[i].name + '</h5>' +
-                            '<button id="room-'+rooms[i].id+'" name="btn-del-room" type="button" class="btn btn-danger">Elimina</button></div></div></div>');
+                            '<button id="btn-del-room" value="'+rooms[i].id+'" name="btn-del-room" type="button" class="btn btn-danger">Elimina</button></div></div></div>');
                     }
 
                 },
@@ -189,6 +192,8 @@
 
     </div>
 
+    <br>
+
     <div class="container" id="rooms">
         <h2>My rooms</h2>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#room-modal" data-bs-whatever="@fat">Nuova stanza</button>
@@ -218,12 +223,18 @@
 
         </div>
     </div>
+
+    <br>
+
     <div class="container" id="users">
         <h2>Users</h2>
         <div class="row" id="sub-users">
 
         </div>
     </div>
+
+    <br>
+
     <div class="container" id="preferences">
         <h2>My preferences</h2>
     </div>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,11 @@ public interface EmergenzaRepository extends JpaRepository<Emergenza, Long>{
 
     @Query(value="COUNT(*) FROM Emergenza e WHERE e.id=?1", nativeQuery=true)
     int countRilevationById(long id);
-	
-	
-	
+
+    @Query("SELECT e FROM Emergenza e WHERE e.isEmergencyRead = false")
+    List<Emergenza> getPending();
+
+    @Modifying
+    @Query("update Emergenza e set e.isEmergencyRead=?2 where e.id = ?1")
+    void updateStatus(long emergenzaId, boolean newStatus);
 }

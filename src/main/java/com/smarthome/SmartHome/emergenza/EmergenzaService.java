@@ -35,4 +35,15 @@ public class EmergenzaService {
     public void saveEmergenza(Emergenza emergenza){
         emergenzaRepository.save(emergenza);
     }
+
+    public List<Emergenza> getAllEmergenze(){return emergenzaRepository.findAll();}
+
+    public List<Emergenza> getPendingEmergenze() {
+        return emergenzaRepository.getPending();
+    }
+
+    public void updateEmergenzaStatus(long emergenzaId, boolean newStatus){
+        emergenzaRepository.updateStatus(emergenzaId, newStatus);
+    }
+
 }
