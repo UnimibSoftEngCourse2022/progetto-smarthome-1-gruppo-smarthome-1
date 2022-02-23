@@ -29,4 +29,4 @@ Smart Home
 # Usage
 The project contains both the _Home Simulation_ and the _SmartHome Application_.
 - To start the **Home Simulation** execute: `src.main.java.io.patriot_framework.HomeSimulation`
-- To start the **SmartHome Application** execute: `src.main.java.com.smarthome.SmartHome.SmartHomeApplication`
+- To start the **SmartHome Application** execute: `src.main.java.com.smarthome.smarthome.SmartHomeApplication`
