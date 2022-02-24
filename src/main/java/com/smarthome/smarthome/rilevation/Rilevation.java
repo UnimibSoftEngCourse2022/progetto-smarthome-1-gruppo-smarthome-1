@@ -71,7 +71,7 @@ public class Rilevation
              
              Device d1=deviceService.getDeviceByLabel(label);
              
-             System.err.println(jsonData);
+             System.out.println(jsonData);
              Rilevation r = new Rilevation(currentTimestamp, val, "double", d1);
              rilevationService.saveRilevation(r);
          }
