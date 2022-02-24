@@ -1,4 +1,4 @@
-package com.smathome.SmartHome.agent.strategy;
+package com.smarthome.smarthome.agent.strategy;
 
 import java.util.List;
 
@@ -7,28 +7,28 @@ import com.smarthome.smarthome.device.Category;
 import com.smarthome.smarthome.device.Device;
 import com.smarthome.smarthome.device.DeviceService;
 import com.smarthome.smarthome.rilevation.Rilevation;
-import com.smathome.SmartHome.agent.AgenteTemperatura;
+import com.smarthome.smarthome.agent.AgentiStatus;
 
-public class StrategyTemperaturaInverno implements Strategy
+public class StrategyGas implements Strategy
 {
 	@Override
 	public void execute(Rilevation rilevazione, DeviceService deviceService)
 	{
-		double target = AgenteTemperatura.getTemperatura();
-
-		if(rilevazione.getValue() < target - 1)
+		boolean signal = rilevazione.getValue() == 1.0;
+		if(signal)
 		{
+			AgentiStatus.setTemperatura(!signal);
 			Device sensor = rilevazione.getDevice();
 			List<Device> devices = deviceService.getDeviceByRoom(sensor.getRoom());
 
 			for(Device device : devices)
-				if(device.getCategory() == Category.TERMOSIFONE)
+				if(device.getCategory() == Category.FINESTRA)
 				{
-					Actuator termosifone = (Actuator) device;
-					String state = termosifone.getCurrentState();
+					Actuator finestra = (Actuator) device;
+					String state = finestra.getCurrentState();
 
-					if(state.equals("OFF") || state.equals("Spegnimento"))
-						termosifone.controlSignal();
+					if(state.equals("Chiusa") || state.equals("Chiusura"))
+						finestra.controlSignal();
 				}
 		}
 	}

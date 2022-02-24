@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import com.smarthome.smarthome.device.*;
 import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.rilevation.RilevationService;
-import com.smathome.SmartHome.agent.Agente;
-import com.smathome.SmartHome.agent.AgenteTemperatura;
-import com.smathome.SmartHome.agent.AgentiStatus;
+import com.smarthome.smarthome.agent.Agente;
+import com.smarthome.smarthome.agent.AgenteTemperatura;
+import com.smarthome.smarthome.agent.AgentiStatus;
 
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;

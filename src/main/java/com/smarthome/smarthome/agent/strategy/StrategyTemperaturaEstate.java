@@ -1,13 +1,13 @@
-package com.smathome.SmartHome.agent.strategy;
+package com.smarthome.smarthome.agent.strategy;
 
 import java.util.List;
 
+import com.smarthome.smarthome.agent.AgenteTemperatura;
 import com.smarthome.smarthome.device.Actuator;
 import com.smarthome.smarthome.device.Category;
 import com.smarthome.smarthome.device.Device;
 import com.smarthome.smarthome.device.DeviceService;
 import com.smarthome.smarthome.rilevation.Rilevation;
-import com.smathome.SmartHome.agent.AgenteTemperatura;
 
 public class StrategyTemperaturaEstate implements Strategy
 {

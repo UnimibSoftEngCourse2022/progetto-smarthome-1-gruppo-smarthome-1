@@ -15,9 +15,9 @@ import com.smarthome.smarthome.emergenza.EmergenzaRepository;
 import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.rilevation.RilevationService;
 import com.smarthome.smarthome.room.RoomService;
-import com.smathome.SmartHome.agent.Agente;
-import com.smathome.SmartHome.agent.AgentePericoli;
-import com.smathome.SmartHome.agent.AgentiStatus;
+import com.smarthome.smarthome.agent.Agente;
+import com.smarthome.smarthome.agent.AgentePericoli;
+import com.smarthome.smarthome.agent.AgentiStatus;
 
 public class GasSensorController extends Controller
 {

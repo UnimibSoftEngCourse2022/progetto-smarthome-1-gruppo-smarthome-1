@@ -1,11 +1,11 @@
-package com.smathome.SmartHome.agent;
+package com.smarthome.smarthome.agent;
 
 import java.time.LocalTime;
 
+import com.smarthome.smarthome.agent.strategy.Strategy;
+import com.smarthome.smarthome.agent.strategy.StrategyLuceGiorno;
 import com.smarthome.smarthome.device.DeviceService;
 import com.smarthome.smarthome.rilevation.Rilevation;
-import com.smathome.SmartHome.agent.strategy.Strategy;
-import com.smathome.SmartHome.agent.strategy.StrategyLuceGiorno;
 
 public class AgenteLuce extends Agente
 {
