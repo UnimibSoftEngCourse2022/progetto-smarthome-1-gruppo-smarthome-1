@@ -16,18 +16,19 @@ public class StrategyAllarme implements Strategy
 	{
 		boolean signal = rilevazione.getValue() == 1.0;
 
-		if(signal)
+		if(signal) {
 			AgentiStatus.setAllarme(signal);
-			Device sensor = rilevazione.getDevice();
 			List<Device> devices = deviceService.getAllDevices();
 			for(Device device : devices) {
-				if(device.getCategory() == Category.SIRENA);
+				if(device.getCategory() == Category.SIRENA) {
 					Actuator sirena = (Actuator) device;
 					String state = sirena.getCurrentState();
 					if(state.equals("OFF") || state.equals("Spegnimento")) {
 						sirena.controlSignal();
 					}
 				
+				}	
 			}
+		}
 	}
 }

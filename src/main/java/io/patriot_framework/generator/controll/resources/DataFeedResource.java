@@ -59,7 +59,7 @@ public class DataFeedResource extends CoapResource {
             dataFeed = mapper.readValue(body, DataFeedBean.class);
         } catch (IOException e) {
             e.printStackTrace();
-        };
+        }
         
         if(dataFeed != null) {
         	try {

@@ -15,7 +15,6 @@ public class AgenteTemperatura extends Agente
 	public AgenteTemperatura(Rilevation rilevazione, DeviceService deviceService)
 	{
 		super(rilevazione, deviceService);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
