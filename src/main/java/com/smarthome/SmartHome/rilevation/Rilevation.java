@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.util.Assert;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smarthome.SmartHome.device.Device;
 import com.smarthome.SmartHome.device.DeviceService;
 
@@ -26,7 +27,8 @@ public class Rilevation
 
     @ManyToOne
     @JoinColumn(name = "device_id")
-    private Device device;
+    @JsonIgnore
+    public Device device;
 
 
     public Rilevation(){}
@@ -96,5 +98,17 @@ public class Rilevation
     }
     public Device getDevice(){
         return device;
+    }
+
+    public String toString(){
+        org.json.JSONObject jo= new org.json.JSONObject();
+        jo.put("rilevation", new org.json.JSONObject()
+            .put("id", id)
+            .put("timestamp", timestamp.toString())
+            .put("value", value)
+            .put("valueType", valueType)
+        );
+
+        return jo.toString();
     }
 }

@@ -1,6 +1,12 @@
 package com.smarthome.SmartHome.room;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
+
+import com.smarthome.SmartHome.device.Device;
+
 import org.json.JSONObject;
 
 @Entity
@@ -22,12 +28,23 @@ public class Room
     @Column(unique=true)
     private String name;
 
+    @OneToMany(mappedBy="room")  
+    private Set<Device> devices;
+    
+
     public Room(){}
 
     public Room(Long id, String name)
     {
         this.id = id;
         this.name = name;
+    }
+
+    public Room(Long id, String name, Set<Device> devices)
+    {
+        this.id = id;
+        this.name = name;
+        this.devices=devices;
     }
 
     public Room( String name) {
@@ -50,12 +67,23 @@ public class Room
         this.name = name;
     }
 
+    public void setDevices(Set<Device> devices){
+        this.devices=devices;
+    }
+
+    public Set<Device> getDevices(){
+        return devices;
+    }
+
     @Override
     public String toString()
     {
         JSONObject jo=new JSONObject();
         
-        jo.put("room", new JSONObject().put("id", id).put("name", name));
+        jo.put("room", new JSONObject()
+            .put("id", id)
+            .put("name", name)
+            .put("devices", devices.toString()));
         
         return jo.toString();
     }

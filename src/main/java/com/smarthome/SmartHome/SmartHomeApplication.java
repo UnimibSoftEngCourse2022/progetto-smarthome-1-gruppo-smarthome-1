@@ -1,6 +1,7 @@
 package com.smarthome.SmartHome;
 
 import com.smarthome.SmartHome.device.*;
+import com.smarthome.SmartHome.rilevation.Rilevation;
 import com.smarthome.SmartHome.rilevation.RilevationRepository;
 import com.smarthome.SmartHome.room.Room;
 import com.smarthome.SmartHome.room.RoomRepository;
@@ -11,6 +12,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 @SpringBootApplication
@@ -44,10 +47,20 @@ public class SmartHomeApplication {
 			// Create devices
 			Device thermometer1 = new Device("thermometer1", Category.TERMOMETRO, r1, false);
 			Device thermometer2 = new Device("thermometer2", Category.TERMOMETRO, r2, false);
-
 			Device termosifone1 = new Device("tapparella", Category.TAPPARELLA, r2, true);
-
 			deviceRepo.saveAll(List.of(thermometer1, thermometer2, termosifone1));
+
+			//create rilevation
+
+			Calendar calendar = Calendar.getInstance();
+			java.util.Date now = calendar.getTime();
+			java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
+
+			Rilevation rr1= new Rilevation(currentTimestamp, 10.0d, "double", thermometer1);
+			Rilevation rr2= new Rilevation(currentTimestamp, 10.0d, "double", thermometer2);
+			Rilevation rr3= new Rilevation(currentTimestamp, 1.0d, "double", termosifone1);
+			rilevationRepo.saveAll(List.of(rr1,rr2,rr3));
+
 		};
 	}
 

@@ -1,7 +1,12 @@
 package com.smarthome.SmartHome.device;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.smarthome.SmartHome.rilevation.Rilevation;
 import com.smarthome.SmartHome.room.Room;
 import org.json.JSONObject;
+
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -28,7 +33,11 @@ public class Device
 
     @ManyToOne
     @JoinColumn(name = "room_id")
-    private Room room;
+    @JsonIgnore
+    public Room room;
+
+    @OneToMany(mappedBy="device")
+    private Set<Rilevation> rilevations;
 
 
     public Device(){}
@@ -48,6 +57,15 @@ public class Device
         this.category = category;
         this.room = room;
         this.deviceType = deviceType;
+    }
+
+    public Device(String label, Category category, Room room, boolean deviceType, Set<Rilevation> rilevations)
+    {
+        this.label = label;
+        this.category = category;
+        this.room = room;
+        this.deviceType = deviceType;
+        this.rilevations=rilevations;
     }
 
     public Long getId() {
@@ -90,6 +108,14 @@ public class Device
         this.deviceType = tipo;
     }
 
+    public void setRilevations(Set<Rilevation> rilevations){
+        this.rilevations=rilevations;
+    }
+
+    public Set<Rilevation> getRilevations(){
+        return rilevations;
+    }
+
     @Override
     public String toString()
     {
@@ -98,8 +124,8 @@ public class Device
             .put("id", id)
             .put("label", label)
             .put("category", category)
-            .put("room", room.toString())
-            .put("deviceType", deviceType));
+            .put("deviceType", deviceType))
+            .put("rilevations", rilevations.toString());
         return jo.toString();
     }
 }
