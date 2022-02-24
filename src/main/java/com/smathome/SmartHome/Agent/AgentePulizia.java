@@ -1,10 +1,14 @@
 package com.smathome.SmartHome.Agent;
 
-import com.smarthome.SmartHome.device.DeviceService;
-import com.smarthome.SmartHome.rilevation.Rilevation;
+
+import com.smarthome.smarthome.device.DeviceService;
+import com.smarthome.smarthome.rilevation.Rilevation;
+import com.smathome.SmartHome.Agent.Strategy.StrategyPulizia;
+import com.smathome.SmartHome.Agent.Strategy.Strategy;
 
 public class AgentePulizia extends Agente
-{
+{	
+	
 	public AgentePulizia(Rilevation rilevazione, DeviceService deviceService)
 	{
 		super(rilevazione, deviceService);
@@ -13,8 +17,7 @@ public class AgentePulizia extends Agente
 	@Override
 	public void run()
 	{
-		// TODO Auto-generated method stub
-		// crea un oggetto context passado come parametro lo strategy corretto
-		// esegue context.runStrategy(this.rilevazione)	
+		
 	}
+	
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +13,60 @@
             crossorigin="anonymous"></script>
 
     <script>
+
+        function remove(li, id) {
+            $.ajax({
+                url: "http://localhost:8080/api/v1/emergenze/" + id,
+                type: 'PUT',
+                data: '',
+
+                success: function (result) {
+                    document.getElementById("notif_ul").innerHTML = "";
+                    json = JSON.parse(result);
+                    for (let i = 0; i < json.length; i++) {
+                        document.getElementById("notif_ul").innerHTML += "<li onclick=\"remove(this," + json[i]['id'] + ")\" id=\""+ json[i]['id'] +"\">" + json[i]["code"] + " - Room: " + json[i]["room"]['name'] + "</li>";
+                    }
+                    if (document.getElementById("notif_ul").getElementsByTagName("li").length > 0)
+                        document.getElementById('notif_div').classList.add('notification');
+                    else {
+                        document.getElementById('notif_div').classList.remove('notification');
+                    }
+                    location.reload(true);
+
+                },
+                cache: false
+
+            });
+            document.getElementById("notif_ul").removeChild(li);
+            if (document.getElementById("notif_ul").getElementsByTagName("li").length > 0)
+                document.getElementById('notif_div').classList.add('notification');
+            else {
+                document.getElementById('notif_div').classList.remove('notification');
+            }
+        }
+
+
+
+        function notification(json) {
+            document.getElementById("notif_ul").innerHTML = "";
+
+            if (json.length > 0){
+                document.getElementById("notif_div").innerHTML += "<label style='color: red; font-weight: bold'>Ci snono nuove notifiche</label>";
+            }
+            else {
+                document.getElementById("notif_div").innerHTML += "Nessuna notifica";
+            }
+
+            for (let i = 0; i < json.length; i++) {
+                document.getElementById("notif_ul").innerHTML += "<li onclick=\"remove(this," + json[i]['id'] + ")\" id=\""+ json[i]['id'] +"\">" + json[i]["code"] + " - Room: " + json[i]["room"]['name'] + "</li>";
+            }
+            if (document.getElementById("notif_ul").getElementsByTagName("li").length > 0)
+                document.getElementById('notif_div').classList.add('notification');
+            else {
+                document.getElementById('notif_div').classList.remove('notification');
+                document.getElementById("notif_ul").innerHTML = "<li><a class=\"dropdown-item text-black-50\">No new events</a></li>";
+            }
+        }
 
 
         $(document).ready(function () {
@@ -69,7 +123,6 @@
 
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
                     var errorMsg = 'Ajax request failed: ' + xhr.responseText;
                     $('#content').html(errorMsg);
                 }
@@ -99,24 +152,24 @@
                             }
                         }
                         $('#sub-rooms').append(
-                            '<div class="col-md-12">'+
                             '<h3>' + rooms[i].name + '<span class="badge bg-secondary">'+temperatura+'°C</span></h3>'+
-                            '<div class="container" id="room-'+rooms[i].id+'"><div class="row">'+
-                            '</div></div></div>'+
-                            '<button name="btn-del-room" type="button" class="btn btn-outline-danger" onclick="removeRoom('+rooms[i].id+')">Elimina</button></div></div></div>'
+                            '<div class="container" id="room-'+rooms[i].id+'">'+
+                            '</div></div>'+
+                            '<button name="btn-del-room" type="button" class="btn btn-outline-danger" onclick="removeRoom('+rooms[i].id+')">Elimina</button>'
                             );
                         var nameRoom= "#room-"+rooms[i].id;
                         if(rooms[i].devices.length>0){
                             const devices= rooms[i].devices;
                             for (let j = 0; j < rooms[i].devices.length; j++) {
                                 $(nameRoom).append(
-                                    '<div class="col-sm-4">'+
+                                    '<div class="row row-cols-1 row-cols-md-3 g-3">'+
+                                    '<div class="col">'+
                                     '<div class="card">  ' +
-                                    '	<div class="card-body">' +
+                                    '<div class="card-body">' +
                                     '<h5 class="card-title">' + devices[j].label + '</h5>    ' +
                                     '<h6 class="card-subtitle mb-2 text-muted"> Category: ' + devices[j].category + '</h6>   ' +
                                     '<p> Valore:'+devices[j].rilevations[0].value+'</p>'+
-                                    '<button type="button" class="btn btn-warning" onClick="">Elimina Device</button>  </div></div></div>'
+                                    '<button type="button" class="btn btn-warning" onClick="">Elimina Device</button>  </div></div></div></div>'
                                 );
                             }
                         }
@@ -124,11 +177,11 @@
 
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
                     var errorMsg = 'Ajax request failed: ' + xhr.responseText;
                     $('#content').html(errorMsg);
                 }
             });
+
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8080/api/v1/users',
@@ -151,15 +204,16 @@
 
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
+
                     var errorMsg = 'Ajax request failed: ' + xhr.responseText;
                     $('#content').html(errorMsg);
                 }
             });
-
         });
 
-        function removeRoom(roomId){                
+        
+
+            function removeRoom(roomId){                
                 
                 $.ajax({
                     type: 'DELETE',
@@ -182,6 +236,37 @@
                 });
             }
 
+
+            $.ajax({
+                url: "http://localhost:8080/api/v1/emergenze/pending",
+                type: 'GET',
+                data: '',
+
+                success: function (result) {
+                    json = JSON.parse(JSON.stringify(result));
+                    notification(json);
+                },
+                cache: false
+            });
+
+            setInterval(function () {
+                $.ajax({
+                    url: "http://localhost:8080/api/v1/emergenze/pending",
+                    type: 'GET',
+                    data: '',
+
+                    success: function (result) {
+                        json = JSON.parse(result);
+                        notification(json);
+
+                    },
+                    cache: false
+                });
+            }, 20000);
+
+
+        
+
     </script>
 
 
@@ -203,6 +288,19 @@
             <li class="nav-item">
                 <a class="nav-link disabled">Preferences</a>
             </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="d-none d-lg-block d-xl-block" id="notif_div"></div>
+
+
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar" id="notif_ul" aria-labelledby="navbarDropdownMenuLink">
+
+                </ul>
+            </li>
+
+
         </ul>
     </div>
     
@@ -225,6 +323,8 @@
         </div>
 
     </div>
+
+    <br>
 
     <div class="container" id="rooms">
         <h2>My rooms</h2>
@@ -255,12 +355,18 @@
 
         </div>
     </div>
+
+    <br>
+
     <div class="container" id="users">
         <h2>Users</h2>
         <div class="row" id="sub-users">
 
         </div>
     </div>
+
+    <br>
+
     <div class="container" id="preferences">
         <h2>My preferences</h2>
     </div>

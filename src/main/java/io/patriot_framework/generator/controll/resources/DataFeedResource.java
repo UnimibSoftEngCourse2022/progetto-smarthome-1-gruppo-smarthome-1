@@ -59,11 +59,14 @@ public class DataFeedResource extends CoapResource {
             dataFeed = mapper.readValue(body, DataFeedBean.class);
         } catch (IOException e) {
             e.printStackTrace();
-        };
-        try {
-        sensor.addDataFeed(dataFeed.getDataFeed());
-        } catch (NullPointerException e) {
+        }
+        
+        if(dataFeed != null) {
+        	try {
+        		sensor.addDataFeed(dataFeed.getDataFeed());
+        	} catch (NullPointerException e) {
         	e.printStackTrace();
+        	}
         }
         exchange.respond(CoAP.ResponseCode.CHANGED);
     }
