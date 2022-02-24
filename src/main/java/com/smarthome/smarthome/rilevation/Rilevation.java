@@ -57,13 +57,12 @@ public class Rilevation
          {
              // da jsonData a classe rilevazione
              JSONParser parser = new JSONParser(); 
-             //JSONArray ja = jsonData.getJSONArray("values"); 
              ArrayList a = (ArrayList) jsonData.get("values");
              JSONArray jsonArray = new JSONArray(a.toArray());
-         
+       
              JSONObject json = (JSONObject) parser.parse(jsonArray.getString(0));
              JSONObject jo = (JSONObject)json.get("data");
-             Double value= Double.parseDouble(jo.get("value").toString());
+             Double val= Double.parseDouble(jo.get("value").toString());
              String label= jo.get("device").toString();
 
              Calendar calendar = Calendar.getInstance();
@@ -72,8 +71,8 @@ public class Rilevation
              
              Device d1=deviceService.getDeviceByLabel(label);
              
-             System.out.println(jsonData);
-             Rilevation r = new Rilevation(currentTimestamp, value, "double", d1);
+             System.err.println(jsonData);
+             Rilevation r = new Rilevation(currentTimestamp, val, "double", d1);
              rilevationService.saveRilevation(r);
          }
          catch (JSONException | ParseException e)

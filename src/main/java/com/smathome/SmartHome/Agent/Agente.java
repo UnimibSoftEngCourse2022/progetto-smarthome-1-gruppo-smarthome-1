@@ -8,7 +8,7 @@ public abstract class Agente
 	protected Rilevation rilevazione;
 	protected DeviceService deviceService;
 	
-	public Agente(Rilevation rilevazione, DeviceService deviceService)
+	protected Agente(Rilevation rilevazione, DeviceService deviceService)
 	{
 		this.rilevazione = rilevazione;
 		this.deviceService = deviceService;
