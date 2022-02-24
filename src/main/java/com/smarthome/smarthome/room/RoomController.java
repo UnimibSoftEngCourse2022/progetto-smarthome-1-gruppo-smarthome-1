@@ -8,12 +8,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import net.minidev.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/rooms")
-public class RoomController
-{
+public class RoomController {
     private final RoomService roomService;
 
     @Autowired
@@ -22,11 +24,21 @@ public class RoomController
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Room>> getAllRooms()
-    {
+    public ResponseEntity<List<Room>> getAllRooms() {
+
         List<Room> ld = roomService.getRooms();
 
         return new ResponseEntity<>(ld, HttpStatus.OK);
+    }
+
+    @GetMapping(path="/info", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Room>> getAllRoomInfo() {
+
+        List<Room> ld = new ArrayList<Room>();
+
+        roomService.getRooms().forEach(ld::add);
+
+        return new ResponseEntity<List<Room>>(ld, HttpStatus.OK);
     }
 
     @PostMapping
@@ -43,7 +55,6 @@ public class RoomController
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
     @DeleteMapping(path = "{roomId}")
     public ResponseEntity<Object> deleteRoom(@PathVariable("roomId") Long roomId)
     {
