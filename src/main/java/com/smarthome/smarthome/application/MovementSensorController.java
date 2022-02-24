@@ -14,10 +14,10 @@ import com.smarthome.smarthome.emergenza.Emergenza;
 import com.smarthome.smarthome.emergenza.EmergenzaRepository;
 import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.rilevation.RilevationService;
-import com.smathome.SmartHome.Agent.Agente;
-import com.smathome.SmartHome.Agent.AgenteAllarme;
-import com.smathome.SmartHome.Agent.AgenteLuce;
-import com.smathome.SmartHome.Agent.AgentiStatus;
+import com.smarthome.smarthome.agent.Agente;
+import com.smarthome.smarthome.agent.AgenteAllarme;
+import com.smarthome.smarthome.agent.AgenteLuce;
+import com.smarthome.smarthome.agent.AgentiStatus;
 
 public class MovementSensorController extends Controller
 {

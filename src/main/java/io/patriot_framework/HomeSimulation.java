@@ -16,20 +16,13 @@
 
 package io.patriot_framework;
 
-import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
 import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.dataFeed.DayTemperatureDataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
 import io.patriot_framework.generator.device.actuators.*;
 import io.patriot_framework.generator.device.impl.basicActuators.LinearActuator;
-import io.patriot_framework.generator.device.impl.basicDevices.Thermometer;
 import io.patriot_framework.generator.device.passive.actuators.Actuator;
-import io.patriot_framework.generator.device.passive.sensors.SimpleSensor;
-import io.patriot_framework.generator.network.NetworkAdapter;
-import io.patriot_framework.generator.network.Rest;
-import io.patriot_framework.generator.network.wrappers.JSONWrapper;
 
 public class HomeSimulation {
 
@@ -56,18 +49,14 @@ public class HomeSimulation {
             luci[i].startCoapController();
         }
 
-        //actuator.controlSignal();
         Actuator[] condizionatori = new Actuator[5];
 
-        //ActuatorResource acc = new ActuatorResource(actuator);
-        //acc.registerDevice();
         for(int i = 0; i < condizionatori.length; i++)
         {
             condizionatori[i] = new Condizionatore("condizionatore" + (i + 1));
             condizionatori[i].startCoapController();
         }
 
-        //actuator.setCoapController(acc);
         actuator.startCoapController();
         Actuator[] termosifoni = new Actuator[6];
 

@@ -18,12 +18,12 @@ public interface RilevationRepository extends JpaRepository<Rilevation, Long>
     //@Query("SELECT * FROM rilevation r JOIN device d ON r. = d. WHERE d.id=")
     Optional<List<Rilevation>> findRilevationByDevice(Device device);
 
-    //@Query("")
-    //void saveRilevation(Rilevation rilevation);
-
     @Query(value="COUNT(*) FROM Rilevation", nativeQuery=true)
     int countRilevation();
 
-    @Query(value="COUNT(*) FROM Rilevation r WHERE r.id=?1", nativeQuery=true)
+    @Query(value="COUNT(*) FROM rilevation r WHERE r.id=?1", nativeQuery=true)
     int countRilevationById(long id);
+
+    @Query(value="SELECT * FROM rilevation join device ON device_id = device.id WHERE device.category='TERMOMETRO' ORDER BY rilevation.timestamp DESC LIMIT 1", nativeQuery = true)
+    Optional<Rilevation> findLastTemperature();
 }

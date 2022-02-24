@@ -35,4 +35,11 @@ public class RoomService
 
         roomRepository.deleteById(roomId);
     }
+
+    public List<Room> getRoomsInfo(){
+        List<Room> roomOptional=  roomRepository.findRoomInfo();
+
+       return  roomOptional;
+        
+    }
 }

@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.controll;
 
+import com.smarthome.smarthome.device.Actuator;
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.network.CoapEndpoint;
 import org.eclipse.californium.core.network.EndpointManager;
@@ -25,6 +26,8 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * All Devices should be handled by one CoapServer to be able to guarantee consistent Resource tree.
@@ -45,7 +48,9 @@ public class CoapDeviceControlServer extends CoapServer {
             try {
                 singleInstance = new CoapDeviceControlServer();
             } catch (SocketException e) {
-                e.printStackTrace();
+                Logger logger = Logger.getLogger(Actuator.class.getName());
+
+                logger.log(Level.INFO, "Exception: " + e.getMessage());
             }
         }
 

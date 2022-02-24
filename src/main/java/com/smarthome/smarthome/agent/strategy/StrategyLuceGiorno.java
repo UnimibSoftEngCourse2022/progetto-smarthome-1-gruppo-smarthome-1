@@ -1,4 +1,4 @@
-package com.smathome.SmartHome.Agent.Strategy;
+package com.smarthome.smarthome.agent.strategy;
 
 import java.util.List;
 

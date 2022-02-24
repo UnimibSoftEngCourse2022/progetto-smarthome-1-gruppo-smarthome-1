@@ -1,5 +1,6 @@
 package com.smarthome.smarthome;
 
+import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.device.*;
 import com.smarthome.smarthome.emergenza.EmergencyCode;
 import com.smarthome.smarthome.emergenza.Emergenza;
@@ -15,7 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @SpringBootApplication
@@ -49,16 +50,20 @@ public class SmartHomeApplication {
 			// Create devices
 			Device thermometer1 = new Device("thermometer1", Category.TERMOMETRO, r1, false);
 			Device thermometer2 = new Device("thermometer2", Category.TERMOMETRO, r2, false);
-
 			Device termosifone1 = new Device("tapparella", Category.TAPPARELLA, r2, true);
-
 			deviceRepo.saveAll(List.of(thermometer1, thermometer2, termosifone1));
 
+			//create rilevation
 
-			//Emergenze demo
-			Date date = new Date();
-			Emergenza e1 = new Emergenza(EmergencyCode.INTRUSIONE, new Timestamp(date.getTime()), r1);
-			emergencyRepo.save(e1);
+			Calendar calendar = Calendar.getInstance();
+			java.util.Date now = calendar.getTime();
+			java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
+
+			Rilevation rr1= new Rilevation(currentTimestamp, 10.0d, "double", thermometer1);
+			Rilevation rr2= new Rilevation(currentTimestamp, 10.0d, "double", thermometer2);
+			Rilevation rr3= new Rilevation(currentTimestamp, 1.0d, "double", termosifone1);
+			rilevationRepo.saveAll(List.of(rr1,rr2,rr3));
+
 		};
 	}
 

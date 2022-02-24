@@ -18,6 +18,7 @@ package io.patriot_framework.generator.network;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.smarthome.smarthome.device.Actuator;
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.network.wrappers.DataWrapper;
 import org.apache.http.client.HttpClient;
@@ -27,6 +28,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Rest implements NetworkAdapter {
 
@@ -53,7 +56,9 @@ public class Rest implements NetworkAdapter {
             httpClient.execute(request);
             
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(Actuator.class.getName());
+
+            logger.log(Level.INFO, "Exception: " + e.getMessage());
         }
     }
 

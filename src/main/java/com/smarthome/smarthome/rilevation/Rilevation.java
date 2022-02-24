@@ -2,9 +2,12 @@ package com.smarthome.smarthome.rilevation;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.*;
 
+import com.smarthome.smarthome.device.Actuator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
@@ -12,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.util.Assert;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smarthome.smarthome.device.Device;
 import com.smarthome.smarthome.device.DeviceService;
 
@@ -26,7 +30,8 @@ public class Rilevation
 
     @ManyToOne
     @JoinColumn(name = "device_id")
-    private Device device;
+    @JsonIgnore
+    public Device device;
 
 
     public Rilevation(){}
@@ -59,7 +64,7 @@ public class Rilevation
              JSONParser parser = new JSONParser(); 
              ArrayList a = (ArrayList) jsonData.get("values");
              JSONArray jsonArray = new JSONArray(a.toArray());
-       
+
              JSONObject json = (JSONObject) parser.parse(jsonArray.getString(0));
              JSONObject jo = (JSONObject)json.get("data");
              Double val= Double.parseDouble(jo.get("value").toString());
@@ -71,14 +76,16 @@ public class Rilevation
              
              Device d1=deviceService.getDeviceByLabel(label);
              
-             System.out.println(jsonData);
+             //System.out.println(jsonData);
              Rilevation r = new Rilevation(currentTimestamp, val, "double", d1);
              rilevationService.saveRilevation(r);
          }
          catch (JSONException | ParseException e)
          {
-             e.printStackTrace();
-         }  
+             Logger logger = Logger.getLogger(Actuator.class.getName());
+
+             logger.log(Level.INFO, "Exception: " + e.getMessage());
+         }
     }
 
     public Long getId(){
@@ -95,5 +102,17 @@ public class Rilevation
     }
     public Device getDevice(){
         return device;
+    }
+
+    public String toString(){
+        org.json.JSONObject jo= new org.json.JSONObject();
+        jo.put("rilevation", new org.json.JSONObject()
+            .put("id", id)
+            .put("timestamp", timestamp.toString())
+            .put("value", value)
+            .put("valueType", valueType)
+        );
+
+        return jo.toString();
     }
 }

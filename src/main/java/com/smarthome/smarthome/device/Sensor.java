@@ -5,6 +5,8 @@ import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 
 import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Sensor extends Device
 {
@@ -32,7 +34,9 @@ public class Sensor extends Device
         }
         catch (Exception e)
         {
-            System.out.println("Exception: " + e);
+            Logger logger = Logger.getLogger(Sensor.class.getName());
+
+            logger.log(Level.WARNING, "Exception: " + e);
         }
 
         return value;

@@ -18,6 +18,7 @@ package io.patriot_framework.generator.controll.resources;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smarthome.smarthome.device.Actuator;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.dataFeed.DataFeedBean;
 import io.patriot_framework.generator.device.passive.sensors.Sensor;
@@ -27,6 +28,8 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class DataFeedResource extends CoapResource {
@@ -58,14 +61,18 @@ public class DataFeedResource extends CoapResource {
         try {
             dataFeed = mapper.readValue(body, DataFeedBean.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(Actuator.class.getName());
+
+            logger.log(Level.INFO, "Exception: " + e.getMessage());
         }
         
         if(dataFeed != null) {
         	try {
         		sensor.addDataFeed(dataFeed.getDataFeed());
         	} catch (NullPointerException e) {
-        	e.printStackTrace();
+                Logger logger = Logger.getLogger(Actuator.class.getName());
+
+                logger.log(Level.INFO, "Exception: " + e.getMessage());
         	}
         }
         exchange.respond(CoAP.ResponseCode.CHANGED);
