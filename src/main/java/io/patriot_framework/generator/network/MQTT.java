@@ -17,6 +17,7 @@
 package io.patriot_framework.generator.network;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.smarthome.smarthome.device.Actuator;
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.network.wrappers.DataWrapper;
 import org.eclipse.paho.client.mqttv3.IMqttAsyncClient;
@@ -26,6 +27,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MQTT implements NetworkAdapter {
 
@@ -47,7 +50,9 @@ public class MQTT implements NetworkAdapter {
             options.setConnectionTimeout(10);
             client.connect(options);
         } catch (MqttException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(Actuator.class.getName());
+
+            logger.log(Level.INFO, "Exception: " + e.getMessage());
         }
     }
 

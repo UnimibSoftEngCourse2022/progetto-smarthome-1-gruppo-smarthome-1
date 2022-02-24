@@ -18,9 +18,6 @@ public interface RilevationRepository extends JpaRepository<Rilevation, Long>
     //@Query("SELECT * FROM rilevation r JOIN device d ON r. = d. WHERE d.id=")
     Optional<List<Rilevation>> findRilevationByDevice(Device device);
 
-    //@Query("")
-    //void saveRilevation(Rilevation rilevation);
-
     @Query(value="COUNT(*) FROM Rilevation", nativeQuery=true)
     int countRilevation();
 

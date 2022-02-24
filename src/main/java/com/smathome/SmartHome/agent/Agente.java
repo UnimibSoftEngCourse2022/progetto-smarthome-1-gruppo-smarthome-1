@@ -1,4 +1,4 @@
-package com.smathome.SmartHome.Agent;
+package com.smathome.SmartHome.agent;
 
 import com.smarthome.smarthome.device.DeviceService;
 import com.smarthome.smarthome.rilevation.Rilevation;

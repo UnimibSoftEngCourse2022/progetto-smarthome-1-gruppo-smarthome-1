@@ -1,12 +1,12 @@
-package com.smathome.SmartHome.Agent;
+package com.smathome.SmartHome.agent;
 
 import com.smarthome.smarthome.device.Category;
 import com.smarthome.smarthome.device.Device;
 import com.smarthome.smarthome.device.DeviceService;
 import com.smarthome.smarthome.rilevation.Rilevation;
-import com.smathome.SmartHome.Agent.Strategy.Strategy;
-import com.smathome.SmartHome.Agent.Strategy.StrategyGas;
-import com.smathome.SmartHome.Agent.Strategy.StrategySmoke;
+import com.smathome.SmartHome.agent.strategy.Strategy;
+import com.smathome.SmartHome.agent.strategy.StrategyGas;
+import com.smathome.SmartHome.agent.strategy.StrategySmoke;
 
 public class AgentePericoli extends Agente
 {

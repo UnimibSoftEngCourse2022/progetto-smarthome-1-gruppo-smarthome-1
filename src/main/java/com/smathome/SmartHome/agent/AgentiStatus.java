@@ -1,4 +1,4 @@
-package com.smathome.SmartHome.Agent;
+package com.smathome.SmartHome.agent;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

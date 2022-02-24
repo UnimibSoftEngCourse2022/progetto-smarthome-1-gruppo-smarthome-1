@@ -14,9 +14,9 @@ import com.smarthome.smarthome.emergenza.Emergenza;
 import com.smarthome.smarthome.emergenza.EmergenzaRepository;
 import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.rilevation.RilevationService;
-import com.smathome.SmartHome.Agent.Agente;
-import com.smathome.SmartHome.Agent.AgentePericoli;
-import com.smathome.SmartHome.Agent.AgentiStatus;
+import com.smathome.SmartHome.agent.Agente;
+import com.smathome.SmartHome.agent.AgentePericoli;
+import com.smathome.SmartHome.agent.AgentiStatus;
 
 public class SmokeSensorController extends Controller
 {

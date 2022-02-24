@@ -2,9 +2,12 @@ package com.smarthome.smarthome.rilevation;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.*;
 
+import com.smarthome.smarthome.device.Actuator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
@@ -59,7 +62,7 @@ public class Rilevation
              JSONParser parser = new JSONParser(); 
              ArrayList a = (ArrayList) jsonData.get("values");
              JSONArray jsonArray = new JSONArray(a.toArray());
-       
+
              JSONObject json = (JSONObject) parser.parse(jsonArray.getString(0));
              JSONObject jo = (JSONObject)json.get("data");
              Double val= Double.parseDouble(jo.get("value").toString());
@@ -71,14 +74,16 @@ public class Rilevation
              
              Device d1=deviceService.getDeviceByLabel(label);
              
-             System.out.println(jsonData);
+             //System.out.println(jsonData);
              Rilevation r = new Rilevation(currentTimestamp, val, "double", d1);
              rilevationService.saveRilevation(r);
          }
          catch (JSONException | ParseException e)
          {
-             e.printStackTrace();
-         }  
+             Logger logger = Logger.getLogger(Actuator.class.getName());
+
+             logger.log(Level.INFO, "Exception: " + e.getMessage());
+         }
     }
 
     public Long getId(){

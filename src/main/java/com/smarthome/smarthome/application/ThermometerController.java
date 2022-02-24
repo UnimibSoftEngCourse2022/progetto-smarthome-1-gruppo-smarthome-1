@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.smarthome.smarthome.device.*;
 import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.rilevation.RilevationService;
-import com.smathome.SmartHome.Agent.Agente;
-import com.smathome.SmartHome.Agent.AgenteTemperatura;
-import com.smathome.SmartHome.Agent.AgentiStatus;
+import com.smathome.SmartHome.agent.Agente;
+import com.smathome.SmartHome.agent.AgenteTemperatura;
+import com.smathome.SmartHome.agent.AgentiStatus;
 
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;

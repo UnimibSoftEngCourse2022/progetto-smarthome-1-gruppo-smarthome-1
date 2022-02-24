@@ -19,6 +19,8 @@ package io.patriot_framework.generator.dataFeed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.security.SecureRandom;
+
 /**
  * SSJ uses RandomStreams to generate uniform variates (real numbers) over the interval (0,1).
  * Seed is array of 6 integers, that provides initial state for RandomStreams. It is starting point for computing.
@@ -41,8 +43,11 @@ public class Seed {
         return seed;
     }
 
-    private static long random(long limit) {
-        return 1 + (long) (Math.random() * (limit - 1));
+    private static long random(long limit)
+    {
+        SecureRandom random = new SecureRandom();
+
+        return 1 + (long) (random.nextFloat() * (limit - 1));
     }
 
 }

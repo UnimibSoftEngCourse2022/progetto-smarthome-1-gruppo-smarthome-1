@@ -1,12 +1,12 @@
-package com.smathome.SmartHome.Agent;
+package com.smathome.SmartHome.agent;
 
 import java.util.Calendar;
 
 import com.smarthome.smarthome.device.DeviceService;
 import com.smarthome.smarthome.rilevation.Rilevation;
-import com.smathome.SmartHome.Agent.Strategy.Strategy;
-import com.smathome.SmartHome.Agent.Strategy.StrategyTemperaturaEstate;
-import com.smathome.SmartHome.Agent.Strategy.StrategyTemperaturaInverno;
+import com.smathome.SmartHome.agent.strategy.Strategy;
+import com.smathome.SmartHome.agent.strategy.StrategyTemperaturaEstate;
+import com.smathome.SmartHome.agent.strategy.StrategyTemperaturaInverno;
 
 public class AgenteTemperatura extends Agente
 {

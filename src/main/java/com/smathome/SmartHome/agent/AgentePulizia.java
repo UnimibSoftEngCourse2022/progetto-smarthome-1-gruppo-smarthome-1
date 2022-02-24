@@ -1,4 +1,4 @@
-package com.smathome.SmartHome.Agent;
+package com.smathome.SmartHome.agent;
 
 
 
@@ -10,12 +10,12 @@ public class AgentePulizia extends TimerTask
 {	
 	private Actuator puliziaBot;
 	private long delay;
-	private long period;
+	private long interval;
 	
-	public AgentePulizia(Actuator puliziaBot, long delay, long period) {
+	public AgentePulizia(Actuator puliziaBot, long delay, long interval) {
 		this.puliziaBot = puliziaBot;
 		this.delay = delay;
-		this.period = period;
+		this.interval = interval;
 	}
 	@Override
 	public void run()
@@ -29,8 +29,8 @@ public class AgentePulizia extends TimerTask
 		return this.delay;
 	}
 	
-	public long getPeriod(){
-		return this.period;
+	public long getInterval(){
+		return this.interval;
 	}
 	
 }

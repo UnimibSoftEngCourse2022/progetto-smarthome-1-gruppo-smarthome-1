@@ -1,4 +1,4 @@
-package com.smathome.SmartHome.Agent.Strategy;
+package com.smathome.SmartHome.agent.strategy;
 
 import java.util.List;
 
@@ -7,31 +7,29 @@ import com.smarthome.smarthome.device.Category;
 import com.smarthome.smarthome.device.Device;
 import com.smarthome.smarthome.device.DeviceService;
 import com.smarthome.smarthome.rilevation.Rilevation;
-import com.smathome.SmartHome.Agent.AgenteTemperatura;
+import com.smathome.SmartHome.agent.AgentiStatus;
 
-public class StrategyTemperaturaEstate implements Strategy
+public class StrategyGas implements Strategy
 {
 	@Override
 	public void execute(Rilevation rilevazione, DeviceService deviceService)
 	{
-		double target = AgenteTemperatura.getTemperatura();
-
-		if(rilevazione.getValue() > target - 1)
+		boolean signal = rilevazione.getValue() == 1.0;
+		if(signal)
 		{
+			AgentiStatus.setTemperatura(!signal);
 			Device sensor = rilevazione.getDevice();
 			List<Device> devices = deviceService.getDeviceByRoom(sensor.getRoom());
 
 			for(Device device : devices)
-			{
-				if(device.getCategory() == Category.CONDIZIONATORE)
+				if(device.getCategory() == Category.FINESTRA)
 				{
-					Actuator condizionatore = (Actuator) device;
-					String state = condizionatore.getCurrentState();
+					Actuator finestra = (Actuator) device;
+					String state = finestra.getCurrentState();
 
-					if(state.equals("OFF") || state.equals("Spegnimento"))
-						condizionatore.controlSignal();
+					if(state.equals("Chiusa") || state.equals("Chiusura"))
+						finestra.controlSignal();
 				}
-			}
 		}
 	}
 }

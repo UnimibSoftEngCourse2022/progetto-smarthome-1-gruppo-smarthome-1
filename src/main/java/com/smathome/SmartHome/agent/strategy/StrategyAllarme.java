@@ -1,4 +1,4 @@
-package com.smathome.SmartHome.Agent.Strategy;
+package com.smathome.SmartHome.agent.strategy;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.smarthome.smarthome.device.Category;
 import com.smarthome.smarthome.device.Device;
 import com.smarthome.smarthome.device.DeviceService;
 import com.smarthome.smarthome.rilevation.Rilevation;
-import com.smathome.SmartHome.Agent.AgentiStatus;
+import com.smathome.SmartHome.agent.AgentiStatus;
 
 public class StrategyAllarme implements Strategy
 {

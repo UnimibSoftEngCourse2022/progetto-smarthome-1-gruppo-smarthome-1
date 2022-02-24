@@ -6,6 +6,8 @@ import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 
 import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Actuator extends Device
 {
@@ -30,7 +32,9 @@ public class Actuator extends Device
         }
         catch (Exception e)
         {
-            System.out.println("Exception: " + e);
+            Logger logger = Logger.getLogger(Actuator.class.getName());
+
+            logger.log(Level.WARNING, "Exception: " + e);
         }
     }
 
@@ -48,7 +52,9 @@ public class Actuator extends Device
         }
         catch (Exception e)
         {
-            System.out.println("Exception: " + e);
+            Logger logger = Logger.getLogger(Actuator.class.getName());
+
+            logger.log(Level.WARNING, "Exception: " + e);
         }
 
         return value;
