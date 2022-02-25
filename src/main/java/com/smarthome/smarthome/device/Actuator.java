@@ -34,7 +34,7 @@ public class Actuator extends Device
         {
             Logger logger = Logger.getLogger(Actuator.class.getName());
 
-            logger.log(Level.WARNING, "Exception: " + e);
+            logger.log(Level.WARNING, e.getMessage());
         }
     }
 
@@ -54,7 +54,7 @@ public class Actuator extends Device
         {
             Logger logger = Logger.getLogger(Actuator.class.getName());
 
-            logger.log(Level.WARNING, "Exception: " + e);
+            logger.log(Level.WARNING, e.getMessage());
         }
 
         return value;

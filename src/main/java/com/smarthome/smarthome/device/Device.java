@@ -8,7 +8,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.json.JSONObject;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;

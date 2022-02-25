@@ -79,8 +79,7 @@ public class Rilevation
              java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
              
              Device d1=deviceService.getDeviceByLabel(label);
-             
-             //System.out.println(jsonData);
+
              Rilevation r = new Rilevation(currentTimestamp, val, "double", d1);
              rilevationService.saveRilevation(r);
          }
@@ -88,7 +87,7 @@ public class Rilevation
          {
              Logger logger = Logger.getLogger(Actuator.class.getName());
 
-             logger.log(Level.INFO, "Exception: " + e.getMessage());
+             logger.log(Level.INFO, e.getMessage());
          }
     }
 
