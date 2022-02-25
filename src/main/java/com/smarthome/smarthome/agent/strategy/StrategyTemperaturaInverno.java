@@ -18,7 +18,8 @@ public class StrategyTemperaturaInverno implements Strategy
 		double temperatura = rilevazione.getValue();
 		Device sensor = rilevazione.getDevice();
 		List<Device> devices = deviceService.getDeviceByRoom(sensor.getRoom());
-		for(Device device : devices) {
+		for(Device device : devices)
+		{
 				if(device.getCategory() == Category.TERMOSIFONE)
 				{
 					Actuator termosifone = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());

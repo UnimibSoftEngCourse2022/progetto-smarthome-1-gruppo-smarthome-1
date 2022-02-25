@@ -12,9 +12,6 @@ public class StrategySmoke implements Strategy
 		boolean signal = rilevazione.getValue() == 1.0;
 
 		if(signal)
-		{
 			AgentiStatus.setTemperatura(!signal);
-		}
 	}
-
 }

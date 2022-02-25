@@ -22,19 +22,9 @@ public class RoomController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Room>> getAllRooms() {
-
+    public ResponseEntity<List<Room>> getAllRooms()
+    {
         List<Room> ld = roomService.getRooms();
-
-        return new ResponseEntity<>(ld, HttpStatus.OK);
-    }
-
-    @GetMapping(path="/info", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Room>> getAllRoomInfo() {
-
-        List<Room> ld = new ArrayList<>();
-
-        roomService.getRooms().forEach(ld::add);
 
         return new ResponseEntity<>(ld, HttpStatus.OK);
     }

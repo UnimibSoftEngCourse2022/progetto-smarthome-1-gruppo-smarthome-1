@@ -12,17 +12,18 @@ public class AgentePulizia extends TimerTask
 	private long delay;
 	private long interval;
 	
-	public AgentePulizia(Actuator puliziaBot, long delay, long interval) {
+	public AgentePulizia(Actuator puliziaBot, long delay, long interval)
+	{
 		this.puliziaBot = puliziaBot;
 		this.delay = delay;
 		this.interval = interval;
 	}
+
 	@Override
 	public void run()
 	{
-		if(puliziaBot.getCurrentState().equals("In Carica")) {
+		if(puliziaBot.getCurrentState().equals("In Carica"))
 			puliziaBot.controlSignal();
-		}
 	}
 	
 	public long getDelay(){

@@ -10,7 +10,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/emergenze")
-public class EmergenzaController {
+public class EmergenzaController
+{
     private final EmergenzaService emergenzaService;
 
     @Autowired
@@ -25,22 +26,20 @@ public class EmergenzaController {
     }
 
     @GetMapping(path = "pending", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Emergenza>> getPendingEmergenze(){
-
+    public ResponseEntity<List<Emergenza>> getPendingEmergenze()
+    {
         List<Emergenza> le = emergenzaService.getPendingEmergenze();
 
         return new ResponseEntity<>(le, HttpStatus.OK);
     }
 
     @PutMapping(path = "{emergenzaId}")
-    public ResponseEntity<List<Emergenza>> updateEmergenza(@PathVariable("emergenzaId") Long emergenzaId){
+    public ResponseEntity<List<Emergenza>> updateEmergenza(@PathVariable("emergenzaId") Long emergenzaId)
+    {
         emergenzaService.updateEmergenzaStatus(emergenzaId, true);
 
         List<Emergenza> le = emergenzaService.getPendingEmergenze();
 
         return new ResponseEntity<>(le, HttpStatus.OK);
     }
-
-
-
 }

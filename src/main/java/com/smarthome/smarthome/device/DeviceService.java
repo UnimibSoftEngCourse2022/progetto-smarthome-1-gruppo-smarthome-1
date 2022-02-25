@@ -41,7 +41,8 @@ public class DeviceService
         return deviceRepository.findAll();
     }
 
-    public void deleteDevice(Long deviceId) {
+    public void deleteDevice(Long deviceId)
+    {
         boolean exists = deviceRepository.existsById(deviceId);
 
         if (!exists)
