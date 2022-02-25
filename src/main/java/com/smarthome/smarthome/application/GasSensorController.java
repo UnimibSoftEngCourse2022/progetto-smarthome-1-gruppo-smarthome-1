@@ -51,8 +51,6 @@ public class GasSensorController extends Controller
     	    emergenzaRepo.save(e);
     	}
     }
-    
-    
 }
 
 
