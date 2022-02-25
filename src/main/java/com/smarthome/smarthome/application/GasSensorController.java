@@ -18,7 +18,11 @@ import com.smarthome.smarthome.room.RoomService;
 import com.smarthome.smarthome.agent.Agente;
 import com.smarthome.smarthome.agent.AgentePericoli;
 import com.smarthome.smarthome.agent.AgentiStatus;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping()
 public class GasSensorController extends Controller
 {
 	private EmergenzaRepository emergenzaRepo;
@@ -34,6 +38,8 @@ public class GasSensorController extends Controller
     {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
 
+        System.out.println(rilevation.toString());
+
     	if(AgentiStatus.getPericoli() && rilevation.getValue() == 1.0)
         {	
     		Agente agente = new AgentePericoli(rilevation, deviceService);
@@ -43,7 +49,7 @@ public class GasSensorController extends Controller
             java.util.Date now = calendar.getTime();
             java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
             Device sensor = rilevation.getDevice();
-    	    Emergenza e = new Emergenza(EmergencyCode.INTRUSIONE, currentTimestamp, sensor.getRoom());
+    	    Emergenza e = new Emergenza(EmergencyCode.GAS, currentTimestamp, sensor.getRoom());
     	    emergenzaRepo.save(e);
     	}
     }

@@ -3,6 +3,7 @@ package com.smarthome.smarthome.device;
 import com.smarthome.smarthome.room.Room;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
+import org.json.JSONObject;
 
 import java.net.URI;
 import java.util.logging.Level;
@@ -36,9 +37,15 @@ public class Sensor extends Device
         {
             Logger logger = Logger.getLogger(Sensor.class.getName());
 
-            logger.log(Level.WARNING, "Exception: " + e);
+            logger.log(Level.WARNING, e.getMessage());
         }
 
         return value;
+    }
+
+    @Override
+    public String toString()
+    {
+        return super.toString();
     }
 }

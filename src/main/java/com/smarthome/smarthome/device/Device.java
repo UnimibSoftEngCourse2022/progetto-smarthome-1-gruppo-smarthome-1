@@ -3,9 +3,12 @@ package com.smarthome.smarthome.device;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.room.Room;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.json.JSONObject;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -31,12 +34,14 @@ public class Device
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "room_id")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.NO_ACTION)    
     public Room room;
 
     @OneToMany(mappedBy="device")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Set<Rilevation> rilevations;
 
 
@@ -49,6 +54,7 @@ public class Device
         this.category = category;
         this.room = room;
         this.deviceType = deviceType;
+        this.rilevations = new HashSet<>();
     }
 
     public Device(String label, Category category, Room room, boolean deviceType)
@@ -57,6 +63,7 @@ public class Device
         this.category = category;
         this.room = room;
         this.deviceType = deviceType;
+        this.rilevations = new HashSet<>();
     }
 
     public Device(String label, Category category, Room room, boolean deviceType, Set<Rilevation> rilevations)
@@ -124,8 +131,13 @@ public class Device
             .put("id", id)
             .put("label", label)
             .put("category", category)
-            .put("deviceType", deviceType))
-            .put("rilevations", rilevations.toString());
+            .put("deviceType", deviceType));
+
+        if(rilevations != null)
+            jo.put("rilevations", rilevations.toString());
+
+
+
         return jo.toString();
     }
 }

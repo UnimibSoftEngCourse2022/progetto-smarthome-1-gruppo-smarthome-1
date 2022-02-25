@@ -24,8 +24,10 @@ public class BinaryDataFeed implements DataFeed {
 			result = 0.0;
 		}
 		lastValue = result;
-		
-		return new Data(Double.class, result);
+
+		Data d = new Data(Double.class, result);
+		d.setLabel(label);
+		return d;
 	}
 
 	@Override

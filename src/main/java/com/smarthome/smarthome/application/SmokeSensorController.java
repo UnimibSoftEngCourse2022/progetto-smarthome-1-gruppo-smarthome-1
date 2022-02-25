@@ -17,7 +17,11 @@ import com.smarthome.smarthome.rilevation.RilevationService;
 import com.smarthome.smarthome.agent.Agente;
 import com.smarthome.smarthome.agent.AgentePericoli;
 import com.smarthome.smarthome.agent.AgentiStatus;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping()
 public class SmokeSensorController extends Controller
 {
     private EmergenzaRepository emergenzaRepo;
@@ -33,6 +37,8 @@ public class SmokeSensorController extends Controller
     public void receiveSensorData(@RequestBody JSONObject jsonData)
     {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
+
+        System.out.println(rilevation.toString());
 
     	if(AgentiStatus.getPericoli() && rilevation.getValue() == 1.0)
         {	

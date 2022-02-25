@@ -40,5 +40,18 @@ public class DeviceService
     public List<Device> getAllDevices(){
         return deviceRepository.findAll();
     }
+
+    public void deleteDevice(Long deviceId) {
+        boolean exists = deviceRepository.existsById(deviceId);
+
+        if (!exists)
+            throw new IllegalStateException("Impossibile eliminare il device. Il device non esiste");
+
+        deviceRepository.deleteById(deviceId);
+    }
+
+    public Device getDeviceById(Long deviceId){
+        return deviceRepository.getById(deviceId);
+    }
 }
 

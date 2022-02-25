@@ -38,15 +38,17 @@ public class ThermometerController extends Controller
     }
     
     @PostMapping(path= "/set-temperature", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Rilevation> getLastTemperature() {
+    public ResponseEntity<String> setTemperature(@RequestBody JSONObject jsonData) {
 
         if(AgentiStatus.getTemperatura())
         {
-            
+            Integer temperatura= (Integer) jsonData.get("temperature");
+            Double value = Double.valueOf(temperatura);
+            AgenteTemperatura.setTemperatura(value);
         }
-        Rilevation r = rilevationService.getLastTemperaturRilevation();
+        
 
-        return new ResponseEntity(r, HttpStatus.OK);
+        return new ResponseEntity("Temperatura impostata con successo", HttpStatus.OK);
     }
     
     

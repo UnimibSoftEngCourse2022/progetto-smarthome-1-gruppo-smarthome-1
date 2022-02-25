@@ -37,9 +37,6 @@ public class RoomService
     }
 
     public List<Room> getRoomsInfo(){
-        List<Room> roomOptional=  roomRepository.findRoomInfo();
-
-       return  roomOptional;
-        
+        return roomRepository.findRoomInfo();
     }
 }

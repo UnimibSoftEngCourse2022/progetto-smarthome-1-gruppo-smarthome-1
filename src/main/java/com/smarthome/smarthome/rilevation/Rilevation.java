@@ -8,6 +8,9 @@ import java.util.logging.Logger;
 import javax.persistence.*;
 
 import com.smarthome.smarthome.device.Actuator;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
@@ -23,14 +26,25 @@ import com.smarthome.smarthome.device.DeviceService;
 @Table(name = "rilevation")
 public class Rilevation
 {
-    private @GeneratedValue @Id Long id;
+    @Id
+    @SequenceGenerator(
+            name="rilevation_sequence",
+            sequenceName="rilevation_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "rilevation_sequence"
+    )
+    private Long id;
     private Double value;
     private String valueType;
     private Timestamp timestamp;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "device_id")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     public Device device;
 
 
@@ -75,16 +89,20 @@ public class Rilevation
              java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
              
              Device d1=deviceService.getDeviceByLabel(label);
-             
-             //System.out.println(jsonData);
-             Rilevation r = new Rilevation(currentTimestamp, val, "double", d1);
-             rilevationService.saveRilevation(r);
+
+             Rilevation r = rilevationService.saveRilevation(new Rilevation(currentTimestamp, val, "double", d1));
+
+             this.id = r.getId();
+             this.timestamp=r.getTimestamp();
+             this.value=r.getValue();
+             this.valueType=r.getValueType();
+             this.device=r.getDevice();
          }
          catch (JSONException | ParseException e)
          {
              Logger logger = Logger.getLogger(Actuator.class.getName());
 
-             logger.log(Level.INFO, "Exception: " + e.getMessage());
+             logger.log(Level.INFO, e.getMessage());
          }
     }
 

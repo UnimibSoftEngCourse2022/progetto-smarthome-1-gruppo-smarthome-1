@@ -5,3 +5,11 @@
     margin-bottom: 10px;
     
   }
+
+.nav{
+  position: relative;
+}
+
+#btn-set-alarm{
+  margin: 100px;
+}
