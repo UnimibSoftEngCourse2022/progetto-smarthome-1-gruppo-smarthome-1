@@ -49,5 +49,9 @@ public class DeviceService
 
         deviceRepository.deleteById(deviceId);
     }
+
+    public Device getDeviceById(Long deviceId){
+        return deviceRepository.getById(deviceId);
+    }
 }
 

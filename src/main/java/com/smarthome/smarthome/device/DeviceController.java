@@ -3,10 +3,7 @@ package com.smarthome.smarthome.device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/device")
@@ -17,6 +14,21 @@ public class DeviceController {
     @Autowired
     public DeviceController(DeviceService deviceService){
         this.deviceService = deviceService;
+    }
+
+    @GetMapping(path="{deviceId}")
+    public ResponseEntity<String> getDeviceValue(@PathVariable("deviceId") Long deviceId){
+
+        Device d = deviceService.getDeviceById(deviceId);
+        if (d.isDeviceType()) {
+            Actuator a = new Actuator(d.getId(), d.getLabel(), d.getCategory(), d.getRoom());
+            return new ResponseEntity<>(a.getCurrentState(), HttpStatus.OK);
+        }
+        else{
+            Sensor s = new Sensor(d.getId(), d.getLabel(), d.getCategory(), d.getRoom());
+            return new ResponseEntity<>(String.valueOf(s.getDataFeed()), HttpStatus.OK);
+        }
+
     }
 
     @DeleteMapping(path="{deviceId}")

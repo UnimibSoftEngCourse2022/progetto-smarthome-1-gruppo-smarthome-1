@@ -136,6 +136,8 @@ public class Device
         if(rilevations != null)
             jo.put("rilevations", rilevations.toString());
 
+
+
         return jo.toString();
     }
 }

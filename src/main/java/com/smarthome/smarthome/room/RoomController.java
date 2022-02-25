@@ -1,6 +1,8 @@
 package com.smarthome.smarthome.room;
 
 
+import com.smarthome.smarthome.device.Actuator;
+import com.smarthome.smarthome.device.Device;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "api/v1/rooms")
