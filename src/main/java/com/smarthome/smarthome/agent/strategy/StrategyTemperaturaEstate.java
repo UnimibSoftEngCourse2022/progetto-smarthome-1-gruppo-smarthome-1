@@ -24,10 +24,9 @@ public class StrategyTemperaturaEstate implements Strategy
 				{
 					Actuator termosifone = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());
 					String state = termosifone.getCurrentState();
-
-					if((state.equals("OFF") || state.equals("Spegnimento")) && temperatura > target)
-						termosifone.controlSignal();
-					else if ((state.equals("ON") || state.equals("Accensione")) && temperatura < target)
+					boolean accendere = (state.equals("OFF") || state.equals("Spegnimento")) && temperatura > target;
+					boolean spegnere = (state.equals("ON") || state.equals("Accensione")) && temperatura < target;
+					if(accendere || spegnere)
 						termosifone.controlSignal();
 				}
 		}
