@@ -32,11 +32,9 @@ public class HomeSimulation
         //
         ActiveDevice[] termometri = new ActiveDeviceImpl[5];
         DataFeed dfTemperatura;
-        DataFeed dfTemperatura_2;
         for(int i = 1; i <= termometri.length; i++)
         {
             dfTemperatura = new NormalDistributionDataFeed(20, 1);
-            dfTemperatura_2 = new DayTemperatureDataFeed(15, 22);
             termometri[i - 1] = new ActiveDeviceImpl("thermometer" + i, "thermometer", dfTemperatura, 2000);
             termometri[i - 1].start();
         }
