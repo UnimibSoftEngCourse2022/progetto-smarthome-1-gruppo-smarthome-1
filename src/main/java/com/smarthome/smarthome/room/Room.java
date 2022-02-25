@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 import com.smarthome.smarthome.device.Device;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.json.JSONObject;
 
 @Entity
@@ -27,7 +29,8 @@ public class Room
     @Column(unique=true)
     private String name;
 
-    @OneToMany(mappedBy="room")  
+    @OneToMany(mappedBy="room") 
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Set<Device> devices;
     
 

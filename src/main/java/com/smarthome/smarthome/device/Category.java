@@ -13,5 +13,6 @@ public enum Category
     GAS,
     FUMO, 
     SIRENA,
-    MOVIMENTO
+    MOVIMENTO,
+    LUMINOSITA
 }

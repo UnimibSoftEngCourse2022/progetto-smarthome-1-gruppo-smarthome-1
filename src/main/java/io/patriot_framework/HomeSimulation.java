@@ -16,7 +16,9 @@
 
 package io.patriot_framework;
 
+import io.patriot_framework.generator.dataFeed.BinaryDataFeed;
 import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.dataFeed.LinearDataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
@@ -30,12 +32,34 @@ public class HomeSimulation {
 
     	
     	// Definizione metodologia di generazione dati (criterio di randomizzazione di dati)
-        DataFeed df = new NormalDistributionDataFeed(15, 2);
+        DataFeed dfTemperatura = new NormalDistributionDataFeed(20, 1);
+        DataFeed dfMovement=new BinaryDataFeed(50);
+        DataFeed dfLight = new LinearDataFeed(100);
 
-        // Simula effettivamente il device
-        ActiveDevice simulation = new ActiveDeviceImpl("thermometer1", "thermometer", df, 10000);
-        simulation.start();
+        
+        //
+        // SENSORI
+        //
+        ActiveDevice[] termometri= new ActiveDeviceImpl[5];
 
+        for(int i=0; i < termometri.length; i++){
+            termometri[i] = new ActiveDeviceImpl("thermometer"+i, "thermometer", dfTemperatura, 60000);
+            termometri[i].start();
+        }
+
+        ActiveDevice[] sensoriMovimento=new ActiveDeviceImpl[5];
+
+        for(int i=0; i < sensoriMovimento.length; i++){
+            sensoriMovimento[i]= new ActiveDeviceImpl("movement" + i, "Sensore movimento", dfMovement, 60000);
+            sensoriMovimento[i].start();
+        }
+
+        ActiveDevice[] sensoriLuce=new ActiveDeviceImpl[5];
+
+        for(int i=0; i < sensoriLuce.length; i++){
+            sensoriLuce[i]= new ActiveDeviceImpl("light" + i, "Sensore luminosita", dfLight, 60000);
+            sensoriLuce[i].start();
+        }
 
         //
         // ATTUATORI

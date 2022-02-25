@@ -8,6 +8,9 @@ import java.util.logging.Logger;
 import javax.persistence.*;
 
 import com.smarthome.smarthome.device.Actuator;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
@@ -28,9 +31,10 @@ public class Rilevation
     private String valueType;
     private Timestamp timestamp;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "device_id")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     public Device device;
 
 

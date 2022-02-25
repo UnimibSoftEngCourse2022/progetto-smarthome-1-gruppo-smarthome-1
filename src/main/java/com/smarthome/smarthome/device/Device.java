@@ -3,6 +3,9 @@ package com.smarthome.smarthome.device;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.room.Room;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.json.JSONObject;
 
 import java.util.Set;
@@ -30,12 +33,14 @@ public class Device
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "room_id")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.NO_ACTION)    
     public Room room;
 
     @OneToMany(mappedBy="device")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Set<Rilevation> rilevations;
 
 
