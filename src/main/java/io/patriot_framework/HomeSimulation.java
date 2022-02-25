@@ -32,7 +32,6 @@ public class HomeSimulation
         //
         ActiveDevice[] termometri = new ActiveDeviceImpl[5];
         DataFeed dfTemperatura;
-        DataFeed dfTemperatura_2;
         for(int i = 1; i <= termometri.length; i++)
         {
             dfTemperatura = new NormalDistributionDataFeed(20, 1);
