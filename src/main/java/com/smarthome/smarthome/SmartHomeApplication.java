@@ -1,5 +1,7 @@
 package com.smarthome.smarthome;
 
+import com.smarthome.smarthome.emergenza.EmergencyCode;
+import com.smarthome.smarthome.emergenza.Emergenza;
 import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.device.*;
 import com.smarthome.smarthome.emergenza.EmergenzaRepository;
@@ -14,7 +16,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -66,9 +67,8 @@ public class SmartHomeApplication {
 
 
 			//Emergenze demo
-			Date date = new Date();
-			Emergenza e1 = new Emergenza(EmergencyCode.INTRUSIONE, new Timestamp(date.getTime()), r1);
-			Emergenza e2 = new Emergenza(EmergencyCode.FUMO, new Timestamp(date.getTime()), r1);
+			Emergenza e1 = new Emergenza(EmergencyCode.INTRUSIONE, new java.sql.Timestamp(now.getTime()), r1);
+			Emergenza e2 = new Emergenza(EmergencyCode.FUMO, new java.sql.Timestamp(now.getTime()), r1);
 			emergencyRepo.save(e1);
 			emergencyRepo.save(e2);
 

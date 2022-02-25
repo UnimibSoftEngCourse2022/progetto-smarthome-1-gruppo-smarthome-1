@@ -46,7 +46,7 @@ public class RoomController {
         try
         {
             roomService.addNewRoom(room);
-            return new ResponseEntity<>("Stanza aggiunta", HttpStatus.CREATED);
+            return new ResponseEntity<>("Stanza aggiunta", HttpStatus.OK);
         }
         catch (IllegalStateException e)
         {

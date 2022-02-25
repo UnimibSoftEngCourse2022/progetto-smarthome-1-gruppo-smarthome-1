@@ -73,28 +73,32 @@
         $(document).ready(function () {
         
             $("#btn-create-room").click(function(){
-                let text='{"room":'+$("#text-create-room").val()+'}';
+                console.log('{"name": "'+$("#text-create-room").val()+'"}');
                 $.ajax({
                     type:'POST',
                     url:'http://localhost:8080/api/v1/rooms',
                     contentType:'application/json',
-                    dataType: 'json',
-                    data: '{ "name" : "'+$("#text-create-room").val()+'" }',
+                    data: '{"name": "'+$("#text-create-room").val()+'"}',
 
                     success : function(data){
                         console.log("aggiunta stanza");
-                        window.location.reload(true) 
-                        var toastLiveExample = document.getElementById('create-room-toast')
-                        var toast = new bootstrap.Toast(toastLiveExample)
-                        toast.show()
+                        location.reload();
+                        var toastLiveExample = document.getElementById('create-room-toast');
+                        var toast = new bootstrap.Toast(toastLiveExample);
+                        toast.show();
+                    },
+                    error : function (data){
+                        console.log(data);
+                        alert("ciao");
                     }
+
 
                 }).done(function(){
                     console.log("aggiunta stanza");
-                    window.location.reload(true) 
-                    var toastLiveExample = document.getElementById('create-room-toast')
-                    var toast = new bootstrap.Toast(toastLiveExample)
-                    toast.show()
+                    location.reload();
+                    var toastLiveExample = document.getElementById('create-room-toast');
+                    var toast = new bootstrap.Toast(toastLiveExample);
+                    toast.show();
                 });
             });
 
@@ -199,7 +203,7 @@
                             '	<div class="card-body">' +
                             '<h5 class="card-title">' + users[i].name + '</h5>' +
                             '<h6 class="card-subtitle mb-2 text-muted">' + users[i].email + '</h6>   ' +
-                            '<button type="button" class="btn btn-danger")">Elimina</button></div></div></div>');
+                            '<button type="button" class="btn btn-danger">Elimina</button></div></div></div>');
                     }
 
                 },
@@ -211,7 +215,29 @@
             });
         });
 
-        
+            function changeAlarmStatus(button){
+
+                $.ajax({
+                    type: 'get',
+                    url: 'http://localhost:8080/api/v1/alarmStatus/',
+                    contentType: "application/json",
+
+                    success: function (result){
+
+                        if (result) {
+                            button.innerHTML = "DISATTIVA allarme";
+
+                        }
+                        else{
+                            button.innerHTML = "ATTIVA alalrme";
+                        }
+                        $("#btn-alarm").toggleClass("btn-warning");
+                        $("#btn-alarm").toggleClass("btn-danger");
+                    }
+
+                });
+
+            }
 
             function removeRoom(roomId){                
                 
@@ -219,20 +245,14 @@
                     type: 'DELETE',
                     url: 'http://localhost:8080/api/v1/rooms/' + roomId,
                     contentType: "application/json",
-                    dataType: "json",
                     
                     success: function (data) {
-                        window.location.reload(true) 
-                        var toastLiveExample = document.getElementById('delete-room-toast')
-                        var toast = new bootstrap.Toast(toastLiveExample)
-                        toast.show()
+                        var toastLiveExample = document.getElementById('delete-room-toast');
+                        var toast = new bootstrap.Toast(toastLiveExample);
+                        toast.show();
+                        location.reload();
                     }
 
-                }).done(function(){
-                    window.location.reload(true) 
-                    var toastLiveExample = document.getElementById('delete-room-toast')
-                    var toast = new bootstrap.Toast(toastLiveExample)
-                    toast.show()
                 });
             }
 
@@ -298,6 +318,10 @@
                 <ul class="dropdown-menu dropdown-menu-right dropdown-navbar" id="notif_ul" aria-labelledby="navbarDropdownMenuLink">
 
                 </ul>
+            </li>
+
+            <li class="nav-item">
+                <button id="btn-alarm" class="btn btn-warning" onclick="changeAlarmStatus(this)">Attiva allarme</button>
             </li>
 
 
