@@ -15,35 +15,20 @@ public class StrategyTemperaturaInverno implements Strategy
 	public void execute(Rilevation rilevazione, DeviceService deviceService)
 	{
 		double target = AgenteTemperatura.getTemperatura();
-
-		if(rilevazione.getValue() < target - 1)
-		{
-			Device sensor = rilevazione.getDevice();
-			List<Device> devices = deviceService.getDeviceByRoom(sensor.getRoom());
-
-			for(Device device : devices)
+		double temperatura = rilevazione.getValue();
+		Device sensor = rilevazione.getDevice();
+		List<Device> devices = deviceService.getDeviceByRoom(sensor.getRoom());
+		for(Device device : devices) {
 				if(device.getCategory() == Category.TERMOSIFONE)
 				{
 					Actuator termosifone = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());
 					String state = termosifone.getCurrentState();
 
-					if(state.equals("OFF") || state.equals("Spegnimento"))
+					if((state.equals("OFF") || state.equals("Spegnimento")) && temperatura < target)
+						termosifone.controlSignal();
+					else if ((state.equals("ON") || state.equals("Accensione")) && temperatura > target)
 						termosifone.controlSignal();
 				}
-		} else 	{
-		
-		Device sensor = rilevazione.getDevice();
-		List<Device> devices = deviceService.getDeviceByRoom(sensor.getRoom());
-
-		for(Device device : devices)
-			if(device.getCategory() == Category.TERMOSIFONE)
-			{
-				Actuator termosifone = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());
-				String state = termosifone.getCurrentState();
-
-				if(state.equals("Accensione") || state.equals("ON"))
-					termosifone.controlSignal();
-			}
-		}	
+		}
 	}
 }
