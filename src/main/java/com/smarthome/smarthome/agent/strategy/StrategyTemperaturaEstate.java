@@ -30,8 +30,23 @@ public class StrategyTemperaturaEstate implements Strategy
 
 					if(state.equals("OFF") || state.equals("Spegnimento"))
 						condizionatore.controlSignal();
+				} 
+			}
+		} else {
+			Device sensor = rilevazione.getDevice();
+			List<Device> devices = deviceService.getDeviceByRoom(sensor.getRoom());
+
+			for(Device device : devices)
+			{
+				if(device.getCategory() == Category.CONDIZIONATORE)
+				{
+					Actuator condizionatore = (Actuator) device;
+					String state = condizionatore.getCurrentState();
+
+					if(state.equals("ON") || state.equals("Accensione"))
+						condizionatore.controlSignal();
 				}
 			}
-		}
+		  }
 	}
-}
+}	

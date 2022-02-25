@@ -30,6 +30,20 @@ public class StrategyTemperaturaInverno implements Strategy
 					if(state.equals("OFF") || state.equals("Spegnimento"))
 						termosifone.controlSignal();
 				}
-		}
+		} else 	{
+		
+		Device sensor = rilevazione.getDevice();
+		List<Device> devices = deviceService.getDeviceByRoom(sensor.getRoom());
+
+		for(Device device : devices)
+			if(device.getCategory() == Category.TERMOSIFONE)
+			{
+				Actuator termosifone = (Actuator) device;
+				String state = termosifone.getCurrentState();
+
+				if(state.equals("Accensione") || state.equals("ON"))
+					termosifone.controlSignal();
+			}
+		}	
 	}
 }
