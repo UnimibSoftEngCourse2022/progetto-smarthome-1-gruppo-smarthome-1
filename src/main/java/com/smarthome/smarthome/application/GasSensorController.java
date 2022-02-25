@@ -18,7 +18,11 @@ import com.smarthome.smarthome.room.RoomService;
 import com.smarthome.smarthome.agent.Agente;
 import com.smarthome.smarthome.agent.AgentePericoli;
 import com.smarthome.smarthome.agent.AgentiStatus;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping()
 public class GasSensorController extends Controller
 {
 	private EmergenzaRepository emergenzaRepo;

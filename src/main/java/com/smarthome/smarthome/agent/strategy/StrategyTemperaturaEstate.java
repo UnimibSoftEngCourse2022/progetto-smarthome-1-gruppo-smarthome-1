@@ -25,7 +25,7 @@ public class StrategyTemperaturaEstate implements Strategy
 			{
 				if(device.getCategory() == Category.CONDIZIONATORE)
 				{
-					Actuator condizionatore = (Actuator) device;
+					Actuator condizionatore = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());
 					String state = condizionatore.getCurrentState();
 
 					if(state.equals("OFF") || state.equals("Spegnimento"))
@@ -40,7 +40,7 @@ public class StrategyTemperaturaEstate implements Strategy
 			{
 				if(device.getCategory() == Category.CONDIZIONATORE)
 				{
-					Actuator condizionatore = (Actuator) device;
+					Actuator condizionatore = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());
 					String state = condizionatore.getCurrentState();
 
 					if(state.equals("ON") || state.equals("Accensione"))

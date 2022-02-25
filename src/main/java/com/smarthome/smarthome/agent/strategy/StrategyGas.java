@@ -24,7 +24,7 @@ public class StrategyGas implements Strategy
 			for(Device device : devices)
 				if(device.getCategory() == Category.FINESTRA)
 				{
-					Actuator finestra = (Actuator) device;
+					Actuator finestra = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());
 					String state = finestra.getCurrentState();
 
 					if(state.equals("Chiusa") || state.equals("Chiusura"))

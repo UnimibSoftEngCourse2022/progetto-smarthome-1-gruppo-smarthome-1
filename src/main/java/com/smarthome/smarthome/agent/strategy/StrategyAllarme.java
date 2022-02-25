@@ -21,7 +21,7 @@ public class StrategyAllarme implements Strategy
 			List<Device> devices = deviceService.getAllDevices();
 			for(Device device : devices) {
 				if(device.getCategory() == Category.SIRENA) {
-					Actuator sirena = (Actuator) device;
+					Actuator sirena = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());
 					String state = sirena.getCurrentState();
 					if(state.equals("OFF") || state.equals("Spegnimento")) {
 						sirena.controlSignal();
