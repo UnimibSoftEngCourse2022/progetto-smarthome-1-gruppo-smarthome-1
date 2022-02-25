@@ -23,6 +23,7 @@ import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
 import io.patriot_framework.generator.device.Device;
+import io.patriot_framework.generator.device.impl.basicDevices.MovementSensor;
 import io.patriot_framework.generator.device.impl.basicDevices.Thermometer;
 import io.patriot_framework.generator.device.passive.sensors.SimpleSensor;
 import io.patriot_framework.generator.network.NetworkAdapter;

@@ -19,7 +19,7 @@ public class StrategyLuceGiorno implements Strategy
 		for(Device device : devices)
 			if(device.getCategory() == Category.LAMPADA && device.isDeviceType())
 			{
-				Actuator lampada = (Actuator) device;
+				Actuator lampada = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());
 				String state = lampada.getCurrentState();
 
 				if(state.equals("OFF") || state.equals("Spegnimento"))

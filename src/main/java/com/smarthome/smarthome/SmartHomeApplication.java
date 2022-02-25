@@ -58,6 +58,7 @@ public class SmartHomeApplication {
 			roomRepo.saveAll(List.of(r1, r2, r3, r4, r5));
 
 			// SENSORI
+
 			Device d1 = new Device("thermometer1", Category.TERMOMETRO, r1, false);
 			Device d2 = new Device("thermometer2", Category.TERMOMETRO, r2, false);
 			Device d3 = new Device("thermometer3", Category.TERMOMETRO, r3, false);
@@ -116,7 +117,6 @@ public class SmartHomeApplication {
 			AgentePulizia cleaning = new AgentePulizia((Actuator) d36, 60, 90000);
 			Timer timer = new Timer();
 			timer.schedule(cleaning, cleaning.getDelay(), cleaning.getInterval());
-
 			 */
 		};
 	}

@@ -29,12 +29,10 @@ public class HomeSimulation {
 
         DataFeed dfTemperatura_2 = new DayTemperatureDataFeed(15, 22);
 
-
-
-        
         //
         // SENSORI
         //
+
         ActiveDevice[] termometri = new ActiveDeviceImpl[5];
         DataFeed dfTemperatura;
 
@@ -50,7 +48,7 @@ public class HomeSimulation {
         for(int i = 1; i <= sensoriMovimento.length; i++)
         {
             dfMovement = new BinaryDataFeed(3);
-            sensoriMovimento[i - 1] = new ActiveDeviceImpl("movement" + i, "movementSensor", dfMovement, 2000);
+            sensoriMovimento[i - 1] = new ActiveDeviceImpl("movement" + i, "movement", dfMovement, 2000);
             sensoriMovimento[i - 1].start();
         }
 

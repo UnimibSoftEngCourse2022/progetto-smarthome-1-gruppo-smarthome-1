@@ -18,7 +18,11 @@ import com.smarthome.smarthome.agent.Agente;
 import com.smarthome.smarthome.agent.AgenteAllarme;
 import com.smarthome.smarthome.agent.AgenteLuce;
 import com.smarthome.smarthome.agent.AgentiStatus;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping()
 public class MovementSensorController extends Controller
 {
 	EmergenzaRepository emergenzaRepo;
@@ -30,7 +34,7 @@ public class MovementSensorController extends Controller
         this.emergenzaRepo = emergenzaRepo;
     }
     
-    @PostMapping("/movementSensor")
+    @PostMapping("/movement")
     public void receiveSensorData(@RequestBody JSONObject jsonData)
     {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);

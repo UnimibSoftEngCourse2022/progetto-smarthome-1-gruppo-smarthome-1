@@ -24,7 +24,7 @@ public class StrategyTemperaturaInverno implements Strategy
 			for(Device device : devices)
 				if(device.getCategory() == Category.TERMOSIFONE)
 				{
-					Actuator termosifone = (Actuator) device;
+					Actuator termosifone = new Actuator(device.getId(), device.getLabel(), device.getCategory(), device.getRoom());
 					String state = termosifone.getCurrentState();
 
 					if(state.equals("OFF") || state.equals("Spegnimento"))
