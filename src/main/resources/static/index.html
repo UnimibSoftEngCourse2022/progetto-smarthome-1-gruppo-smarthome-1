@@ -52,7 +52,7 @@
             document.getElementById("notif_ul").innerHTML = "";
 
             if (json.length > 0){
-                document.getElementById("notif_div").innerHTML += "<label style='color: red; font-weight: bold'>Ci snono nuove notifiche</label>";
+                document.getElementById("notif_div").innerHTML += "<label style='color: red; font-weight: bold'>Ci sono nuove notifiche</label>";
             }
             else {
                 document.getElementById("notif_div").innerHTML += "Nessuna notifica";
@@ -112,10 +112,10 @@
                 type:'POST',
                     url:'http://localhost:8080/set-alarm',
                     contentType:'application/json',
-                    dataType: 'json',
                     data: '{"value" : "'+value+'"}',
+
                     success: function(){
-                        window.location.reload(true);
+                        location.reload();
                     }
 
                }) 
@@ -131,10 +131,10 @@
 
                     success: function(response){
                         console.log("aggiunta stanza");
-                        window.location.reload(true); 
                         var toastLiveExample = document.getElementById('set-temperature-toast');
                         var toast = new bootstrap.Toast(toastLiveExample);
                         toast.show();
+                        location.reload();
                     }
                 });
                 
