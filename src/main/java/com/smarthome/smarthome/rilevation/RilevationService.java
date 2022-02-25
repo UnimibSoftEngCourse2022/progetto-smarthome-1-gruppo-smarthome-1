@@ -32,8 +32,8 @@ public class RilevationService
             return null;
     }
 
-    public void saveRilevation(Rilevation rilevation){
-        rilevationRepository.save(rilevation);
+    public Rilevation saveRilevation(Rilevation rilevation){
+        return rilevationRepository.save(rilevation);
     }
 
     public Rilevation getLastTemperaturRilevation(){

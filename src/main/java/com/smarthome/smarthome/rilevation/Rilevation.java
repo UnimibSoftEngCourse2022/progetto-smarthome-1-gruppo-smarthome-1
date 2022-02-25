@@ -26,7 +26,17 @@ import com.smarthome.smarthome.device.DeviceService;
 @Table(name = "rilevation")
 public class Rilevation
 {
-    private @GeneratedValue @Id Long id;
+    @Id
+    @SequenceGenerator(
+            name="rilevation_sequence",
+            sequenceName="rilevation_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "rilevation_sequence"
+    )
+    private Long id;
     private Double value;
     private String valueType;
     private Timestamp timestamp;
@@ -80,8 +90,13 @@ public class Rilevation
              
              Device d1=deviceService.getDeviceByLabel(label);
 
-             Rilevation r = new Rilevation(currentTimestamp, val, "double", d1);
-             rilevationService.saveRilevation(r);
+             Rilevation r = rilevationService.saveRilevation(new Rilevation(currentTimestamp, val, "double", d1));
+
+             this.id = r.getId();
+             this.timestamp=r.getTimestamp();
+             this.value=r.getValue();
+             this.valueType=r.getValueType();
+             this.device=r.getDevice();
          }
          catch (JSONException | ParseException e)
          {

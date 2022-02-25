@@ -59,4 +59,10 @@ public class Actuator extends Device
 
         return value;
     }
+
+    @Override
+    public String toString()
+    {
+        return super.toString();
+    }
 }

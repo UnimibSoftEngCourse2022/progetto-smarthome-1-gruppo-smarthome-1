@@ -101,7 +101,7 @@ public class SmartHomeApplication {
 			Device d34 = new Device("finestra4", Category.FINESTRA, r4, true);
 			Device d35 = new Device("finestra5", Category.FINESTRA, r5, true);
 
-			Actuator d36 = new Actuator("pulizia", Category.PULIZIA, r2);
+			Device d36 = new Device("pulizia", Category.PULIZIA, r2, true);
 
 			Device d37 = new Device("luce1", Category.LAMPADA, r1, true);
 			Device d38 = new Device("luce2", Category.LAMPADA, r2, true);
@@ -110,12 +110,14 @@ public class SmartHomeApplication {
 			Device d41 = new Device("luce5", Category.LAMPADA, r4, true);
 			Device d42 = new Device("luce5", Category.LAMPADA, r5, true);
 
-			deviceRepo.saveAll(List.of(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32, d33, d34, d35, d36, d37, d38, d39, d40, d41));
+			deviceRepo.saveAll(List.of(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32, d33, d34, d35, d36, d37, d38, d39, d40, d41, d42));
 
-
-			AgentePulizia cleaning = new AgentePulizia(d36, 60, 90000);
+			/*
+			AgentePulizia cleaning = new AgentePulizia((Actuator) d36, 60, 90000);
 			Timer timer = new Timer();
 			timer.schedule(cleaning, cleaning.getDelay(), cleaning.getInterval());
+
+			 */
 		};
 	}
 
