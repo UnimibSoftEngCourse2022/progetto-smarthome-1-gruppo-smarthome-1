@@ -16,49 +16,55 @@
 
 package io.patriot_framework;
 
-import io.patriot_framework.generator.dataFeed.BinaryDataFeed;
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.dataFeed.LinearDataFeed;
-import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
+import io.patriot_framework.generator.dataFeed.*;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
 import io.patriot_framework.generator.device.actuators.*;
-import io.patriot_framework.generator.device.impl.basicActuators.LinearActuator;
 import io.patriot_framework.generator.device.passive.actuators.Actuator;
 
 public class HomeSimulation {
 
     public static void main(String[] args) {
-
-    	
     	// Definizione metodologia di generazione dati (criterio di randomizzazione di dati)
         DataFeed dfTemperatura = new NormalDistributionDataFeed(20, 1);
-        DataFeed dfMovement=new BinaryDataFeed(50);
-        DataFeed dfLight = new LinearDataFeed(100);
+        DataFeed dfTemperatura_2 = new DayTemperatureDataFeed(15, 22);
+        DataFeed dfMovement=new BinaryDataFeed(3);
+        DataFeed df_smoke_gas=new BinaryDataFeed(10);
 
         
         //
         // SENSORI
         //
-        ActiveDevice[] termometri= new ActiveDeviceImpl[5];
+        ActiveDevice[] termometri = new ActiveDeviceImpl[5];
 
-        for(int i=0; i < termometri.length; i++){
-            termometri[i] = new ActiveDeviceImpl("thermometer"+i, "thermometer", dfTemperatura, 60000);
+        for(int i = 0; i < termometri.length; i++)
+        {
+            termometri[i] = new ActiveDeviceImpl("thermometer " + i, "thermometer", dfTemperatura, 20000);
             termometri[i].start();
         }
 
-        ActiveDevice[] sensoriMovimento=new ActiveDeviceImpl[5];
+        ActiveDevice[] sensoriMovimento = new ActiveDeviceImpl[5];
 
-        for(int i=0; i < sensoriMovimento.length; i++){
-            sensoriMovimento[i]= new ActiveDeviceImpl("movement" + i, "Sensore movimento", dfMovement, 60000);
+        for(int i=0; i < sensoriMovimento.length; i++)
+        {
+            sensoriMovimento[i] = new ActiveDeviceImpl("movement" + i, "movementSensor", dfMovement, 20000);
             sensoriMovimento[i].start();
         }
 
-        ActiveDevice[] sensoriLuce=new ActiveDeviceImpl[5];
+        ActiveDevice[] sensoriFumo = new ActiveDeviceImpl[5];
 
-        for(int i=0; i < sensoriLuce.length; i++){
-            sensoriLuce[i]= new ActiveDeviceImpl("light" + i, "Sensore luminosita", dfLight, 60000);
-            sensoriLuce[i].start();
+        for(int i = 0; i < sensoriFumo.length; i++)
+        {
+            sensoriFumo[i] = new ActiveDeviceImpl("smoke" + i, "smokeSensor", df_smoke_gas, 20000);
+            sensoriFumo[i].start();
+        }
+
+        ActiveDevice[] sensoriGas = new ActiveDeviceImpl[5];
+
+        for(int i = 0; i < sensoriGas.length; i++)
+        {
+            sensoriGas[i] = new ActiveDeviceImpl("gas" + i, "gasSensor", df_smoke_gas, 20000);
+            sensoriGas[i].start();
         }
 
         //
@@ -66,7 +72,6 @@ public class HomeSimulation {
         //
         Actuator[] luci = new Actuator[6];
 
-        Actuator actuator = new LinearActuator("tapparella", 15000);
         for(int i = 0; i < luci.length; i++)
         {
             luci[i] = new Luce("luce" + (i + 1));
@@ -81,7 +86,6 @@ public class HomeSimulation {
             condizionatori[i].startCoapController();
         }
 
-        actuator.startCoapController();
         Actuator[] termosifoni = new Actuator[6];
 
         for(int i = 0; i < termosifoni.length; i++)
@@ -91,23 +95,11 @@ public class HomeSimulation {
         }
 
         Actuator[] finestre = new Actuator[5];
-        Actuator[] tapparelle = new Actuator[5];
 
         for(int i = 0; i < finestre.length; i++)
         {
             finestre[i] = new Finestra("finestra" + (i + 1));
             finestre[i].startCoapController();
-
-            tapparelle[i] = new Tapparella("tapparella" + (i + 1));
-            tapparelle[i].startCoapController();
-        }
-
-        Actuator[] porte = new Actuator[5];
-
-        for(int i = 0; i < porte.length; i++)
-        {
-            porte[i] = new Finestra("porta" + (i + 1));
-            porte[i].startCoapController();
         }
 
         Actuator pulizia = new Pulizia("pulizia");
