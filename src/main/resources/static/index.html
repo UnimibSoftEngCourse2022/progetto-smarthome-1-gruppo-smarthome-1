@@ -22,7 +22,8 @@
 
                 success: function (result) {
                     document.getElementById("notif_ul").innerHTML = "";
-                    json = JSON.parse(result);
+                    //json = JSON.parse(result.toString());
+                    json = result;
                     for (let i = 0; i < json.length; i++) {
                         document.getElementById("notif_ul").innerHTML += "<li onclick=\"remove(this," + json[i]['id'] + ")\" id=\""+ json[i]['id'] +"\">" + json[i]["code"] + " - Room: " + json[i]["room"]['name'] + "</li>";
                     }
@@ -31,7 +32,7 @@
                     else {
                         document.getElementById('notif_div').classList.remove('notification');
                     }
-                    location.reload(true);
+                    location.reload();
 
                 },
                 cache: false

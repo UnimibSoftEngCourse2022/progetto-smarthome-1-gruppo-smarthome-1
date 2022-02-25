@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -63,6 +64,14 @@ public class SmartHomeApplication {
 			Rilevation rr2= new Rilevation(currentTimestamp, 10.0d, "double", thermometer2);
 			Rilevation rr3= new Rilevation(currentTimestamp, 1.0d, "double", termosifone1);
 			rilevationRepo.saveAll(List.of(rr1,rr2,rr3));
+
+
+			//Emergenze demo
+			Date date = new Date();
+			Emergenza e1 = new Emergenza(EmergencyCode.INTRUSIONE, new Timestamp(date.getTime()), r1);
+			Emergenza e2 = new Emergenza(EmergencyCode.FUMO, new Timestamp(date.getTime()), r1);
+			emergencyRepo.save(e1);
+			emergencyRepo.save(e2);
 
 		};
 	}

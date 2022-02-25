@@ -33,9 +33,12 @@ public class EmergenzaController {
     }
 
     @PutMapping(path = "{emergenzaId}")
-    public ResponseEntity<Object> updateEmergenza(@PathVariable("emergenzaId") Long emergenzaId){
+    public ResponseEntity<List<Emergenza>> updateEmergenza(@PathVariable("emergenzaId") Long emergenzaId){
         emergenzaService.updateEmergenzaStatus(emergenzaId, true);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        List<Emergenza> le = emergenzaService.getPendingEmergenze();
+
+        return new ResponseEntity<>(le, HttpStatus.OK);
     }
 
 
