@@ -61,7 +61,6 @@ public class HomeSimulation {
             sensoriLuce[i].start();
         }
 
-
         //
         // ATTUATORI
         //

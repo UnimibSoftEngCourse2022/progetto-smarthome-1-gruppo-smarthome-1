@@ -4,11 +4,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AgentiStatus
 {
-	private static AtomicBoolean allarme = new AtomicBoolean(false);
-	private static AtomicBoolean luci = new AtomicBoolean(true);
-	private static AtomicBoolean pericoli = new AtomicBoolean(true);
-	private static AtomicBoolean pulizia = new AtomicBoolean(true);
-	private static AtomicBoolean temperatura = new AtomicBoolean(true);
+	private static final AtomicBoolean allarme = new AtomicBoolean(false);
+	private static final AtomicBoolean luci = new AtomicBoolean(true);
+	private static final AtomicBoolean pericoli = new AtomicBoolean(true);
+	private static final AtomicBoolean pulizia = new AtomicBoolean(true);
+	private static final AtomicBoolean temperatura = new AtomicBoolean(true);
 
 	// Per eliminare un code smell
 	private AgentiStatus()
