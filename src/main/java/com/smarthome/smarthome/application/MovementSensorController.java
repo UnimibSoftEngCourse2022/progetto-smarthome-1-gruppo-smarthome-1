@@ -39,8 +39,6 @@ public class MovementSensorController extends Controller
     {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
 
-        System.out.println(rilevation.toString());
-
     	if(AgentiStatus.getAllarme() && rilevation.getValue() == 1.0)
         {
     		Agente agente = new AgenteAllarme(rilevation, deviceService);

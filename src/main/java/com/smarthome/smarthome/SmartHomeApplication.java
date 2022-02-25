@@ -1,9 +1,6 @@
 package com.smarthome.smarthome;
 
 import com.smarthome.smarthome.agent.AgentePulizia;
-import com.smarthome.smarthome.emergenza.EmergencyCode;
-import com.smarthome.smarthome.emergenza.Emergenza;
-import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.device.*;
 import com.smarthome.smarthome.emergenza.EmergenzaRepository;
 import com.smarthome.smarthome.rilevation.RilevationRepository;
@@ -16,7 +13,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 
@@ -113,11 +109,10 @@ public class SmartHomeApplication {
 
 			deviceRepo.saveAll(List.of(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32, d33, d34, d35, d36, d37, d38, d39, d40, d41, d42));
 
-			/*
+
 			AgentePulizia cleaning = new AgentePulizia((Actuator) d36, 60, 90000);
 			Timer timer = new Timer();
 			timer.schedule(cleaning, cleaning.getDelay(), cleaning.getInterval());
-			 */
 		};
 	}
 
