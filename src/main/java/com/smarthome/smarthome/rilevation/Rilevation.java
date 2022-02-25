@@ -75,7 +75,7 @@ public class Rilevation
     	 try
          {
              // da jsonData a classe rilevazione
-             JSONParser parser = new JSONParser(); 
+             JSONParser parser = new JSONParser();
              ArrayList a = (ArrayList) jsonData.get("values");
              JSONArray jsonArray = new JSONArray(a.toArray());
 

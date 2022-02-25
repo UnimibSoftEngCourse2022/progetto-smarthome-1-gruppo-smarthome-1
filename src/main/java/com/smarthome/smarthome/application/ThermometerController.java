@@ -48,7 +48,7 @@ public class ThermometerController extends Controller
         }
         
 
-        return new ResponseEntity("Temperatura impostata con successo", HttpStatus.OK);
+        return new ResponseEntity<>("Temperatura impostata con successo", HttpStatus.OK);
     }
     
     

@@ -94,7 +94,10 @@ public class DayTemperatureDataFeed implements DataFeed {
 
         lastValue = result;
 
-        return new Data(Double.class, result);
+        Data d = new Data(Double.class, result);
+        d.setLabel(label);
+
+        return d;
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.smarthome.smarthome.device;
 import com.smarthome.smarthome.room.Room;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
-import org.json.JSONObject;
 
 import java.net.URI;
 import java.util.logging.Level;

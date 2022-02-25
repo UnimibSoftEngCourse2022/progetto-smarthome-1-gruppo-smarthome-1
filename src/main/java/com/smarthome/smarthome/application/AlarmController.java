@@ -8,7 +8,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,24 +22,14 @@ public class AlarmController extends Controller{
     @Autowired
     protected AlarmController(DeviceService deviceService, RilevationService rilevationService) {
         super(deviceService, rilevationService);
-        //TODO Auto-generated constructor stub
-
     }
 
     
     @PostMapping(path="/set-alarm")
     public void receiveSensorData(@RequestBody JSONObject jsonData) {
-        // TODO Auto-generated method stub
         String data = (String) jsonData.get("value");
-        
-        if(data.equals("ON")){
-            AgentiStatus.setAllarme(true);
-        }
-        else{
-            AgentiStatus.setAllarme(false);
-        }
+        AgentiStatus.setAllarme(data.equals("ON"));
 
-        //return new RequestEntity<String>("Allarme impostato", HttpStatus.OK);
     }
 
     @GetMapping(path="/get-alarm", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,7 +42,6 @@ public class AlarmController extends Controller{
         else
             jo.put("alarm", "OFF");
 
-        return new ResponseEntity<JSONObject>(jo, HttpStatus.OK);
+        return new ResponseEntity<>(jo, HttpStatus.OK);
     }
-    
 }

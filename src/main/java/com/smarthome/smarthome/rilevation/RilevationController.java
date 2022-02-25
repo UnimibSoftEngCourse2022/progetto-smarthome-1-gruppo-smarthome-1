@@ -20,7 +20,7 @@ public class RilevationController {
     public ResponseEntity<Rilevation> getLastTemperature() {
         Rilevation r = rilevationService.getLastTemperaturRilevation();
 
-        return new ResponseEntity(r, HttpStatus.OK);
+        return new ResponseEntity<>(r, HttpStatus.OK);
     }
 
 }
