@@ -8,8 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import net.minidev.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class RoomController {
     @GetMapping(path="/info", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Room>> getAllRoomInfo() {
 
-        List<Room> ld = new ArrayList<Room>();
+        List<Room> ld = new ArrayList<>();
 
         roomService.getRooms().forEach(ld::add);
 

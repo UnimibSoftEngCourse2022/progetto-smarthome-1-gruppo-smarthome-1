@@ -5,7 +5,6 @@ import com.smarthome.smarthome.rilevation.Rilevation;
 import com.smarthome.smarthome.room.Room;
 import org.json.JSONObject;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;

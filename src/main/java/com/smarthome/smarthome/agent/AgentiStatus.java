@@ -10,6 +10,12 @@ public class AgentiStatus
 	private static AtomicBoolean pulizia = new AtomicBoolean(true);
 	private static AtomicBoolean temperatura = new AtomicBoolean(true);
 
+	// Per eliminare un code smell
+	private AgentiStatus()
+	{
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static boolean getAllarme() {
 		return AgentiStatus.allarme.get();
 	}

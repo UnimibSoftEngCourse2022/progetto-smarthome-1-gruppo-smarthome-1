@@ -36,7 +36,7 @@ public class Sensor extends Device
         {
             Logger logger = Logger.getLogger(Sensor.class.getName());
 
-            logger.log(Level.WARNING, "Exception: " + e);
+            logger.log(Level.WARNING, e.getMessage());
         }
 
         return value;
