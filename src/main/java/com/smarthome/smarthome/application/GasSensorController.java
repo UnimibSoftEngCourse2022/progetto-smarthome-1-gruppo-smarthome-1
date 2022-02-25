@@ -38,8 +38,6 @@ public class GasSensorController extends Controller
     {
     	Rilevation rilevation = new Rilevation(jsonData, deviceService, rilevationService);
 
-        System.out.println(rilevation.toString());
-
     	if(AgentiStatus.getPericoli() && rilevation.getValue() == 1.0)
         {	
     		Agente agente = new AgentePericoli(rilevation, deviceService);

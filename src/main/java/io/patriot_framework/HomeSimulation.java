@@ -22,23 +22,21 @@ import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
 import io.patriot_framework.generator.device.actuators.*;
 import io.patriot_framework.generator.device.passive.actuators.Actuator;
 
-public class HomeSimulation {
+public class HomeSimulation
+{
+    public static void main(String[] args)
+    {
 
-    public static void main(String[] args) {
-    	// Definizione metodologia di generazione dati (criterio di randomizzazione di dati)
-
-        DataFeed dfTemperatura_2 = new DayTemperatureDataFeed(15, 22);
-
-        //
+    	//
         // SENSORI
         //
-
         ActiveDevice[] termometri = new ActiveDeviceImpl[5];
         DataFeed dfTemperatura;
-
+        DataFeed dfTemperatura_2;
         for(int i = 1; i <= termometri.length; i++)
         {
             dfTemperatura = new NormalDistributionDataFeed(20, 1);
+            dfTemperatura_2 = new DayTemperatureDataFeed(15, 22);
             termometri[i - 1] = new ActiveDeviceImpl("thermometer" + i, "thermometer", dfTemperatura, 2000);
             termometri[i - 1].start();
         }
@@ -53,11 +51,11 @@ public class HomeSimulation {
         }
 
         ActiveDevice[] sensoriFumo = new ActiveDeviceImpl[5];
-        DataFeed df_smoke_gas;
+        DataFeed dfsmokegas;
         for(int i = 1; i <= sensoriFumo.length; i++)
         {
-            df_smoke_gas = new BinaryDataFeed(10);
-            sensoriFumo[i - 1] = new ActiveDeviceImpl("smoke" + i, "smokeSensor", df_smoke_gas, 2000);
+            dfsmokegas = new BinaryDataFeed(30);
+            sensoriFumo[i - 1] = new ActiveDeviceImpl("smoke" + i, "smokeSensor", dfsmokegas, 2000);
             sensoriFumo[i - 1].start();
         }
 
@@ -65,8 +63,8 @@ public class HomeSimulation {
 
         for(int i = 1; i <= sensoriGas.length; i++)
         {
-            df_smoke_gas = new BinaryDataFeed(10);
-            sensoriGas[i - 1] = new ActiveDeviceImpl("gas" + i, "gasSensor", df_smoke_gas, 2000);
+            dfsmokegas = new BinaryDataFeed(30);
+            sensoriGas[i - 1] = new ActiveDeviceImpl("gas" + i, "gasSensor", dfsmokegas, 2000);
             sensoriGas[i - 1].start();
         }
 
