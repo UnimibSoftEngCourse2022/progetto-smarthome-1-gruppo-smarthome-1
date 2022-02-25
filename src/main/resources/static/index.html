@@ -82,20 +82,58 @@
 
                     success : function(data){
                         console.log("aggiunta stanza");
-                        window.location.reload(true) 
-                        var toastLiveExample = document.getElementById('create-room-toast')
-                        var toast = new bootstrap.Toast(toastLiveExample)
-                        toast.show()
+                        window.location.reload(true) ;
+                        var toastLiveExample = document.getElementById('create-room-toast');
+                        var toast = new bootstrap.Toast(toastLiveExample);
+                        toast.show();
                     }
 
                 }).done(function(){
                     console.log("aggiunta stanza");
-                    window.location.reload(true) 
-                    var toastLiveExample = document.getElementById('create-room-toast')
-                    var toast = new bootstrap.Toast(toastLiveExample)
-                    toast.show()
+                    window.location.reload(true) ;
+                    var toastLiveExample = document.getElementById('create-room-toast');
+                    var toast = new bootstrap.Toast(toastLiveExample);
+                    toast.show();
                 });
             });
+
+            $("#btn-set-alarm").click(function(){
+                var alarm=$("#alarm").text();
+                if(alarm=="ON")
+                    var value="OFF";
+                else
+                    var value="ON";
+                $.ajax({
+                type:'POST',
+                    url:'http://localhost:8080/set-alarm',
+                    contentType:'application/json',
+                    dataType: 'json',
+                    data: '{"value" : "'+value+'"}',
+                    success: function(){
+                        window.location.reload(true);
+                    }
+
+               }) 
+            });
+
+            $("#btn-set-temperature").click(function(){
+                $.ajax({
+                    type:'POST',
+                    url:'http://localhost:8080/set-temperature',
+                    contentType:'application/json',
+                    dataType: 'json',
+                    data: '{"temperatura" : '+$("#text-set-temperature").val()+'}',
+
+                    success: function(response){
+                        console.log("aggiunta stanza");
+                        window.location.reload(true); 
+                        var toastLiveExample = document.getElementById('set-temperature-toast');
+                        var toast = new bootstrap.Toast(toastLiveExample);
+                        toast.show();
+                    }
+                });
+                
+            })
 
 
             /*$.ajax({
@@ -144,31 +182,33 @@
                             console.log(devices);
                             for (let j = 0; j < devices.length; j++) {
                                 const element = devices[j];
-                                if(element.category="TERMOMETRO"){
+                                if(element.category="TERMOMETRO" && element.rilevations.length > 0){
                                     let rilevations=element.rilevations;
                                     temperatura=rilevations[0].value;
                                 }
                             }
                         }
                         $('#sub-rooms').append(
-                            '<h3>' + rooms[i].name + '<span class="badge bg-secondary">'+temperatura+'°C</span></h3>'+
+                            '<h3>' + rooms[i].name +  ' <span class="badge bg-warning rounded-pill text-dark">'+temperatura+'°C</span></h3>'+
                             '<div class="container" id="room-'+rooms[i].id+'">'+
                             '</div></div>'+
-                            '<button name="btn-del-room" type="button" class="btn btn-outline-danger" onclick="removeRoom('+rooms[i].id+')">Elimina</button>'
+                            '<button name="btn-del-room" type="button" class="btn btn-outline-primary" onclick="removeRoom('+rooms[i].id+')">Elimina</button>'
                             );
                         var nameRoom= "#room-"+rooms[i].id;
                         if(rooms[i].devices.length>0){
                             const devices= rooms[i].devices;
                             for (let j = 0; j < rooms[i].devices.length; j++) {
+                                var rilValue="NaN";
+                                if(devices[j].rilevations.length > 0)
+                                    rilValue=devices[j].rilevations[0].value;
                                 $(nameRoom).append(
-                                    '<div class="row row-cols-1 row-cols-md-3 g-3">'+
-                                    '<div class="col">'+
+                                    '<div class="col-md-4">'+
                                     '<div class="card">  ' +
                                     '<div class="card-body">' +
                                     '<h5 class="card-title">' + devices[j].label + '</h5>    ' +
                                     '<h6 class="card-subtitle mb-2 text-muted"> Category: ' + devices[j].category + '</h6>   ' +
-                                    '<p> Valore:'+devices[j].rilevations[0].value+'</p>'+
-                                    '<button type="button" class="btn btn-warning" onClick="">Elimina Device</button>  </div></div></div></div>'
+                                    '<p> Valore:'+rilValue+'</p>'+
+                                    '<button type="button" class="btn btn-warning" onClick="removeDevice('+devices[j].id+')">Elimina Device</button>  </div></div></div>'
                                 );
                             }
                         }
@@ -195,10 +235,10 @@
                         $('#sub-users').append(
                             '<div class="col-md-4">'+
                             '<div class="card">  ' +
-                            '	<div class="card-body">' +
+                            '<div class="card-body">' +
                             '<h5 class="card-title">' + users[i].name + '</h5>' +
                             '<h6 class="card-subtitle mb-2 text-muted">' + users[i].email + '</h6>   ' +
-                            '<button type="button" class="btn btn-danger")">Elimina</button></div></div></div>');
+                            '<button type="button" class="btn btn-danger" >Elimina</button></div></div></div>');
                     }
 
                 },
@@ -206,6 +246,20 @@
 
                     var errorMsg = 'Ajax request failed: ' + xhr.responseText;
                     $('#content').html(errorMsg);
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/get-alarm',
+                contentType: "application/json",
+                dataType: "json",
+
+                success: function(data){
+                    var result = JSON.parse(JSON.stringify(data));
+                    
+                    $("#alarm").html(result.alarm);
+                    
                 }
             });
         });
@@ -217,6 +271,29 @@
                 $.ajax({
                     type: 'DELETE',
                     url: 'http://localhost:8080/api/v1/rooms/' + roomId,
+                    contentType: "application/json",
+                    dataType: "json",
+                    
+                    success: function (data) {
+                        window.location.reload(true) 
+                        var toastLiveExample = document.getElementById('delete-room-toast')
+                        var toast = new bootstrap.Toast(toastLiveExample)
+                        toast.show()
+                    }
+
+                }).done(function(){
+                    window.location.reload(true) 
+                    var toastLiveExample = document.getElementById('delete-room-toast')
+                    var toast = new bootstrap.Toast(toastLiveExample)
+                    toast.show()
+                });
+            }
+
+            function removeDevice(deviceId){                
+                
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'http://localhost:8080/api/v1/device/' + deviceId,
                     contentType: "application/json",
                     dataType: "json",
                     
@@ -276,23 +353,18 @@
     <div>
         <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#devices">Devices</a>
+                <a class="nav-link active" aria-current="page" href="#preferences">Preferenze</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#rooms">Rooms</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="users">Users</a>
+                <a class="nav-link" href="#users">Utenti</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled">Preferences</a>
-            </li>
-
+            
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="d-none d-lg-block d-xl-block" id="notif_div"></div>
-
-
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right dropdown-navbar" id="notif_ul" aria-labelledby="navbarDropdownMenuLink">
 
@@ -305,20 +377,45 @@
     
     <h1>Smart Home Service</h1>
 
+    
     <div class="container-lg" id="info">
-        <h2>Informazioni</h2>
-        <div class="row" id="sub-info">
-            <div class="col-md-6">
-                
-            </div>
+        <h2>Preferenze</h2>
+        <div class="container">
+            <h3>Allarme: <span id="alarm" class="badge rounded-pill bg-info text-dark">ON</span>
+                <button class="btn btn-info btn-circle btn-lg" id="btn-set-alarm">
+                    <i class="bi bi-power">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                            <path d="M7.5 1v7h1V1h-1z"/>
+                            <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
+                        </svg>            
+                    </i>
+                </button>            
+            </h3>            
         </div>
-
-    </div>
-
-    <div class="container-lg" id="devices">
-        <h2>My devices</h2>
-        <div class="row" id="sub-devices">
-
+        <div class="row" id="sub-info">
+            <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#temperature-modal" data-bs-whatever="@fat">Imposta nuova temperatura</button>
+            <div class="modal fade" id="temperature-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Inserisci nuova temperatura</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Temperatura:</label>
+                                <input type="number" class="form-control" id="text-set-temperature">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btn-set-temperature">Invia</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -327,29 +424,29 @@
 
     <div class="container" id="rooms">
         <h2>My rooms</h2>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#room-modal" data-bs-whatever="@fat">Nuova stanza</button>
+        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#room-modal" data-bs-whatever="@fat">Nuova stanza</button>
         <div class="modal fade" id="room-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Inserire nuova stanza</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="mb-3">
-                      <label for="recipient-name" class="col-form-label">Nome:</label>
-                      <input type="text" class="form-control" id="text-create-room">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Inserire nuova stanza</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                  </form>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Nome:</label>
+                            <input type="text" class="form-control" id="text-create-room">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btn-create-room">Send message</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" id="btn-create-room">Send message</button>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
         <div class="row" id="sub-rooms">
 
         </div>
@@ -364,11 +461,7 @@
         </div>
     </div>
 
-    <br>
-
-    <div class="container" id="preferences">
-        <h2>My preferences</h2>
-    </div>
+    
 </div>
 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -384,6 +477,15 @@
         <div class="d-flex">
             <div class="toast-body">
             Stanza creata con successo
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div id="set-temperature-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+            Temperatura impostata
             </div>
             <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
