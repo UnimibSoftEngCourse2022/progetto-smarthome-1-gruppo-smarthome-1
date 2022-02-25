@@ -28,11 +28,8 @@ public class AlarmController extends Controller{
     @PostMapping(path="/set-alarm")
     public void receiveSensorData(@RequestBody JSONObject jsonData) {
         String data = (String) jsonData.get("value");
-        
-        if(data.equals("ON"))
-            AgentiStatus.setAllarme(true);
-        else
-            AgentiStatus.setAllarme(false);
+        AgentiStatus.setAllarme(data.equals("ON"));
+
     }
 
     @GetMapping(path="/get-alarm", produces = MediaType.APPLICATION_JSON_VALUE)
