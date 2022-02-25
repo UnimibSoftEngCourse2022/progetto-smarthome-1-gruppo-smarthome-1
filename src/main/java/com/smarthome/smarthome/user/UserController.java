@@ -26,9 +26,8 @@ public class UserController
     }
 
     @PostMapping
-    public ResponseEntity<Object> registerNewUser(@RequestBody JSONObject jsonData) {
-
-
+    public ResponseEntity<Object> registerNewUser(@RequestBody JSONObject jsonData)
+    {
         User user = new User((String) jsonData.get("name"), (String) jsonData.get("email"));
         userService.addNewUser(user);
         return new ResponseEntity<>("Utente aggiunto", HttpStatus.OK);

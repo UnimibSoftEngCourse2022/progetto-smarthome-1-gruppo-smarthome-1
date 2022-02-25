@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/rilevation")
-public class RilevationController {
+public class RilevationController
+{
     private final RilevationService rilevationService;
 
     @Autowired
@@ -17,7 +18,8 @@ public class RilevationController {
     }
 
     @GetMapping(path= "/temperature", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Rilevation> getLastTemperature() {
+    public ResponseEntity<Rilevation> getLastTemperature()
+    {
         Rilevation r = rilevationService.getLastTemperaturRilevation();
 
         return new ResponseEntity<>(r, HttpStatus.OK);

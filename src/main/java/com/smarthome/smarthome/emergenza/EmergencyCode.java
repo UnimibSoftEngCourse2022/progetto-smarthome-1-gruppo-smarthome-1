@@ -1,6 +1,7 @@
 package com.smarthome.smarthome.emergenza;
 
-public enum EmergencyCode {
+public enum EmergencyCode
+{
 	INTRUSIONE,
 	GAS,
 	FUMO,

@@ -36,8 +36,10 @@ public class RilevationService
         return rilevationRepository.save(rilevation);
     }
 
-    public Rilevation getLastTemperaturRilevation(){
+    public Rilevation getLastTemperaturRilevation()
+    {
         Rilevation r = rilevationRepository.findLastTemperature().orElse(null);
+
         if (r != null)
            return r;
         else

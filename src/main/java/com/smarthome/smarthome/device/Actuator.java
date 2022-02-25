@@ -13,7 +13,8 @@ public class Actuator extends Device
 {
     public Actuator() {}
 
-    public Actuator(Long id, String label, Category category, Room room) {
+    public Actuator(Long id, String label, Category category, Room room)
+    {
         super(id, label, category, room, true);
     }
 

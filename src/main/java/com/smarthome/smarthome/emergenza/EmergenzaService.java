@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import com.smarthome.smarthome.room.Room;
 
 @Service
-public class EmergenzaService {
+public class EmergenzaService
+{
 	private final EmergenzaRepository emergenzaRepository;
 	
 	@Autowired
@@ -17,7 +18,8 @@ public class EmergenzaService {
 		this.emergenzaRepository = emergenzaRepository;
 	}
 	
-	public List<Emergenza> getEmergenzaByRoom(Room room){
+	public List<Emergenza> getEmergenzaByRoom(Room room)
+    {
 		return emergenzaRepository.findEmergenzaByRoom(room).orElse(Collections.emptyList());
 	}
 	
@@ -41,8 +43,8 @@ public class EmergenzaService {
         return emergenzaRepository.getPending();
     }
 
-    public void updateEmergenzaStatus(long emergenzaId, boolean newStatus){
-
+    public void updateEmergenzaStatus(long emergenzaId, boolean newStatus)
+    {
         Emergenza e = emergenzaRepository.getById(emergenzaId);
 
         e.setEmergencyRead(newStatus);

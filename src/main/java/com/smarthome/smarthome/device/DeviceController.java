@@ -17,18 +17,20 @@ public class DeviceController {
     }
 
     @GetMapping(path="{deviceId}")
-    public ResponseEntity<String> getDeviceValue(@PathVariable("deviceId") Long deviceId){
-
+    public ResponseEntity<String> getDeviceValue(@PathVariable("deviceId") Long deviceId)
+    {
         Device d = deviceService.getDeviceById(deviceId);
-        if (d.isDeviceType()) {
+
+        if (d.isDeviceType())
+        {
             Actuator a = new Actuator(d.getId(), d.getLabel(), d.getCategory(), d.getRoom());
             return new ResponseEntity<>(a.getCurrentState(), HttpStatus.OK);
         }
-        else{
+        else
+        {
             Sensor s = new Sensor(d.getId(), d.getLabel(), d.getCategory(), d.getRoom());
             return new ResponseEntity<>(String.valueOf(s.getDataFeed()), HttpStatus.OK);
         }
-
     }
 
     @DeleteMapping(path="{deviceId}")

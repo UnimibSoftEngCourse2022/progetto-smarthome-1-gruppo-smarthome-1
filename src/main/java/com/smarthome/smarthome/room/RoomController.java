@@ -1,6 +1,5 @@
 package com.smarthome.smarthome.room;
 
-
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,19 +20,9 @@ public class RoomController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Room>> getAllRooms() {
-
+    public ResponseEntity<List<Room>> getAllRooms()
+    {
         List<Room> ld = roomService.getRooms();
-
-        return new ResponseEntity<>(ld, HttpStatus.OK);
-    }
-
-    @GetMapping(path="/info", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Room>> getAllRoomInfo() {
-
-        List<Room> ld = new ArrayList<>();
-
-        roomService.getRooms().forEach(ld::add);
 
         return new ResponseEntity<>(ld, HttpStatus.OK);
     }

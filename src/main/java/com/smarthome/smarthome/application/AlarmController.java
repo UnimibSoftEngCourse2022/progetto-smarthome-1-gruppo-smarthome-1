@@ -20,13 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class AlarmController extends Controller{
 
     @Autowired
-    protected AlarmController(DeviceService deviceService, RilevationService rilevationService) {
+    protected AlarmController(DeviceService deviceService, RilevationService rilevationService)
+    {
         super(deviceService, rilevationService);
     }
 
     
     @PostMapping(path="/set-alarm")
-    public void receiveSensorData(@RequestBody JSONObject jsonData) {
+    public void receiveSensorData(@RequestBody JSONObject jsonData)
+    {
         String data = (String) jsonData.get("value");
         AgentiStatus.setAllarme(data.equals("ON"));
 

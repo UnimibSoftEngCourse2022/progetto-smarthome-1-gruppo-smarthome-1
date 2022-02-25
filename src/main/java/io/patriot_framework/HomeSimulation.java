@@ -35,7 +35,7 @@ public class HomeSimulation
         for(int i = 1; i <= termometri.length; i++)
         {
             dfTemperatura = new NormalDistributionDataFeed(20, 1);
-            termometri[i - 1] = new ActiveDeviceImpl("thermometer" + i, "thermometer", dfTemperatura, 2000);
+            termometri[i - 1] = new ActiveDeviceImpl("thermometer" + i, "thermometer", dfTemperatura, 20000);
             termometri[i - 1].start();
         }
 
@@ -43,8 +43,8 @@ public class HomeSimulation
         DataFeed dfMovement;
         for(int i = 1; i <= sensoriMovimento.length; i++)
         {
-            dfMovement = new BinaryDataFeed(3);
-            sensoriMovimento[i - 1] = new ActiveDeviceImpl("movement" + i, "movement", dfMovement, 2000);
+            dfMovement = new BinaryDataFeed(10);
+            sensoriMovimento[i - 1] = new ActiveDeviceImpl("movement" + i, "movement", dfMovement, 20000);
             sensoriMovimento[i - 1].start();
         }
 
@@ -53,7 +53,7 @@ public class HomeSimulation
         for(int i = 1; i <= sensoriFumo.length; i++)
         {
             dfsmokegas = new BinaryDataFeed(30);
-            sensoriFumo[i - 1] = new ActiveDeviceImpl("smoke" + i, "smokeSensor", dfsmokegas, 2000);
+            sensoriFumo[i - 1] = new ActiveDeviceImpl("smoke" + i, "smokeSensor", dfsmokegas, 60000);
             sensoriFumo[i - 1].start();
         }
 
@@ -62,7 +62,7 @@ public class HomeSimulation
         for(int i = 1; i <= sensoriGas.length; i++)
         {
             dfsmokegas = new BinaryDataFeed(30);
-            sensoriGas[i - 1] = new ActiveDeviceImpl("gas" + i, "gasSensor", dfsmokegas, 2000);
+            sensoriGas[i - 1] = new ActiveDeviceImpl("gas" + i, "gasSensor", dfsmokegas, 60000);
             sensoriGas[i - 1].start();
         }
 

@@ -35,8 +35,4 @@ public class RoomService
 
         roomRepository.deleteById(roomId);
     }
-
-    public List<Room> getRoomsInfo(){
-        return roomRepository.findRoomInfo();
-    }
 }
